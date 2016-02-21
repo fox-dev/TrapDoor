@@ -11,25 +11,34 @@ public class DoorScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        print("Start: " + transform.position.z);
-        startPos = transform.position;
-        if (tag == "Red")
+        print("Start: " + transform.localPosition.z);
+        startPos = transform.localPosition;
+        if (tag == "RedRight")
         {
             endPos = new Vector3(startPos.x + 10f, startPos.y, startPos.z);
         }
-        else if(tag == "Blue")
+        else if(tag == "BlueRight")
+        {
+            endPos = new Vector3(startPos.x + 10f, startPos.y, startPos.z);
+        }
+        else if (tag == "GreenRight")
+        {
+            endPos = new Vector3(startPos.x + 10f, startPos.y, startPos.z);
+        }
+        else if (tag == "RedLeft")
         {
             endPos = new Vector3(startPos.x - 10f, startPos.y, startPos.z);
         }
-        else if (tag == "Green")
+        else if (tag == "BlueLeft")
         {
-            endPos = new Vector3(startPos.x + 10f, startPos.y, startPos.z);
+            endPos = new Vector3(startPos.x - 10f, startPos.y, startPos.z);
         }
-        else
+        else if (tag == "GreenLeft")
         {
-            print("never");
+            endPos = new Vector3(startPos.x - 10f, startPos.y, startPos.z);
         }
-        red = true;
+
+        red = false;
         blue = false;
         green = false;
 
@@ -37,6 +46,19 @@ public class DoorScript : MonoBehaviour {
 
 
     }
+
+    void Reset()
+    {
+        
+
+    }
+
+    void OnDisable()
+    {
+     
+ 
+    }
+
 
     void Awake()
     {
@@ -47,9 +69,7 @@ public class DoorScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        
        
-
         if (Input.GetKeyDown("r") && !red)
         {
             red = true;
@@ -99,75 +119,126 @@ public class DoorScript : MonoBehaviour {
         /* 
         if (tag == "Red" && red)
         {
-            transform.position = Vector3.MoveTowards(transform.position, endPos, speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, speed * Time.deltaTime);
         }
         else if(tag == "Red" && !red)
         {
-            transform.position = Vector3.MoveTowards(transform.position, startPos, speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
         }
 
         if (tag == "Blue" && blue)
         {
-            transform.position = Vector3.MoveTowards(transform.position, endPos, speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, speed * Time.deltaTime);
         }
         else if(tag == "Blue" && !blue)
         {
-            transform.position = Vector3.MoveTowards(transform.position, startPos, speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
         }
         */
 
+        RighttDoorClose();
+        LeftDoorClose();
+
+
+    }
+
+    void RighttDoorClose()
+    {
         //With color restrictions on
-        if (tag == "Red" && red) //red is on
+        if (tag == "RedRight" && red) //red is on
         {
-            transform.position = Vector3.MoveTowards(transform.position, endPos, speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, speed * Time.deltaTime);
         }
         //close all other colors
-        else if (red == true && (tag == "Blue" || tag == "Green"))
+        else if (red == true && (tag == "BlueRight" || tag == "GreenRight"))
         {
-            transform.position = Vector3.MoveTowards(transform.position, startPos, speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
         }
-        else if(tag == "Red" && !red)
+        else if (tag == "RedRight" && !red)
         {
-            transform.position = Vector3.MoveTowards(transform.position, startPos, speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
         }
 
-        else if (tag == "Blue" && blue) //blue is on
+        else if (tag == "BlueRight" && blue) //blue is on
         {
-            transform.position = Vector3.MoveTowards(transform.position, endPos, speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, speed * Time.deltaTime);
         }
         //close all other colors
-        else if (blue == true && (tag == "Red" || tag == "Green"))
+        else if (blue == true && (tag == "RedRight" || tag == "GreenRight"))
         {
-            transform.position = Vector3.MoveTowards(transform.position, startPos, speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
         }
-        else if (tag == "Blue" && !blue)
+        else if (tag == "BlueRight" && !blue)
         {
-            transform.position = Vector3.MoveTowards(transform.position, startPos, speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
         }
-
-
-        else if (tag == "Green" && green) //green is on
+        else if (tag == "GreenRight" && green) //green is on
         {
-            transform.position = Vector3.MoveTowards(transform.position, endPos, speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, speed * Time.deltaTime);
 
         }
         //close all other colors
-        else if (green == true && (tag == "Red" || tag == "Blue"))
+        else if (green == true && (tag == "RedRight" || tag == "BlueRight"))
         {
-            transform.position = Vector3.MoveTowards(transform.position, startPos, speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
         }
-        else if (tag == "Blue" && !blue)
+        else if (tag == "BlueRight" && !blue)
         {
-            transform.position = Vector3.MoveTowards(transform.position, startPos, speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
         }
-        else if (tag == "Green" && !green)
+        else if (tag == "GreenRight" && !green)
         {
-            transform.position = Vector3.MoveTowards(transform.position, startPos, speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
+        }
+    }
+
+    void LeftDoorClose()
+    {
+        //With color restrictions on
+        if (tag == "RedLeft" && red) //red is on
+        {
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, speed * Time.deltaTime);
+        }
+        //close all other colors
+        else if (red == true && (tag == "BlueLeft" || tag == "GreenLeft"))
+        {
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
+        }
+        else if (tag == "RedLeft" && !red)
+        {
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
         }
 
+        else if (tag == "BlueLeft" && blue) //blue is on
+        {
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, speed * Time.deltaTime);
+        }
+        //close all other colors
+        else if (blue == true && (tag == "RedLeft" || tag == "GreenLeft"))
+        {
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
+        }
+        else if (tag == "BlueLeft" && !blue)
+        {
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
+        }
+        else if (tag == "GreenLeft" && green) //green is on
+        {
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, speed * Time.deltaTime);
 
-
-
-
+        }
+        //close all other colors
+        else if (green == true && (tag == "RedLeft" || tag == "BlueLeft"))
+        {
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
+        }
+        else if (tag == "BlueLeft" && !blue)
+        {
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
+        }
+        else if (tag == "GreenLeft" && !green)
+        {
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
+        }
     }
 }
