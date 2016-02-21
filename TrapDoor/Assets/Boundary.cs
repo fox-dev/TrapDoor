@@ -18,8 +18,19 @@ public class Boundary : MonoBehaviour {
         if(other.tag == "Set")
         {
             other.gameObject.SetActive(false);
-            other.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 200f);
+            if(transform.rotation.y == 0)
+            {
+                other.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 200f);
+            }
+            else
+            {
+                other.transform.position = new Vector3(other.transform.position.x - 200f, other.transform.position.y, other.transform.position.z);
+            }
+         
             other.gameObject.SetActive(true);
         }
+      
     }
+
+
 }

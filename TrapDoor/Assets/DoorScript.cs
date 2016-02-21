@@ -11,7 +11,7 @@ public class DoorScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        print("Start: " + transform.localPosition.z);
+        
         startPos = transform.localPosition;
         if (tag == "RedRight")
         {
@@ -42,7 +42,6 @@ public class DoorScript : MonoBehaviour {
         blue = false;
         green = false;
 
-        print("End: " + endPos.z);
 
 
     }
@@ -75,12 +74,12 @@ public class DoorScript : MonoBehaviour {
             red = true;
             blue = false;
             green = false;
-            print("Red is true");
+         
         }
         else if (Input.GetKeyDown("r") && red)
         {
             red = false;
-            print("Red is false");
+         
         }
 
         if (Input.GetKeyDown("b") && !blue)
@@ -88,12 +87,12 @@ public class DoorScript : MonoBehaviour {
             blue = true;
             red = false;
             green = false;
-            print("Blue is true");
+          
         }
         else if (Input.GetKeyDown("b") && blue)
         {
             blue = false;
-            print("Blue is false");
+         
         }
 
         if (Input.GetKeyDown("g") && !green)
@@ -101,12 +100,12 @@ public class DoorScript : MonoBehaviour {
             green = true;
             red = false;
             blue = false;
-            print("Blue is true");
+        
         }
         else if (Input.GetKeyDown("g") && green)
         {
             green = false;
-            print("Blue is false");
+          
         }
 
 
