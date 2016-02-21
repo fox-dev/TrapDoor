@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Boundary.cs" />
+    <Compile Include="Assets\CameraScript.cs" />
     <Compile Include="Assets\DoorScript.cs" />
     <Compile Include="Assets\PlayerMovement.cs" />
   </ItemGroup>
