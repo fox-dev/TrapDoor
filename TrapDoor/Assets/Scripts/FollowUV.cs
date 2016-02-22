@@ -3,8 +3,22 @@ using System.Collections;
 
 public class FollowUV : MonoBehaviour {
 
-	// Update is called once per frame
-	void Update () {
+    public float parallax;
+
+    Quaternion rotation;
+
+    void Awake()
+    {
+        rotation = transform.rotation;
+    }
+
+    void LateUpdate()
+    {
+        transform.rotation = rotation;
+    }
+
+    // Update is called once per frame
+    void Update () {
 
         MeshRenderer mr = GetComponent<MeshRenderer>();
 
@@ -12,15 +26,18 @@ public class FollowUV : MonoBehaviour {
 
         Vector2 offset = mat.mainTextureOffset;
 
-        offset.x = transform.position.x / transform.localScale.x;
-        offset.y = transform.position.z / transform.localScale.z;
+        offset.x = transform.position.x / transform.localScale.x / parallax;
+        offset.y = transform.position.z / transform.localScale.z / parallax;
 
 
         mat.mainTextureOffset = offset;
 
 
+        
 
-       
-	
-	}
+
+
+
+
+    }
 }
