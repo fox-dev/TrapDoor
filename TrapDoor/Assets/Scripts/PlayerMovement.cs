@@ -41,6 +41,8 @@ public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
+        
+
         print(rotateTracker.getOrientation());
 
         if (rotateTracker.getOrientation() == "down")

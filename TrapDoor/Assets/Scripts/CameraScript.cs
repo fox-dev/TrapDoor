@@ -15,6 +15,7 @@ public class CameraScript : MonoBehaviour {
 
     private Vector3 currentAngle;
 
+
     // Use this for initialization
     void Start () {
 
@@ -46,14 +47,26 @@ public class CameraScript : MonoBehaviour {
 
             transform.eulerAngles = currentAngle;
 
-            Vector3 follow = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z + 15);
-            followPos = Vector3.Lerp(transform.position, follow, Time.deltaTime * 2);
-            gameObject.transform.position = new Vector3(player.transform.position.x, gameObject.transform.position.y, followPos.z);
+            if(this.tag == "BackgroundCam") //not necessary if cam is child of player;
+            {
+
+                followPos = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+                transform.position = followPos;
+            }
+            else
+            {
+                Vector3 follow = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z + 15);
+                followPos = Vector3.Lerp(transform.position, follow, Time.deltaTime * 10);
+                gameObject.transform.position = new Vector3(player.transform.position.x, gameObject.transform.position.y, followPos.z);
+            }
+          
         }
 
 
         if (rotateTracker.getOrientation() == "left")
         {
+
+
             targetAngle = new Vector3(90f, 90f, 0);
             currentAngle = new Vector3(
                 Mathf.LerpAngle(currentAngle.x, targetAngle.x, Time.deltaTime * 2.5f),
@@ -62,9 +75,20 @@ public class CameraScript : MonoBehaviour {
 
             transform.eulerAngles = currentAngle;
 
-            Vector3 follow2 = new Vector3(player.transform.position.x - 15, transform.position.y, player.transform.position.z);
-            followPos = Vector3.Lerp(transform.position, follow2, Time.deltaTime * 2);
-            gameObject.transform.position = new Vector3(followPos.x, gameObject.transform.position.y, player.transform.position.z);
+            if (this.tag == "BackgroundCam")
+            {
+                followPos = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
+                transform.position = followPos;
+            }
+            else
+            {
+                Vector3 follow2 = new Vector3(player.transform.position.x - 15, transform.position.y, player.transform.position.z);
+                followPos = Vector3.Lerp(transform.position, follow2, Time.deltaTime * 2.5f);
+                gameObject.transform.position = new Vector3(followPos.x, gameObject.transform.position.y, player.transform.position.z);
+
+            }
+
+           
         }
 
         if (rotateTracker.getOrientation() == "right")
@@ -77,9 +101,20 @@ public class CameraScript : MonoBehaviour {
 
             transform.eulerAngles = currentAngle;
 
-            Vector3 follow2 = new Vector3(player.transform.position.x + 15, transform.position.y, player.transform.position.z);
-            followPos = Vector3.Lerp(transform.position, follow2, Time.deltaTime * 2);
-            gameObject.transform.position = new Vector3(followPos.x, gameObject.transform.position.y, player.transform.position.z);
+            if (this.tag == "BackgroundCam")
+            {
+               
+                followPos = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
+                transform.position = followPos;
+            }
+            else
+            {
+                Vector3 follow2 = new Vector3(player.transform.position.x + 15, transform.position.y, player.transform.position.z);
+                followPos = Vector3.Lerp(transform.position, follow2, Time.deltaTime * 2);
+                gameObject.transform.position = new Vector3(followPos.x, gameObject.transform.position.y, player.transform.position.z);
+            }
+
+            
         }
 
         if (rotateTracker.getOrientation() == "up")
@@ -92,9 +127,20 @@ public class CameraScript : MonoBehaviour {
 
             transform.eulerAngles = currentAngle;
 
-            Vector3 follow = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z - 15);
-            followPos = Vector3.Lerp(transform.position, follow, Time.deltaTime * 2);
-            gameObject.transform.position = new Vector3(player.transform.position.x, gameObject.transform.position.y, followPos.z);
+
+            if (this.tag == "BackgroundCam")
+            {
+                followPos = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+                transform.position = followPos;
+            }
+            else
+            {
+                Vector3 follow = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z - 15);
+                followPos = Vector3.Lerp(transform.position, follow, Time.deltaTime * 2);
+                gameObject.transform.position = new Vector3(player.transform.position.x, gameObject.transform.position.y, followPos.z);
+            }
+
+
         }
 
 
