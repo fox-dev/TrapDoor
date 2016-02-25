@@ -5,10 +5,13 @@ public class RotateManager : MonoBehaviour {
 
     private string rotation;
 
+    private string turn;
+
 	// Use this for initialization
 	void Start () {
 
         rotation = "down"; //up, down, left, right
+        turn = "down"; //up, down, left, right <- For junctions that are changing directions;
 
     }
 	
@@ -22,8 +25,20 @@ public class RotateManager : MonoBehaviour {
         return rotation;
     }
 
+    public string getTurn()
+    {
+        return turn;
+    }
+
     public void setRotation(string s)
     {
         rotation = s;
     }
+
+    public void setTurn(string s)
+    {
+        turn = s;
+    }
 }
+
+

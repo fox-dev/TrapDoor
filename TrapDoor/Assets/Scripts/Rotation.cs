@@ -32,9 +32,16 @@ public class Rotation : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        
-	
 	}
+
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            rotateTracker.setTurn(rotateTo);
+        }
+    }
 
     void OnTriggerExit(Collider other)
     {
