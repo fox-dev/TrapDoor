@@ -34,6 +34,9 @@ public class PlayerMovement : MonoBehaviour {
 
         lastXPos = 0f; //starting pos;
 
+        lastZPos = -32.7f; //starting pos;
+
+     
 
 
     }
@@ -43,7 +46,7 @@ public class PlayerMovement : MonoBehaviour {
 
         
 
-        print(rotateTracker.getOrientation());
+       // print(rotateTracker.getOrientation());
 
         if (rotateTracker.getOrientation() == "down")
         {
@@ -62,6 +65,8 @@ public class PlayerMovement : MonoBehaviour {
             Vector3 temp = new Vector3(0, 0, 30);
             GetComponent<Rigidbody>().AddRelativeForce(temp);
 
+            GetComponent<Rigidbody>().velocity = new Vector3(0, 0, moveSpeed);
+
             Vector3 keyPos = new Vector3(lastXPos, transform.position.y, transform.position.z);
             transform.position = Vector3.Lerp(transform.position, keyPos, 0.5f);
 
@@ -69,7 +74,7 @@ public class PlayerMovement : MonoBehaviour {
 
         }
 
-        if (rotateTracker.getOrientation() == "left")
+        else if (rotateTracker.getOrientation() == "left")
         {
             targetAngle = new Vector3(0, 270f, 0);
 
@@ -85,13 +90,15 @@ public class PlayerMovement : MonoBehaviour {
             Vector3 temp = new Vector3(-30, 0, 0);
             GetComponent<Rigidbody>().AddRelativeForce(temp);
 
+            GetComponent<Rigidbody>().velocity = new Vector3(-moveSpeed, 0, 0);
+
             Vector3 keyPos = new Vector3(transform.position.x, transform.position.y, lastZPos);
             transform.position = Vector3.Lerp(transform.position, keyPos, 0.5f);
 
             lastXPos = transform.position.x;
         }
 
-        if (rotateTracker.getOrientation() == "right")
+        else if (rotateTracker.getOrientation() == "right")
         {
 
             targetAngle = new Vector3(0, 90f, 0);
@@ -108,13 +115,15 @@ public class PlayerMovement : MonoBehaviour {
             Vector3 temp = new Vector3(30, 0, 0);
             GetComponent<Rigidbody>().AddRelativeForce(temp);
 
+            GetComponent<Rigidbody>().velocity = new Vector3(moveSpeed, 0, 0);
+
             Vector3 keyPos = new Vector3(transform.position.x, transform.position.y, lastZPos);
             transform.position = Vector3.Lerp(transform.position, keyPos, 0.5f);
 
             lastXPos = transform.position.x;
         }
 
-        if (rotateTracker.getOrientation() == "up")
+        else if (rotateTracker.getOrientation() == "up")
         {
             //GetComponent<Rigidbody>().AddForce(transform.forward * moveSpeed);
 
@@ -131,6 +140,8 @@ public class PlayerMovement : MonoBehaviour {
 
             Vector3 temp = new Vector3(0, 0, -30);
             GetComponent<Rigidbody>().AddRelativeForce(temp);
+
+            GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -moveSpeed);
 
             Vector3 keyPos = new Vector3(lastXPos, transform.position.y, transform.position.z);
             transform.position = Vector3.Lerp(transform.position, keyPos, 0.5f);

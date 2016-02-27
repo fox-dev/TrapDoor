@@ -10,7 +10,7 @@ public class RotateManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        rotation = "down"; //up, down, left, right
+        rotation = "left"; //up, down, left, right
         turn = "down"; //up, down, left, right <- For junctions that are changing directions;
 
     }
@@ -32,7 +32,27 @@ public class RotateManager : MonoBehaviour {
 
     public void setRotation(string s)
     {
-        rotation = s;
+        
+        if(rotation == "up" && s == "down")
+        {
+
+        }
+        else if (rotation == "down" && s == "up")
+        {
+
+        }
+        else if (rotation == "left" && s == "right")
+        {
+
+        }
+        else if (rotation == "right" && s == "left")
+        {
+
+        }
+        else
+        {
+            rotation = s;
+        }
     }
 
     public void setTurn(string s)

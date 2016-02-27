@@ -1,17 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Boundary : MonoBehaviour {
 
+    public List<GameObject> activePieces;
+
+    public string rotateTo;
+
+    public string orientation; 
+
+    public List<GameObject> inactivePieces;
+
     private RotateManager rotateTracker;
 
-    public bool willRotate;
+    public GameObject lastPiece;
+    public GameObject toPlace;
+
+    public GameObject player;
 
 
     // Use this for initialization
     void Start () {
 
-        willRotate = false;
 
         GameObject rotateTrackerObject = GameObject.FindWithTag("Rotator");
         if (rotateTrackerObject != null)
@@ -23,160 +34,307 @@ public class Boundary : MonoBehaviour {
             Debug.Log("Cannot find 'GameController' script");
         }
 
+        setRandomRotation();
+
     }
 	
 	// Update is called once per frame
 	void Update () {
-	
+        orientation = rotateTracker.getOrientation();
+
+        print("Current rot:" + rotateTracker.getOrientation());
+
+        transform.position = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+
+        
 	}
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Junction")
-        {
-            willRotate = true;
-        }
-    }
 
-    void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Set" && willRotate == true) //Setting new rotations.
+        if (other.tag == "Set")//for normal use and no junction is entered
         {
+            print("Placing set");
+
+            toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+            inactivePieces.Remove(toPlace);
+
+            if (rotateTracker.getOrientation() == "down")
+            {
+                
+                if(toPlace.tag != "Junction")
+                {
+                    toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 154);
+                   
+                }
+                else
+                {
+                    toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 165);
+                }
+
+            }
+            else if (rotateTracker.getOrientation() == "left")
+            {
+                print(other.transform.position.x);
+
+                if (toPlace.tag != "Junction")
+                {
+                    toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x - 154, other.transform.position.y, other.transform.position.z);
+                }
+                else
+                {
+                    toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x - 165, other.transform.position.y, other.transform.position.z);
+                }
+
+            }
+
+            else if (rotateTracker.getOrientation() == "right")
+            {
+                
+                if (toPlace.tag != "Junction")
+                {
+                    toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x + 154f, other.transform.position.y, other.transform.position.z);
+                }
+                else
+                {
+                    toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x + 165f, other.transform.position.y, other.transform.position.z);
+                }
+
+            }
+            else if (rotateTracker.getOrientation() == "up")
+            {
+                
+                if (toPlace.tag != "Junction")
+                {
+                    toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 154f);
+                }
+                else
+                {
+                    toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 165f);
+                }
+
+            }
+
+            toPlace.gameObject.SetActive(true); //enable piece
+        }
+        else if(other.tag == "Junction")
+        {
+            print("Placing junction");
+            other.GetComponent<Rotation>().setRotateTo(rotateTo);
+            bool found = false;
+            while (found == false) //get set piece that is not another junction
+            {
+                toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+                if (toPlace.tag == "Junction")
+                {
+                    found = false;
+                }
+                else
+                {
+                    found = true;
+                }
+            }
+            inactivePieces.Remove(toPlace);
+
             if (rotateTracker.getOrientation() == "down") //down orientation to left or right
             {
-                other.gameObject.SetActive(false);
-                if (rotateTracker.getTurn() == "left") 
+
+                if (rotateTo == "left")
                 {
-                    other.transform.rotation = Quaternion.Euler(0, 270, 0);
-                    other.transform.position = new Vector3(other.transform.position.x - 33f, other.transform.position.y, other.transform.position.z + 155f);
-                    willRotate = false;
+                    toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x - 33, other.transform.position.y, other.transform.position.z );
+
+
                 }
-                else if (rotateTracker.getTurn() == "right") 
+                else if (rotateTo == "right")
                 {
-                    other.transform.rotation = Quaternion.Euler(0, 90, 0);
-                    other.transform.position = new Vector3(other.transform.position.x + 33f, other.transform.position.y, other.transform.position.z + 155f);
-                    willRotate = false;
+                    toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x + 33, other.transform.position.y, other.transform.position.z );
+
+
                 }
-                else if (rotateTracker.getOrientation() == "down")
+                else if (rotateTo == "down")
                 {
-                    other.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 178f);
+                    toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 33);
+
                 }
                 else
                 {
-                    willRotate = false;
-                }
-      
-            }
 
+                }
+
+            }
             else if (rotateTracker.getOrientation() == "left") //left orientation to up or down
             {
-                other.gameObject.SetActive(false);
 
-                if (rotateTracker.getTurn() == "up") 
+
+                if (rotateTo == "up")
                 {
-                    other.transform.rotation = Quaternion.Euler(0, 180, 0);
-                    other.transform.position = new Vector3(other.transform.position.x - 155f, other.transform.position.y, other.transform.position.z - 33f);
-                    willRotate = false;
+                    toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x , other.transform.position.y, other.transform.position.z - 33);
+
                 }
 
-                else if (rotateTracker.getTurn() == "down")
+                else if (rotateTo == "down")
                 {
-                    other.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    other.transform.position = new Vector3(other.transform.position.x - 155f, other.transform.position.y, other.transform.position.z + 33f);
-                    willRotate = false;
+                    toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x , other.transform.position.y, other.transform.position.z + 33);
+
                 }
-                else if (rotateTracker.getOrientation() == "left")
+                else if (rotateTo == "left")
                 {
-                    other.transform.position = new Vector3(other.transform.position.x - 178f, other.transform.position.y, other.transform.position.z);
+                    toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x - 33, other.transform.position.y, other.transform.position.z);
+
                 }
                 else
                 {
-                    willRotate = false;
+
                 }
-            }
+            }   
 
             else if (rotateTracker.getOrientation() == "right") //left orientation to up or down
             {
-                other.gameObject.SetActive(false);
 
-                if (rotateTracker.getTurn() == "up")
+
+                if (rotateTo == "up")
                 {
-                    other.transform.rotation = Quaternion.Euler(0, 180, 0);
-                    other.transform.position = new Vector3(other.transform.position.x + 155f, other.transform.position.y, other.transform.position.z - 33f);
-                    willRotate = false;
+                    toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x , other.transform.position.y, other.transform.position.z - 33);
+
                 }
 
-                else if (rotateTracker.getTurn() == "down")
+                else if (rotateTo == "down")
                 {
-                    other.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    other.transform.position = new Vector3(other.transform.position.x + 155f, other.transform.position.y, other.transform.position.z + 33f);
-                    willRotate = false;
+                    toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x , other.transform.position.y, other.transform.position.z + 33);
+
                 }
-                else if (rotateTracker.getOrientation() == "right")
+                else if (rotateTo == "right")
                 {
-                    other.transform.position = new Vector3(other.transform.position.x + 178f, other.transform.position.y, other.transform.position.z);
+                    toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x + 33, other.transform.position.y, other.transform.position.z);
+
                 }
                 else
                 {
-                    willRotate = false;
+
                 }
             }
 
             else if (rotateTracker.getOrientation() == "up") //up orientation to left or right
             {
-                other.gameObject.SetActive(false);
 
-                if (rotateTracker.getTurn() == "left")
+
+                if (rotateTo == "left")
                 {
-                    other.transform.rotation = Quaternion.Euler(0, 270, 0);
-                    other.transform.position = new Vector3(other.transform.position.x - 33f, other.transform.position.y, other.transform.position.z - 155f);
-                    willRotate = false;
+                    toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x - 33, other.transform.position.y, other.transform.position.z);
+
                 }
-                else if (rotateTracker.getTurn() == "right")
+                else if (rotateTo == "right")
                 {
-                    other.transform.rotation = Quaternion.Euler(0, 90, 0);
-                    other.transform.position = new Vector3(other.transform.position.x + 33f, other.transform.position.y, other.transform.position.z - 155f);
-                    willRotate = false;
+                    toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x + 33, other.transform.position.y, other.transform.position.z);
+
                 }
-                else if (rotateTracker.getOrientation() == "up")
+                else if (rotateTo == "up")
                 {
-                    other.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 178f);
+                    toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 33);
+
                 }
                 else
                 {
-                    willRotate = false;
+
                 }
             }
-            other.gameObject.SetActive(true);
+            toPlace.gameObject.SetActive(true);
+            
+
         }
-        else //for normal use and no junction is entered
+
+    }
+
+
+
+    void OnTriggerExit(Collider other)
+    {
+        if(other.tag == "Set")
         {
-            if (other.tag == "Set")
+
+            other.gameObject.SetActive(false);
+
+
+            inactivePieces.Add(other.gameObject);
+        }
+
+        if (other.tag == "Junction")
+        {
+            // other.gameObject.SetActive(false);
+
+            inactivePieces.Add(other.gameObject);
+
+            setRandomRotation();
+
+        }
+    }
+
+    public void setRandomRotation()
+    {
+
+        bool found = false;
+        while (found == false)
+        {
+            int num = Random.Range(0, 3);
+            if (num == 0)
             {
-                other.gameObject.SetActive(false);
-                if (rotateTracker.getOrientation() == "down")
-                {
-                    other.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 155);
-                }
-                else if (rotateTracker.getOrientation() == "left")
-                {
-                    other.transform.position = new Vector3(other.transform.position.x - 155f, other.transform.position.y, other.transform.position.z);
-                }
+                rotateTo = "up";
+            }
+            else if (num == 1)
+            {
+                rotateTo = "down";
+            }
+            else if (num == 2)
+            {
+                rotateTo = "left";
+            }
+            else if (num == 3)
+            {
+                rotateTo = "right";
+            }
 
-                else if (rotateTracker.getOrientation() == "right")
-                {
-                    other.transform.position = new Vector3(other.transform.position.x + 155f, other.transform.position.y, other.transform.position.z);
-                }
-                else if (rotateTracker.getOrientation() == "up")
-                {
-                    other.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 155f);
-                }
-
-
-                other.gameObject.SetActive(true);
+            if (rotateTo == "up" && rotateTracker.getOrientation() == "down")
+            {
+                found = false;
+            }
+            else if (rotateTo == "down" && rotateTracker.getOrientation() == "up")
+            {
+                found = false;
+            }
+            else if (rotateTo == "left" && rotateTracker.getOrientation() == "right")
+            {
+                found = false;
+            }
+            else if (rotateTo == "right" && rotateTracker.getOrientation() == "left")
+            {
+                found = false;
+            }
+            else
+            {
+                found = true;
             }
         }
-      
+
     }
 
 

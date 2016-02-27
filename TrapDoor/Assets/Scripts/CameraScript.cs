@@ -83,7 +83,7 @@ public class CameraScript : MonoBehaviour {
             else
             {
                 Vector3 follow2 = new Vector3(player.transform.position.x - 15, transform.position.y, player.transform.position.z);
-                followPos = Vector3.Lerp(transform.position, follow2, Time.deltaTime * 2.5f);
+                followPos = Vector3.Lerp(transform.position, follow2, Time.deltaTime * 10);
                 gameObject.transform.position = new Vector3(followPos.x, gameObject.transform.position.y, player.transform.position.z);
 
             }
@@ -110,7 +110,7 @@ public class CameraScript : MonoBehaviour {
             else
             {
                 Vector3 follow2 = new Vector3(player.transform.position.x + 15, transform.position.y, player.transform.position.z);
-                followPos = Vector3.Lerp(transform.position, follow2, Time.deltaTime * 2);
+                followPos = Vector3.Lerp(transform.position, follow2, Time.deltaTime * 10);
                 gameObject.transform.position = new Vector3(followPos.x, gameObject.transform.position.y, player.transform.position.z);
             }
 
@@ -136,7 +136,7 @@ public class CameraScript : MonoBehaviour {
             else
             {
                 Vector3 follow = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z - 15);
-                followPos = Vector3.Lerp(transform.position, follow, Time.deltaTime * 2);
+                followPos = Vector3.Lerp(transform.position, follow, Time.deltaTime * 10);
                 gameObject.transform.position = new Vector3(player.transform.position.x, gameObject.transform.position.y, followPos.z);
             }
 
