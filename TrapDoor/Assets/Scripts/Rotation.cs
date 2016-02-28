@@ -46,20 +46,28 @@ public class Rotation : MonoBehaviour {
 
     void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
             print("SETTING ORIENTATION TO: " + rotateTo);
             rotateTracker.setRotation(rotateTo);
-            if(rotateTo == rotateTracker.getOrientation())
+            if (rotateTo == rotateTracker.getOrientation())
             {
-               
+
             }
             else
             {
-                //other.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                //other.GetComponent<Rigidbody>().velocity = Vector3.zero;s
                 //other.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             }
-            
+
+            if (rotateTracker.getOrientation() == "up" || rotateTracker.getOrientation() == "down"){
+                other.GetComponent<PlayerMovement>().changeLastX(transform.position.x);
+            }
+            else if (rotateTracker.getOrientation() == "left" || rotateTracker.getOrientation() == "right")
+            {
+                other.GetComponent<PlayerMovement>().changeLastZ(transform.position.z);
+            }
+
             //this.gameObject.SetActive(false);
         }
 

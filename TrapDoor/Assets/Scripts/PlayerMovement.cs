@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour {
 
     Rigidbody rb;
 
+    private bool superSpeed;
+
 	// Use this for initialization
 	void Start () {
 
@@ -38,11 +40,55 @@ public class PlayerMovement : MonoBehaviour {
 
      
 
+    }
 
+    void Update() 
+    {
+        print(moveSpeed);
+        if (Input.GetKeyDown("s"))
+        {
+            if (superSpeed)
+            {
+                superSpeed = false;
+            }
+            else
+            {
+                superSpeed = true;
+            }
+            
+        }
+        
+        
     }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+
+        if (superSpeed)
+        {
+            moveSpeed = 100;
+
+            if (rotateTracker.getOrientation() == "down")
+            {
+                GetComponent<Rigidbody>().velocity = new Vector3(0, 0, moveSpeed);
+            }
+            else if (rotateTracker.getOrientation() == "up")
+            {
+                GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -moveSpeed);
+            }
+            else if (rotateTracker.getOrientation() == "left")
+            {
+                GetComponent<Rigidbody>().velocity = new Vector3(-moveSpeed, 0, 0);
+            }
+            else if (rotateTracker.getOrientation() == "right")
+            {
+                GetComponent<Rigidbody>().velocity = new Vector3(moveSpeed, 0, 0);
+            }
+        }
+        else
+        {
+            moveSpeed = 60;
+        }
 
         
 
@@ -65,9 +111,10 @@ public class PlayerMovement : MonoBehaviour {
             Vector3 temp = new Vector3(0, 0, 30);
             GetComponent<Rigidbody>().AddRelativeForce(temp);
 
-            GetComponent<Rigidbody>().velocity = new Vector3(0, 0, moveSpeed);
+            
 
-            Vector3 keyPos = new Vector3(lastXPos, transform.position.y, transform.position.z);
+
+                Vector3 keyPos = new Vector3(lastXPos, transform.position.y, transform.position.z);
             transform.position = Vector3.Lerp(transform.position, keyPos, 0.5f);
 
             lastZPos = transform.position.z; //keep last Z pos in case of rotation;
@@ -90,7 +137,8 @@ public class PlayerMovement : MonoBehaviour {
             Vector3 temp = new Vector3(-30, 0, 0);
             GetComponent<Rigidbody>().AddRelativeForce(temp);
 
-            GetComponent<Rigidbody>().velocity = new Vector3(-moveSpeed, 0, 0);
+           
+           
 
             Vector3 keyPos = new Vector3(transform.position.x, transform.position.y, lastZPos);
             transform.position = Vector3.Lerp(transform.position, keyPos, 0.5f);
@@ -115,9 +163,9 @@ public class PlayerMovement : MonoBehaviour {
             Vector3 temp = new Vector3(30, 0, 0);
             GetComponent<Rigidbody>().AddRelativeForce(temp);
 
-            GetComponent<Rigidbody>().velocity = new Vector3(moveSpeed, 0, 0);
+            
 
-            Vector3 keyPos = new Vector3(transform.position.x, transform.position.y, lastZPos);
+                Vector3 keyPos = new Vector3(transform.position.x, transform.position.y, lastZPos);
             transform.position = Vector3.Lerp(transform.position, keyPos, 0.5f);
 
             lastXPos = transform.position.x;
@@ -141,9 +189,9 @@ public class PlayerMovement : MonoBehaviour {
             Vector3 temp = new Vector3(0, 0, -30);
             GetComponent<Rigidbody>().AddRelativeForce(temp);
 
-            GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -moveSpeed);
+          
 
-            Vector3 keyPos = new Vector3(lastXPos, transform.position.y, transform.position.z);
+                Vector3 keyPos = new Vector3(lastXPos, transform.position.y, transform.position.z);
             transform.position = Vector3.Lerp(transform.position, keyPos, 0.5f);
 
             lastZPos = transform.position.z; //keep last Z pos in case of rotation;
@@ -155,7 +203,7 @@ public class PlayerMovement : MonoBehaviour {
         //print(Input.GetAxis("Horizontal"));
 
         //input movement
-        transform.Translate(moveSpeed*Input.GetAxis("Horizontal")*Time.deltaTime, 0f, moveSpeed*Input.GetAxis("Vertical")*Time.deltaTime);
+        //transform.Translate(moveSpeed*Input.GetAxis("Horizontal")*Time.deltaTime, 0f, moveSpeed*Input.GetAxis("Vertical")*Time.deltaTime);
 
         //Automove
         // Vector3 movement = new Vector3(0.0f, 0.0f, 1f);
@@ -170,4 +218,25 @@ public class PlayerMovement : MonoBehaviour {
 
 
     }
+
+    public bool getSuperSpeed()
+    {
+        return superSpeed;
+    }
+
+    public void setMoveSpeed(float m)
+    {
+        moveSpeed = m;
+    }
+
+    public void changeLastX(float x)
+    {
+        lastXPos = x;
+    }
+
+    public void changeLastZ(float z)
+    {
+        lastZPos = z;
+    }
 }
+

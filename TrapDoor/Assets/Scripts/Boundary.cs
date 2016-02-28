@@ -77,7 +77,7 @@ public class Boundary : MonoBehaviour {
             }
             else if (rotateTracker.getOrientation() == "left")
             {
-                print(other.transform.position.x);
+                
 
                 if (toPlace.tag != "Junction")
                 {

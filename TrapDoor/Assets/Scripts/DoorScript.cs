@@ -7,6 +7,8 @@ public class DoorScript : MonoBehaviour {
     Vector3 startPos;
     public float speed;
 
+    private RotateManager rotateTracker;
+
     bool red,blue,green;
 
 	// Use this for initialization
@@ -42,8 +44,17 @@ public class DoorScript : MonoBehaviour {
         blue = false;
         green = false;
 
+        GameObject rotateTrackerObject = GameObject.FindWithTag("Rotator");
+        if (rotateTrackerObject != null)
+        {
+            rotateTracker = rotateTrackerObject.GetComponent<RotateManager>();
+        }
+        if (rotateTracker == null)
+        {
+            Debug.Log("Cannot find 'GameController' script");
+        }
 
-
+        GetComponent<Collider>().isTrigger = true;
     }
 
     void Reset()
@@ -54,15 +65,12 @@ public class DoorScript : MonoBehaviour {
 
     void OnDisable()
     {
-     
- 
+
+       
     }
 
 
-    void Awake()
-    {
-
-    }
+  
 
 	
 	// Update is called once per frame
@@ -238,6 +246,47 @@ public class DoorScript : MonoBehaviour {
         else if (tag == "GreenLeft" && !green)
         {
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
+        }
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            print("PLAYER 1!!!!!");
+            if (other.gameObject.GetComponent<PlayerMovement>().getSuperSpeed() == true)
+            {
+               
+            }
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            print("PLAYER 2!!!!!");
+            if (other.gameObject.GetComponent<PlayerMovement>().getSuperSpeed() == true)
+            {
+               
+                    other.GetComponent<Rigidbody>().drag = 40;
+
+            }
+            else
+            {
+                
+                other.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                other.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            }
+            
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            other.GetComponent<Rigidbody>().drag = 0;
         }
     }
 }
