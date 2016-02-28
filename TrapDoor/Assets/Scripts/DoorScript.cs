@@ -15,32 +15,23 @@ public class DoorScript : MonoBehaviour {
 	void Start () {
         
         startPos = transform.localPosition;
-        if (tag == "RedRight")
-        {
-            endPos = new Vector3(startPos.x + 10f, startPos.y, startPos.z);
-        }
-        else if(tag == "BlueRight")
-        {
-            endPos = new Vector3(startPos.x + 10f, startPos.y, startPos.z);
-        }
-        else if (tag == "GreenRight")
-        {
-            endPos = new Vector3(startPos.x + 10f, startPos.y, startPos.z);
-        }
-        else if (tag == "RedLeft")
-        {
-            endPos = new Vector3(startPos.x - 10f, startPos.y, startPos.z);
-        }
-        else if (tag == "BlueLeft")
-        {
-            endPos = new Vector3(startPos.x - 10f, startPos.y, startPos.z);
-        }
-        else if (tag == "GreenLeft")
-        {
-            endPos = new Vector3(startPos.x - 10f, startPos.y, startPos.z);
-        }
-
-        red = false;
+		if (tag == "RedRight") {
+			endPos = new Vector3 (startPos.x + 10f, startPos.y, startPos.z);
+		} else if (tag == "BlueRight") {
+			endPos = new Vector3 (startPos.x + 10f, startPos.y, startPos.z);
+		} else if (tag == "GreenRight") {
+			endPos = new Vector3 (startPos.x + 10f, startPos.y, startPos.z);
+		} else if (tag == "RedLeft") {
+			endPos = new Vector3 (startPos.x - 10f, startPos.y, startPos.z);
+		} else if (tag == "BlueLeft") {
+			endPos = new Vector3 (startPos.x - 10f, startPos.y, startPos.z);
+		} else if (tag == "GreenLeft") {
+			endPos = new Vector3 (startPos.x - 10f, startPos.y, startPos.z);
+		} else if (tag == "LaserDoorRed" || tag == "LaserDoorBlue" || tag == "LaserDoorGreen") {
+			endPos = new Vector3 (startPos.x, startPos.y + 10f, startPos.z);	
+		}
+        
+		red = false;
         blue = false;
         green = false;
 
@@ -145,7 +136,7 @@ public class DoorScript : MonoBehaviour {
 
         RighttDoorClose();
         LeftDoorClose();
-
+		LaserDoorClose();
 
     }
 
@@ -186,10 +177,6 @@ public class DoorScript : MonoBehaviour {
         }
         //close all other colors
         else if (green == true && (tag == "RedRight" || tag == "BlueRight"))
-        {
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
-        }
-        else if (tag == "BlueRight" && !blue)
         {
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
         }
@@ -239,16 +226,57 @@ public class DoorScript : MonoBehaviour {
         {
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
         }
-        else if (tag == "BlueLeft" && !blue)
-        {
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
-        }
         else if (tag == "GreenLeft" && !green)
         {
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
         }
     }
 
+	void LaserDoorClose()
+	{
+		//With color restrictions on
+		if (tag == "LaserDoorRed" && red) //red is on
+		{
+			transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, speed * Time.deltaTime);
+		}
+		//close all other colors
+		else if (red == true && (tag == "LaserDoorBlue" || tag == "LaserDoorGreen"))
+		{
+			transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
+		}
+		else if (tag == "LaserDoorRed" && !red)
+		{
+			transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
+		}
+
+		else if (tag == "LaserDoorBlue" && blue) //blue is on
+		{
+			transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, speed * Time.deltaTime);
+		}
+		//close all other colors
+		else if (blue == true && (tag == "LaserDoorRed" || tag == "LaserDoorGreen"))
+		{
+			transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
+		}
+		else if (tag == "LaserDoorBlue" && !blue)
+		{
+			transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
+		}
+		else if (tag == "LaserDoorGreen" && green) //green is on
+		{
+			transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, speed * Time.deltaTime);
+
+		}
+		//close all other colors
+		else if (green == true && (tag == "LaserDoorRed" || tag == "LaserDoorBlue"))
+		{
+			transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
+		}
+		else if (tag == "LaserDoorGreen" && !green)
+		{
+			transform.localPosition = Vector3.MoveTowards(transform.localPosition, startPos, speed * Time.deltaTime);
+		}		
+	}
     void OnCollisionEnter(Collision other)
     {
         if(other.gameObject.tag == "Player")

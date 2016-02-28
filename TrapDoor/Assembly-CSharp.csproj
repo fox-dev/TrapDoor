@@ -45,11 +45,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Boundary.cs" />
-     <Compile Include="Assets\CameraScript.cs" />
-     <Compile Include="Assets\DoorScript.cs" />
-     <Compile Include="Assets\LaserScript.cs" />
-     <Compile Include="Assets\PlayerMovement.cs" />
+     <Compile Include="Assets\NewBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\Boundary.cs" />
+     <Compile Include="Assets\Scripts\CameraScript.cs" />
+     <Compile Include="Assets\Scripts\DoorScript.cs" />
+     <Compile Include="Assets\Scripts\FollowUV.cs" />
+     <Compile Include="Assets\Scripts\LaserScript.cs" />
+     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\RotateManager.cs" />
+     <Compile Include="Assets\Scripts\Rotation.cs" />
+     <Compile Include="Assets\Scripts\ScrollUV.cs" />
+     <None Include="Assets\Glow.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
