@@ -265,29 +265,17 @@ public class Boundary : MonoBehaviour {
 
     }
 
-
-
-    void OnTriggerExit(Collider other)
+    public void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Set")
+        if(other.tag == "Junction")
         {
-
-            other.gameObject.SetActive(false);
-
-
-            inactivePieces.Add(other.gameObject);
-        }
-
-        if (other.tag == "Junction")
-        {
-            // other.gameObject.SetActive(false);
-
-            inactivePieces.Add(other.gameObject);
-
             setRandomRotation();
-
         }
     }
+
+
+
+  
 
     public void setRandomRotation()
     {
@@ -336,6 +324,15 @@ public class Boundary : MonoBehaviour {
         }
 
     }
+
+    public void addToInactivePieces(Collider other)
+    {
+
+        other.gameObject.SetActive(false);
+        inactivePieces.Add(other.gameObject);
+        
+    }
+
 
 
 }
