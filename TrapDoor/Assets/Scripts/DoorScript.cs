@@ -6,6 +6,7 @@ public class DoorScript : MonoBehaviour {
     Vector3 endPos;
     Vector3 startPos;
     public float speed;
+	private GameController gameController;
 
     private RotateManager rotateTracker;
 
@@ -34,6 +35,16 @@ public class DoorScript : MonoBehaviour {
 		red = false;
         blue = false;
         green = false;
+
+		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
+		if (gameControllerObject != null) {
+			gameController = gameControllerObject.GetComponent<GameController> ();
+		}
+		if(gameController == null)
+		{
+			Debug.Log("Cannot find 'GameController' script");
+		}
+
 
         GameObject rotateTrackerObject = GameObject.FindWithTag("Rotator");
         if (rotateTrackerObject != null)
@@ -65,8 +76,9 @@ public class DoorScript : MonoBehaviour {
 
 	
 	// Update is called once per frame
-	void Update () {
-
+	void Update () 
+	{
+		gameController.getColorStates (ref red, ref green, ref blue);
        
         if (Input.GetKeyDown("r") && !red)
         {
@@ -110,7 +122,7 @@ public class DoorScript : MonoBehaviour {
 
 
     }
-
+		
     void FixedUpdate()
     {
         //No color restrictions on.

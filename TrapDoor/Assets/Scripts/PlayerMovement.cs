@@ -88,9 +88,7 @@ public class PlayerMovement : MonoBehaviour {
         else
         {
             moveSpeed = 60;
-        }
-
-        
+        }     
 
        // print(rotateTracker.getOrientation());
 
@@ -218,6 +216,16 @@ public class PlayerMovement : MonoBehaviour {
 
 
     }
+
+	public void superSpeedPress()
+	{
+		superSpeed = true;
+	}
+
+	public void superSpeedRelease()
+	{
+		superSpeed = false;
+	}
 
     public bool getSuperSpeed()
     {

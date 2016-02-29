@@ -135,7 +135,7 @@ public class CameraScript : MonoBehaviour {
             }
             else
             {
-                Vector3 follow = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z - 15);
+                Vector3 follow = new Vector3(player.transform.position.x + 100, transform.position.y, player.transform.position.z - 15);
                 followPos = Vector3.Lerp(transform.position, follow, Time.deltaTime * 10);
                 gameObject.transform.position = new Vector3(player.transform.position.x, gameObject.transform.position.y, followPos.z);
             }

@@ -49,221 +49,298 @@ public class Boundary : MonoBehaviour {
         
 	}
 
-    void OnTriggerEnter(Collider other)
-    {
+	void OnTriggerEnter(Collider other)
+	{
 
-        if (other.tag == "Set")//for normal use and no junction is entered
-        {
-            print("Placing set");
+		if (other.tag == "Set")//for normal use and no junction is entered
+		{
+			print("Placing set");
 
-            toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-            inactivePieces.Remove(toPlace);
+			toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+			inactivePieces.Remove(toPlace);
 
-            if (rotateTracker.getOrientation() == "down")
-            {
-                
-                if(toPlace.tag != "Junction")
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 154);
-                   
-                }
-                else
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 165);
-                }
+			if (rotateTracker.getOrientation() == "down")
+			{
 
-            }
-            else if (rotateTracker.getOrientation() == "left")
-            {
-                
+				if (toPlace.tag != "Junction")
+				{
+					toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
+					toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 154);
 
-                if (toPlace.tag != "Junction")
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x - 154, other.transform.position.y, other.transform.position.z);
-                }
-                else
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x - 165, other.transform.position.y, other.transform.position.z);
-                }
+				}
+				else
+				{
+					toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
+					toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 165);
+				}
 
-            }
-
-            else if (rotateTracker.getOrientation() == "right")
-            {
-                
-                if (toPlace.tag != "Junction")
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x + 154f, other.transform.position.y, other.transform.position.z);
-                }
-                else
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x + 165f, other.transform.position.y, other.transform.position.z);
-                }
-
-            }
-            else if (rotateTracker.getOrientation() == "up")
-            {
-                
-                if (toPlace.tag != "Junction")
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 154f);
-                }
-                else
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 165f);
-                }
-
-            }
-
-            toPlace.gameObject.SetActive(true); //enable piece
-        }
-        else if(other.tag == "Junction")
-        {
-            print("Placing junction");
-            other.GetComponent<Rotation>().setRotateTo(rotateTo);
-            bool found = false;
-            while (found == false) //get set piece that is not another junction
-            {
-                toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-                if (toPlace.tag == "Junction")
-                {
-                    found = false;
-                }
-                else
-                {
-                    found = true;
-                }
-            }
-            inactivePieces.Remove(toPlace);
-
-            if (rotateTracker.getOrientation() == "down") //down orientation to left or right
-            {
-
-                if (rotateTo == "left")
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x - 33, other.transform.position.y, other.transform.position.z );
+			}
+			else if (rotateTracker.getOrientation() == "left")
+			{
 
 
-                }
-                else if (rotateTo == "right")
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x + 33, other.transform.position.y, other.transform.position.z );
+				if (toPlace.tag != "Junction")
+				{
+					toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
+					toPlace.transform.position = new Vector3(other.transform.position.x - 154, other.transform.position.y, other.transform.position.z);
+				}
+				else
+				{
+					toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
+					toPlace.transform.position = new Vector3(other.transform.position.x - 165, other.transform.position.y, other.transform.position.z);
+				}
+
+			}
+
+			else if (rotateTracker.getOrientation() == "right")
+			{
+
+				if (toPlace.tag != "Junction")
+				{
+					toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
+					toPlace.transform.position = new Vector3(other.transform.position.x + 154f, other.transform.position.y, other.transform.position.z);
+				}
+				else
+				{
+					toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
+					toPlace.transform.position = new Vector3(other.transform.position.x + 165f, other.transform.position.y, other.transform.position.z);
+				}
+
+			}
+			else if (rotateTracker.getOrientation() == "up")
+			{
+
+				if (toPlace.tag != "Junction")
+				{
+					toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
+					toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 154f);
+				}
+				else
+				{
+					toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
+					toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 165f);
+				}
+
+			}
+
+			toPlace.gameObject.SetActive(true); //enable piece
+		}
+		else if (other.tag == "Junction")
+		{
+			print("Placing junction");
+			other.GetComponent<Rotation>().setRotateTo(rotateTo);
+			bool found1 = false;
+			while (found1 == false) //get set piece that is not another junction
+			{
+				toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+				if (toPlace.tag == "Junction")
+				{
+					found1 = false;
+				}
+				else
+				{
+					found1 = true;
+				}
+			}
+			inactivePieces.Remove(toPlace);
+
+			if (rotateTracker.getOrientation() == "down") //down orientation to left or right
+			{
+				toPlace.transform.rotation = Quaternion.Euler(0, 270, 0); //first piece
+				toPlace.transform.position = new Vector3(other.transform.position.x - 33, other.transform.position.y, other.transform.position.z);
+				toPlace.gameObject.SetActive(true);
+
+				bool found2 = false;
+				while (found2 == false) //get set piece that is not another junction
+				{
+					toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+					if (toPlace.tag == "Junction")
+					{
+						found2 = false;
+					}
+					else
+					{
+						found2 = true;
+					}
+				}
+				inactivePieces.Remove(toPlace);
+
+				toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
+				toPlace.transform.position = new Vector3(other.transform.position.x + 33, other.transform.position.y, other.transform.position.z);
+				toPlace.gameObject.SetActive(true);
 
 
-                }
-                else if (rotateTo == "down")
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 33);
 
-                }
-                else
-                {
+				bool found3 = false;
+				while (found3 == false) //get set piece that is not another junction
+				{
+					toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+					if (toPlace.tag == "Junction")
+					{
+						found3 = false;
+					}
+					else
+					{
+						found3 = true;
+					}
+				}
+				inactivePieces.Remove(toPlace);
 
-                }
+				toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
+				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 33);
+				toPlace.gameObject.SetActive(true);
 
-            }
-            else if (rotateTracker.getOrientation() == "left") //left orientation to up or down
-            {
+			}
+			else if (rotateTracker.getOrientation() == "left") //left orientation to up or down
+			{
+				toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
+				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 33);
+				toPlace.gameObject.SetActive(true);
 
+				bool found2 = false;
+				while (found2 == false) //get set piece that is not another junction
+				{
+					toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+					if (toPlace.tag == "Junction")
+					{
+						found2 = false;
+					}
+					else
+					{
+						found2 = true;
+					}
+				}
+				inactivePieces.Remove(toPlace);
 
-                if (rotateTo == "up")
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x , other.transform.position.y, other.transform.position.z - 33);
-
-                }
-
-                else if (rotateTo == "down")
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x , other.transform.position.y, other.transform.position.z + 33);
-
-                }
-                else if (rotateTo == "left")
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x - 33, other.transform.position.y, other.transform.position.z);
-
-                }
-                else
-                {
-
-                }
-            }   
-
-            else if (rotateTracker.getOrientation() == "right") //left orientation to up or down
-            {
-
-
-                if (rotateTo == "up")
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x , other.transform.position.y, other.transform.position.z - 33);
-
-                }
-
-                else if (rotateTo == "down")
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x , other.transform.position.y, other.transform.position.z + 33);
-
-                }
-                else if (rotateTo == "right")
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x + 33, other.transform.position.y, other.transform.position.z);
-
-                }
-                else
-                {
-
-                }
-            }
-
-            else if (rotateTracker.getOrientation() == "up") //up orientation to left or right
-            {
+				toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
+				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 33);
+				toPlace.gameObject.SetActive(true);
 
 
-                if (rotateTo == "left")
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x - 33, other.transform.position.y, other.transform.position.z);
+				bool found3 = false;
+				while (found3 == false) //get set piece that is not another junction
+				{
+					toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+					if (toPlace.tag == "Junction")
+					{
+						found3 = false;
+					}
+					else
+					{
+						found3 = true;
+					}
+				}
+				inactivePieces.Remove(toPlace);
 
-                }
-                else if (rotateTo == "right")
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x + 33, other.transform.position.y, other.transform.position.z);
+				toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
+				toPlace.transform.position = new Vector3(other.transform.position.x - 33, other.transform.position.y, other.transform.position.z);
+				toPlace.gameObject.SetActive(true);
 
-                }
-                else if (rotateTo == "up")
-                {
-                    toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
-                    toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 33);
+			}
 
-                }
-                else
-                {
+			else if (rotateTracker.getOrientation() == "right") //left orientation to up or down
+			{
+				toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
+				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 33);
+				toPlace.gameObject.SetActive(true);
 
-                }
-            }
-            toPlace.gameObject.SetActive(true);
-            
+				bool found2 = false;
+				while (found2 == false) //get set piece that is not another junction
+				{
+					toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+					if (toPlace.tag == "Junction")
+					{
+						found2 = false;
+					}
+					else
+					{
+						found2 = true;
+					}
+				}
 
-        }
+				inactivePieces.Remove(toPlace);
 
-    }
+				toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
+				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 33);
+				toPlace.gameObject.SetActive(true);
+
+
+				bool found3 = false;
+				while (found3 == false) //get set piece that is not another junction
+				{
+					toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+					if (toPlace.tag == "Junction")
+					{
+						found3 = false;
+					}
+					else
+					{
+						found3 = true;
+					}
+				}
+
+				inactivePieces.Remove(toPlace);
+
+				toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
+				toPlace.transform.position = new Vector3(other.transform.position.x + 33, other.transform.position.y, other.transform.position.z);
+				toPlace.gameObject.SetActive(true);
+
+			}
+
+			else if (rotateTracker.getOrientation() == "up") //up orientation to left or right
+			{
+				toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
+				toPlace.transform.position = new Vector3(other.transform.position.x - 33, other.transform.position.y, other.transform.position.z);
+				toPlace.gameObject.SetActive(true);
+
+
+
+				bool found2 = false;
+				while (found2 == false) //get set piece that is not another junction
+				{
+					toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+					if (toPlace.tag == "Junction")
+					{
+						found2 = false;
+					}
+					else
+					{
+						found2 = true;
+					}
+				}
+
+				inactivePieces.Remove(toPlace);
+
+				toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
+				toPlace.transform.position = new Vector3(other.transform.position.x + 33, other.transform.position.y, other.transform.position.z);
+				toPlace.gameObject.SetActive(true);
+
+
+
+				bool found3 = false;
+				while (found3 == false) //get set piece that is not another junction
+				{
+					toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+					if (toPlace.tag == "Junction")
+					{
+						found3 = false;
+					}
+					else
+					{
+						found3 = true;
+					}
+				}
+
+				inactivePieces.Remove(toPlace);
+
+				toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
+				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 33);
+				toPlace.gameObject.SetActive(true);
+
+			}
+
+		}
+	}
 
     public void OnTriggerExit(Collider other)
     {
