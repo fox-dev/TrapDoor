@@ -76,8 +76,8 @@ public class Rotation : MonoBehaviour {
         }
         else if (rotateTracker.getOrientation() == "up")
         {
-            leftButton.onClick.AddListener(() => rightButtonStuff());
-            rightButton.onClick.AddListener(() => leftButtonStuff());
+            leftButton.onClick.AddListener(() => leftButtonStuff());
+            rightButton.onClick.AddListener(() => rightButtonStuff());
             downButton.onClick.AddListener(() => upButtonStuff());
         }
         else if (rotateTracker.getOrientation() == "left")

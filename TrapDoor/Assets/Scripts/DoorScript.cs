@@ -81,7 +81,7 @@ public class DoorScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		//gameController.getColorStates (ref red, ref green, ref blue);
+		gameController.getColorStates (ref red, ref green, ref blue);
        
         if (Input.GetKeyDown("r") && !red)
         {
