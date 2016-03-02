@@ -42,7 +42,7 @@ public class Boundary : MonoBehaviour {
 	void Update () {
         orientation = rotateTracker.getOrientation();
 
-        print("Current rot:" + rotateTracker.getOrientation());
+        //print("Current rot:" + rotateTracker.getOrientation());
 
         transform.position = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
 
@@ -54,7 +54,7 @@ public class Boundary : MonoBehaviour {
 
 		if (other.tag == "Set")//for normal use and no junction is entered
 		{
-			print("Placing set");
+			//print("Placing set");
 
 			toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
 			inactivePieces.Remove(toPlace);
@@ -127,8 +127,8 @@ public class Boundary : MonoBehaviour {
 		}
 		else if (other.tag == "Junction")
 		{
-			print("Placing junction");
-			other.GetComponent<Rotation>().setRotateTo(rotateTo);
+			//print("Placing junction");
+			//other.GetComponent<Rotation>().setRotateTo(rotateTo);
 			bool found1 = false;
 			while (found1 == false) //get set piece that is not another junction
 			{

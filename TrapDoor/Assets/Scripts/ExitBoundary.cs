@@ -23,7 +23,6 @@ public class ExitBoundary : MonoBehaviour {
     {
         if (other.tag == "Set")
         {
-            print("GOT IT!");
 
             boundary.GetComponent<Boundary>().addToInactivePieces(other);
            
@@ -31,7 +30,7 @@ public class ExitBoundary : MonoBehaviour {
 
         if (other.tag == "Junction")
         {
-            print("GOT IT!");
+    
             boundary.GetComponent<Boundary>().addToInactivePieces(other);
 
 

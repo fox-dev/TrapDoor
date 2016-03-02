@@ -12,6 +12,8 @@ public class DoorScript : MonoBehaviour {
 
     bool red,blue,green;
 
+    bool destroyed;
+
 	// Use this for initialization
 	void Start () {
         
@@ -56,6 +58,7 @@ public class DoorScript : MonoBehaviour {
             Debug.Log("Cannot find 'GameController' script");
         }
 
+        destroyed = false;
         GetComponent<Collider>().isTrigger = true;
     }
 
@@ -78,7 +81,7 @@ public class DoorScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		gameController.getColorStates (ref red, ref green, ref blue);
+		//gameController.getColorStates (ref red, ref green, ref blue);
        
         if (Input.GetKeyDown("r") && !red)
         {
@@ -301,22 +304,46 @@ public class DoorScript : MonoBehaviour {
         }
     }
 
+  
+
     void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            if (other.gameObject.GetComponent<PlayerMovement>().getSuperSpeed() == true)
+            {
+                Instantiate(Resources.Load("explosion"), transform.position, Quaternion.identity);
+                other.GetComponent<Rigidbody>().drag = 40;
+                destroyed = true;
+
+            }
+        }
+        
+
+    }
+
+    void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            print("PLAYER 2!!!!!");
+            //print("PLAYER 2!!!!!");
             if (other.gameObject.GetComponent<PlayerMovement>().getSuperSpeed() == true)
             {
                
-                    other.GetComponent<Rigidbody>().drag = 40;
-
+                destroyed = true;
+                
+            }
+            else if(!destroyed)
+            {
+                print("YOU ARE DEAD!");
+               // other.gameObject.SetActive(false);
+                other.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                other.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             }
             else
             {
-                
-                other.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                other.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+                other.GetComponent<Rigidbody>().drag = 0;
+                other.GetComponent<PlayerMovement>().setMoveSpeed(60);
             }
             
         }
@@ -324,9 +351,11 @@ public class DoorScript : MonoBehaviour {
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && destroyed)
         {
             other.GetComponent<Rigidbody>().drag = 0;
+            gameObject.SetActive(false);
+            destroyed = false;
         }
     }
 }

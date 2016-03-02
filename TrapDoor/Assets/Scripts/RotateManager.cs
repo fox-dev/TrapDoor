@@ -10,15 +10,17 @@ public class RotateManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        rotation = "left"; //up, down, left, right
+        rotation = "down"; //up, down, left, right
         turn = "down"; //up, down, left, right <- For junctions that are changing directions;
 
     }
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        
+
+
+    }
 
     public string getOrientation()
     {

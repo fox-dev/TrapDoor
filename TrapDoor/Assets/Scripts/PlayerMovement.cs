@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void Update() 
     {
-        print(moveSpeed);
+        //print(moveSpeed);
         if (Input.GetKeyDown("s"))
         {
             if (superSpeed)
@@ -217,6 +217,25 @@ public class PlayerMovement : MonoBehaviour {
 
     }
 
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Junction")
+        {
+          
+
+            if (rotateTracker.getOrientation() == "up" || rotateTracker.getOrientation() == "down")
+            {
+                changeLastX(other.transform.position.x);
+            }
+            else if (rotateTracker.getOrientation() == "left" || rotateTracker.getOrientation() == "right")
+            {
+                changeLastZ(other.transform.position.z);
+            }
+
+            //this.gameObject.SetActive(false);
+        }
+    }
+
 	public void superSpeedPress()
 	{
 		superSpeed = true;
@@ -236,6 +255,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         moveSpeed = m;
     }
+
 
     public void changeLastX(float x)
     {
