@@ -3,7 +3,9 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
 
-    public GameObject playerModel, boundary;
+	public GameObject playerModel, boundary;
+
+	private GameController gameController;
 
     private RotateManager rotateTracker;
 
@@ -24,7 +26,16 @@ public class PlayerMovement : MonoBehaviour {
 
         currentAngle = transform.eulerAngles;
 
-        GameObject rotateTrackerObject = GameObject.FindWithTag("Rotator");
+		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
+		if (gameControllerObject != null) {
+			gameController = gameControllerObject.GetComponent<GameController> ();
+		}
+		if(gameController == null)
+		{
+			Debug.Log("Cannot find 'GameController' script");
+		}
+
+		GameObject rotateTrackerObject = GameObject.FindWithTag("Rotator");
         if (rotateTrackerObject != null)
         {
             rotateTracker = rotateTrackerObject.GetComponent<RotateManager>();
@@ -57,6 +68,9 @@ public class PlayerMovement : MonoBehaviour {
             }
             
         }
+		if (superSpeed) {
+			gameController.decBoost (5);
+		}
         
         
     }
@@ -213,6 +227,9 @@ public class PlayerMovement : MonoBehaviour {
             rb.velocity = rb.velocity.normalized * moveSpeed;
         }
 
+		if (gameController.getBoost () <= 0) {
+			superSpeed = false;
+		}
 
 
     }
@@ -244,6 +261,10 @@ public class PlayerMovement : MonoBehaviour {
 	public void superSpeedRelease()
 	{
 		superSpeed = false;
+
+		if (gameController.canBoost ()) {
+		} else
+			gameController.disableBoost();
 	}
 
     public bool getSuperSpeed()
