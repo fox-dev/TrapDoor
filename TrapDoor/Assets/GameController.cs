@@ -159,9 +159,14 @@ public class GameController : MonoBehaviour {
 
 	void UpdateBoost()
 	{
+        /*
 		boostBar.rectTransform.localScale = new Vector3 (boostBar.rectTransform.localScale.x, 
 														 boostMeter / maxBoostValue,
 														 boostBar.rectTransform.localScale.z);
+                                                         */
+
+        boostBar.fillAmount = Mathf.MoveTowards(boostBar.fillAmount, boostMeter / 100, Time.deltaTime * 2f);
+
 	}
 		
 }

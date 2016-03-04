@@ -61,22 +61,6 @@ public class DoorScript : MonoBehaviour {
         destroyed = false;
         GetComponent<Collider>().isTrigger = true;
     }
-
-    void Reset()
-    {
-        
-
-    }
-
-    void OnDisable()
-    {
-
-       
-    }
-
-
-  
-
 	
 	// Update is called once per frame
 	void Update () 
@@ -317,6 +301,7 @@ public class DoorScript : MonoBehaviour {
                 destroyed = true;
 
             }
+        
         }
         
 
@@ -339,6 +324,7 @@ public class DoorScript : MonoBehaviour {
                // other.gameObject.SetActive(false);
                 other.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 other.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+             
             }
             else
             {

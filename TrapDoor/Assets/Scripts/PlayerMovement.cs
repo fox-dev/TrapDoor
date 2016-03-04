@@ -13,11 +13,13 @@ public class PlayerMovement : MonoBehaviour {
 
     private Vector3 currentAngle, targetAngle;
 
-    private float lastXPos, lastYPos, lastZPos;
+    public float lastXPos, lastYPos, lastZPos;
 
     Rigidbody rb;
 
     private bool superSpeed;
+
+    public float lerpSpeed;
 
 	// Use this for initialization
 	void Start () {
@@ -69,7 +71,7 @@ public class PlayerMovement : MonoBehaviour {
             
         }
 		if (superSpeed) {
-			gameController.decBoost (5);
+			gameController.decBoost (0.1f);
 		}
         
         
@@ -102,6 +104,22 @@ public class PlayerMovement : MonoBehaviour {
         else
         {
             moveSpeed = 60;
+            if (rotateTracker.getOrientation() == "down")
+            {
+                GetComponent<Rigidbody>().velocity = new Vector3(0, 0, moveSpeed);
+            }
+            else if (rotateTracker.getOrientation() == "up")
+            {
+                GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -moveSpeed);
+            }
+            else if (rotateTracker.getOrientation() == "left")
+            {
+                GetComponent<Rigidbody>().velocity = new Vector3(-moveSpeed, 0, 0);
+            }
+            else if (rotateTracker.getOrientation() == "right")
+            {
+                GetComponent<Rigidbody>().velocity = new Vector3(moveSpeed, 0, 0);
+            }
         }     
 
        // print(rotateTracker.getOrientation());
@@ -127,9 +145,9 @@ public class PlayerMovement : MonoBehaviour {
 
 
                 Vector3 keyPos = new Vector3(lastXPos, transform.position.y, transform.position.z);
-            transform.position = Vector3.Lerp(transform.position, keyPos, 0.5f);
+            transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
 
-            lastZPos = transform.position.z; //keep last Z pos in case of rotation;
+            //lastZPos = transform.position.z; //keep last Z pos in case of rotation;
 
         }
 
@@ -153,9 +171,9 @@ public class PlayerMovement : MonoBehaviour {
            
 
             Vector3 keyPos = new Vector3(transform.position.x, transform.position.y, lastZPos);
-            transform.position = Vector3.Lerp(transform.position, keyPos, 0.5f);
+            transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
 
-            lastXPos = transform.position.x;
+            //lastXPos = transform.position.x;
         }
 
         else if (rotateTracker.getOrientation() == "right")
@@ -178,9 +196,9 @@ public class PlayerMovement : MonoBehaviour {
             
 
                 Vector3 keyPos = new Vector3(transform.position.x, transform.position.y, lastZPos);
-            transform.position = Vector3.Lerp(transform.position, keyPos, 0.5f);
+            transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
 
-            lastXPos = transform.position.x;
+            //lastXPos = transform.position.x;
         }
 
         else if (rotateTracker.getOrientation() == "up")
@@ -204,9 +222,9 @@ public class PlayerMovement : MonoBehaviour {
           
 
                 Vector3 keyPos = new Vector3(lastXPos, transform.position.y, transform.position.z);
-            transform.position = Vector3.Lerp(transform.position, keyPos, 0.5f);
+            transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
 
-            lastZPos = transform.position.z; //keep last Z pos in case of rotation;
+            //lastZPos = transform.position.z; //keep last Z pos in case of rotation;
 
         }
 
@@ -234,7 +252,7 @@ public class PlayerMovement : MonoBehaviour {
 
     }
 
-    void OnTriggerExit(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Junction")
         {
@@ -242,11 +260,12 @@ public class PlayerMovement : MonoBehaviour {
 
             if (rotateTracker.getOrientation() == "up" || rotateTracker.getOrientation() == "down")
             {
-                changeLastX(other.transform.position.x);
+                print("PLZZZ");
+                changeLastZ(other.transform.position.z);   
             }
             else if (rotateTracker.getOrientation() == "left" || rotateTracker.getOrientation() == "right")
             {
-                changeLastZ(other.transform.position.z);
+                changeLastX(other.transform.position.x);
             }
 
             //this.gameObject.SetActive(false);

@@ -34,6 +34,8 @@ public class BoostGaugeTrigger : MonoBehaviour {
 				gameController.addBoost (10);
 			
 			}
+
+            gameController.addScore(10);
 		}
 	}		
 }
