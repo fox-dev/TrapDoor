@@ -3,9 +3,9 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
 
-	public GameObject playerModel, boundary;
+    public GameObject playerModel, boundary;
 
-	private GameController gameController;
+    private GameController gameController;
 
     private RotateManager rotateTracker;
 
@@ -21,23 +21,27 @@ public class PlayerMovement : MonoBehaviour {
 
     public float lerpSpeed;
 
-	// Use this for initialization
-	void Start () {
+    public bool gameOver;
+
+
+
+    // Use this for initialization
+    void Start() {
 
         rb = GetComponent<Rigidbody>();
 
         currentAngle = transform.eulerAngles;
 
-		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
-		if (gameControllerObject != null) {
-			gameController = gameControllerObject.GetComponent<GameController> ();
-		}
-		if(gameController == null)
-		{
-			Debug.Log("Cannot find 'GameController' script");
-		}
+        GameObject gameControllerObject = GameObject.FindWithTag("GameController");
+        if (gameControllerObject != null) {
+            gameController = gameControllerObject.GetComponent<GameController>();
+        }
+        if (gameController == null)
+        {
+            Debug.Log("Cannot find 'GameController' script");
+        }
 
-		GameObject rotateTrackerObject = GameObject.FindWithTag("Rotator");
+        GameObject rotateTrackerObject = GameObject.FindWithTag("Rotator");
         if (rotateTrackerObject != null)
         {
             rotateTracker = rotateTrackerObject.GetComponent<RotateManager>();
@@ -45,17 +49,20 @@ public class PlayerMovement : MonoBehaviour {
         if (rotateTracker == null)
         {
             Debug.Log("Cannot find 'GameController' script");
+
         }
+
+        gameOver = false;
 
         lastXPos = 0f; //starting pos;
 
         lastZPos = -32.7f; //starting pos;
 
-     
+
 
     }
 
-    void Update() 
+    void Update()
     {
         //print(moveSpeed);
         if (Input.GetKeyDown("s"))
@@ -68,19 +75,19 @@ public class PlayerMovement : MonoBehaviour {
             {
                 superSpeed = true;
             }
-            
-        }
-		if (superSpeed) {
-			gameController.decBoost (0.1f);
-		}
-        
-        
-    }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
 
-        if (superSpeed)
+        }
+        if (superSpeed) {
+            gameController.decBoost(0.1f);
+        }
+
+
+    }
+
+    // Update is called once per frame
+    void FixedUpdate() {
+
+        if (superSpeed && !gameOver)
         {
             moveSpeed = 100;
 
@@ -101,7 +108,7 @@ public class PlayerMovement : MonoBehaviour {
                 GetComponent<Rigidbody>().velocity = new Vector3(moveSpeed, 0, 0);
             }
         }
-        else
+        else if(!gameOver)
         {
             moveSpeed = 60;
             if (rotateTracker.getOrientation() == "down")
@@ -120,9 +127,20 @@ public class PlayerMovement : MonoBehaviour {
             {
                 GetComponent<Rigidbody>().velocity = new Vector3(moveSpeed, 0, 0);
             }
-        }     
+        }
+        else
+        {
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            moveSpeed = 0;
+        }
 
-       // print(rotateTracker.getOrientation());
+        // print(rotateTracker.getOrientation());
+
+        if (!gameOver)
+        {
+
+        
 
         if (rotateTracker.getOrientation() == "down")
         {
@@ -138,13 +156,13 @@ public class PlayerMovement : MonoBehaviour {
 
             boundary.transform.rotation = Quaternion.Euler(0, 180f, 0);
 
-            Vector3 temp = new Vector3(0, 0, 30);
-            GetComponent<Rigidbody>().AddRelativeForce(temp);
-
-            
+            //Vector3 temp = new Vector3(0, 0, 30);
+            //GetComponent<Rigidbody>().AddRelativeForce(temp);
 
 
-                Vector3 keyPos = new Vector3(lastXPos, transform.position.y, transform.position.z);
+
+
+            Vector3 keyPos = new Vector3(lastXPos, transform.position.y, transform.position.z);
             transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
 
             //lastZPos = transform.position.z; //keep last Z pos in case of rotation;
@@ -164,11 +182,11 @@ public class PlayerMovement : MonoBehaviour {
 
             boundary.transform.rotation = Quaternion.Euler(0, 270, 0);
 
-            Vector3 temp = new Vector3(-30, 0, 0);
-            GetComponent<Rigidbody>().AddRelativeForce(temp);
+            //Vector3 temp = new Vector3(-30, 0, 0);
+            //GetComponent<Rigidbody>().AddRelativeForce(temp);
 
-           
-           
+
+
 
             Vector3 keyPos = new Vector3(transform.position.x, transform.position.y, lastZPos);
             transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
@@ -193,10 +211,10 @@ public class PlayerMovement : MonoBehaviour {
             Vector3 temp = new Vector3(30, 0, 0);
             GetComponent<Rigidbody>().AddRelativeForce(temp);
 
-            
 
-                Vector3 keyPos = new Vector3(transform.position.x, transform.position.y, lastZPos);
-            transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
+
+            //Vector3 keyPos = new Vector3(transform.position.x, transform.position.y, lastZPos);
+            //transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
 
             //lastXPos = transform.position.x;
         }
@@ -216,16 +234,17 @@ public class PlayerMovement : MonoBehaviour {
 
             boundary.transform.rotation = Quaternion.Euler(0, 180f, 0);
 
-            Vector3 temp = new Vector3(0, 0, -30);
-            GetComponent<Rigidbody>().AddRelativeForce(temp);
+            //Vector3 temp = new Vector3(0, 0, -30);
+            //GetComponent<Rigidbody>().AddRelativeForce(temp);
 
-          
 
-                Vector3 keyPos = new Vector3(lastXPos, transform.position.y, transform.position.z);
+
+            Vector3 keyPos = new Vector3(lastXPos, transform.position.y, transform.position.z);
             transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
 
             //lastZPos = transform.position.z; //keep last Z pos in case of rotation;
 
+        }
         }
 
 
@@ -238,16 +257,16 @@ public class PlayerMovement : MonoBehaviour {
         //Automove
         // Vector3 movement = new Vector3(0.0f, 0.0f, 1f);
         //GetComponent<Rigidbody>().velocity = movement * moveSpeed;
-        
+
 
         if (rb.velocity.magnitude > moveSpeed)
         {
             rb.velocity = rb.velocity.normalized * moveSpeed;
         }
 
-		if (gameController.getBoost () <= 0) {
-			superSpeed = false;
-		}
+        if (gameController.getBoost() <= 0) {
+            superSpeed = false;
+        }
 
 
     }
@@ -256,12 +275,12 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (other.tag == "Junction")
         {
-          
+
 
             if (rotateTracker.getOrientation() == "up" || rotateTracker.getOrientation() == "down")
             {
                 print("PLZZZ");
-                changeLastZ(other.transform.position.z);   
+                changeLastZ(other.transform.position.z);
             }
             else if (rotateTracker.getOrientation() == "left" || rotateTracker.getOrientation() == "right")
             {
@@ -272,19 +291,19 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-	public void superSpeedPress()
-	{
-		superSpeed = true;
-	}
+    public void superSpeedPress()
+    {
+        superSpeed = true;
+    }
 
-	public void superSpeedRelease()
-	{
-		superSpeed = false;
+    public void superSpeedRelease()
+    {
+        superSpeed = false;
 
-		if (gameController.canBoost ()) {
-		} else
-			gameController.disableBoost();
-	}
+        if (gameController.canBoost()) {
+        } else
+            gameController.disableBoost();
+    }
 
     public bool getSuperSpeed()
     {
@@ -305,6 +324,11 @@ public class PlayerMovement : MonoBehaviour {
     public void changeLastZ(float z)
     {
         lastZPos = z;
+    }
+
+    public void setGameOver()
+    {
+        gameOver = true;
     }
 }
 

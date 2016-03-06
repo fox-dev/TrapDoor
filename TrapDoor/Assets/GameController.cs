@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -13,9 +14,20 @@ public class GameController : MonoBehaviour {
 
 	public GameObject boostButton;
 
+    public GameObject gameOverlay;
+
+    public GameObject restartButton;
+    public GameObject restartButton_lerpPos;
+
 	public float maxBoostValue, boostMeter, boostThreshold;
 
 	private int score;
+
+    public bool gameOver;
+
+    float lerpValue = 0.05f;
+
+
 
 	// Use this for initialization
 	void Start () {
@@ -34,6 +46,8 @@ public class GameController : MonoBehaviour {
 		boostMeter = 0f;
 
 		disableBoost();
+
+        gameOver = false;
 	}
 	
 	// Update is called once per frame
@@ -41,6 +55,18 @@ public class GameController : MonoBehaviour {
 
 		UpdateBoost();
 
+
+        if (gameOver)
+        {
+            foreach(Transform child in gameOverlay.transform)
+            {
+                if(child.tag == "Untagged")
+                {
+                    child.gameObject.SetActive(false);
+                }
+            }
+            lerpButtons();
+        }
 
 		//Activates the boost button after the meter is 30% full
 		if (canBoost())
@@ -168,5 +194,20 @@ public class GameController : MonoBehaviour {
         boostBar.fillAmount = Mathf.MoveTowards(boostBar.fillAmount, boostMeter / 100, Time.deltaTime * 2f);
 
 	}
+
+    public void lerpButtons()
+    {
+        restartButton.transform.position = Vector3.Lerp(restartButton.transform.position, restartButton_lerpPos.transform.position, lerpValue);
+    }
+
+    public void LoadScene(string name)
+    {
+        SceneManager.LoadScene(name);
+    }
+
+    public void setGameOver()
+    {
+        gameOver = true;
+    }
 		
 }
