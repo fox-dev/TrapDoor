@@ -14,18 +14,18 @@ public class GameController : MonoBehaviour {
 
 	public GameObject boostButton;
 
-    public GameObject gameOverlay;
+	public GameObject gameOverlay;
 
-    public GameObject restartButton;
-    public GameObject restartButton_lerpPos;
+	public GameObject restartButton;
+	public GameObject restartButton_lerpPos;
 
 	public float maxBoostValue, boostMeter, boostThreshold;
 
 	private int score;
 
-    public bool gameOver;
+	public bool gameOver;
 
-    float lerpValue = 0.05f;
+	float lerpValue = 0.05f;
 
 
 
@@ -47,31 +47,31 @@ public class GameController : MonoBehaviour {
 
 		disableBoost();
 
-        gameOver = false;
+		gameOver = false;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
 		UpdateBoost();
 
 
-        if (gameOver)
-        {
-            foreach(Transform child in gameOverlay.transform)
-            {
-                if(child.tag == "Untagged")
-                {
-                    child.gameObject.SetActive(false);
-                }
-            }
-            lerpButtons();
-        }
+		if (gameOver)
+		{
+			foreach(Transform child in gameOverlay.transform)
+			{
+				if(child.tag == "Untagged")
+				{
+					child.gameObject.SetActive(false);
+				}
+			}
+			lerpButtons();
+		}
 
 		//Activates the boost button after the meter is 30% full
 		if (canBoost())
 			enableBoost();
-	
+
 	}
 
 	public void RedPress()
@@ -148,7 +148,7 @@ public class GameController : MonoBehaviour {
 			print ("Im Triggered");
 			boostMeter = maxBoostValue;
 		}
-			
+
 	}
 
 	public void decBoost(float newBoostValue)
@@ -185,29 +185,36 @@ public class GameController : MonoBehaviour {
 
 	void UpdateBoost()
 	{
-        /*
+		/*
 		boostBar.rectTransform.localScale = new Vector3 (boostBar.rectTransform.localScale.x, 
 														 boostMeter / maxBoostValue,
 														 boostBar.rectTransform.localScale.z);
                                                          */
 
-        boostBar.fillAmount = Mathf.MoveTowards(boostBar.fillAmount, boostMeter / 100, Time.deltaTime * 2f);
+		boostBar.fillAmount = Mathf.MoveTowards(boostBar.fillAmount, boostMeter / 100, Time.deltaTime * 2f);
 
 	}
 
-    public void lerpButtons()
-    {
-        restartButton.transform.position = Vector3.Lerp(restartButton.transform.position, restartButton_lerpPos.transform.position, lerpValue);
-    }
+	public void lerpButtons()
+	{
+		restartButton.transform.position = Vector3.Lerp(restartButton.transform.position, restartButton_lerpPos.transform.position, lerpValue);
+	}
 
-    public void LoadScene(string name)
-    {
-        SceneManager.LoadScene(name);
-    }
+	public void LoadScene(string name)
+	{
+		SceneManager.LoadScene(name);
+	}
 
-    public void setGameOver()
-    {
-        gameOver = true;
-    }
-		
+	public void setGameOver()
+	{
+		gameOver = true;
+		Time.timeScale = 1f;
+		Time.fixedDeltaTime = 0.02f;
+	}
+
+	public bool getGameOver()
+	{
+		return gameOver;
+	}
+
 }

@@ -59,7 +59,10 @@ public class DoorScript : MonoBehaviour {
         }
 
         destroyed = false;
-        GetComponent<Collider>().isTrigger = true;
+		if (this.tag == "LaserDoorGreen" || this.tag == "LaserDoorRed" || this.tag == "LaserDoorBlue") {
+		}
+		else
+			GetComponent<Collider>().isTrigger = true;
     }
 	
 	// Update is called once per frame
@@ -325,7 +328,7 @@ public class DoorScript : MonoBehaviour {
                 other.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 other.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
                 other.GetComponent<PlayerMovement>().setGameOver();
-                gameController.setGameOver();
+                //gameController.setGameOver();
                 
              
             }

@@ -38,6 +38,9 @@ public class Rotation : MonoBehaviour {
 
         entered = false;
 
+		Time.timeScale = 1f;
+		Time.fixedDeltaTime = 0.02f;
+
         GameObject rotateTrackerObject = GameObject.FindWithTag("Rotator");
         if (rotateTrackerObject != null)
         {

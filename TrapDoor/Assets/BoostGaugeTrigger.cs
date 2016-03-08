@@ -28,13 +28,16 @@ public class BoostGaugeTrigger : MonoBehaviour {
 	{
 		if (other.tag == "Player") {
 
-			if (other.gameObject.GetComponent<PlayerMovement> ().getSuperSpeed()) {
+			if (other.gameObject.GetComponent<PlayerMovement> ().getSuperSpeed ()) {
 			
+			} else if (this.tag == "LaserPiece") {
+
+				print ("NO BOOST FOR YOU");
+				
 			} else {
 				gameController.addBoost (10);
-			
 			}
-
+	
             gameController.addScore(10);
 		}
 	}		

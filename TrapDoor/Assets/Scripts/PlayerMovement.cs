@@ -329,6 +329,7 @@ public class PlayerMovement : MonoBehaviour {
     public void setGameOver()
     {
         gameOver = true;
+		gameController.setGameOver();
     }
 }
 

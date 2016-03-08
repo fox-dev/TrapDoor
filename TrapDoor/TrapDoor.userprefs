@@ -1,14 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GameController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\BoostGaugeTrigger.cs">
     <Files>
-      <File FileName="Assets\GameController.cs" Line="48" Column="2" />
-      <File FileName="Assets\Scripts\Boundary.cs" Line="52" Column="37" />
-      <File FileName="Assets\Scripts\DoorScript.cs" Line="48" Column="4" />
+      <File FileName="Assets\GameController.cs" Line="212" Column="31" />
       <File FileName="Assets\Scripts\CameraScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LaserScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PlayerMovement.cs" Line="267" Column="31" />
-      <File FileName="Assets\BoostGaugeTrigger.cs" Line="34" Column="34" />
+      <File FileName="Assets\Scripts\LaserScript.cs" Line="34" Column="41" />
+      <File FileName="Assets\BoostGaugeTrigger.cs" Line="33" Column="42" />
+      <File FileName="Assets\Scripts\Boundary.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\DoorScript.cs" Line="318" Column="46" />
+      <File FileName="Assets\Scripts\PlayerMovement.cs" Line="329" Column="28" />
+      <File FileName="Assets\Scripts\RotateManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Rotation.cs" Line="177" Column="16" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

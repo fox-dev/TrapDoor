@@ -21,6 +21,8 @@ public class LaserScript : MonoBehaviour {
 	void Update () 
 	{
 
+		line.material.mainTextureOffset = new Vector2 (Time.time, 0);
+
 		Ray ray = new Ray (transform.position, transform.forward);
 		RaycastHit hit;
 
@@ -29,6 +31,7 @@ public class LaserScript : MonoBehaviour {
 			line.SetPosition (1, hit.point);
 			if (hit.collider.tag == "Player") {
 				print ("I hit the player");
+				hit.collider.gameObject.GetComponent<PlayerMovement>().setGameOver();
 			}
 		}
 		else
