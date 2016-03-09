@@ -31,7 +31,11 @@ public class LaserScript : MonoBehaviour {
 			line.SetPosition (1, hit.point);
 			if (hit.collider.tag == "Player") {
 				print ("I hit the player");
-				hit.collider.gameObject.GetComponent<PlayerMovement>().setGameOver();
+
+				if (hit.collider.gameObject.GetComponent<PlayerMovement> ().getSuperSpeed ()) {
+				} else {
+					hit.collider.gameObject.GetComponent<PlayerMovement>().setGameOver();
+				}
 			}
 		}
 		else
