@@ -178,13 +178,16 @@ public class GameController : MonoBehaviour {
 
 	public void disableBoost()
 	{
-		boostButton.SetActive(false);
+        //boostButton.SetActive(false
+
+        boostButton.GetComponent<Button>().interactable = false;
 	}
 
 	public void enableBoost()
 	{
 		boostButton.SetActive(true);
-	}
+        boostButton.GetComponent<Button>().interactable = true;
+    }
 
 	void UpdateBoost()
 	{

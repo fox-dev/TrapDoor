@@ -213,8 +213,8 @@ public class PlayerMovement : MonoBehaviour {
 
 
 
-            //Vector3 keyPos = new Vector3(transform.position.x, transform.position.y, lastZPos);
-            //transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
+            Vector3 keyPos = new Vector3(transform.position.x, transform.position.y, lastZPos);
+            transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
 
             //lastXPos = transform.position.x;
         }
@@ -293,16 +293,20 @@ public class PlayerMovement : MonoBehaviour {
 
     public void superSpeedPress()
     {
+        if()
         superSpeed = true;
+        
     }
 
     public void superSpeedRelease()
     {
         superSpeed = false;
 
+        /*
         if (gameController.canBoost()) {
         } else
             gameController.disableBoost();
+            */
     }
 
     public bool getSuperSpeed()
