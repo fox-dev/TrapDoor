@@ -32,7 +32,10 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		red = false;
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
+
+        red = false;
 		green = false;
 		blue = false;
 
@@ -208,8 +211,7 @@ public class GameController : MonoBehaviour {
 	public void setGameOver()
 	{
 		gameOver = true;
-		Time.timeScale = 1f;
-		Time.fixedDeltaTime = 0.02f;
+		
 	}
 
 	public bool getGameOver()
