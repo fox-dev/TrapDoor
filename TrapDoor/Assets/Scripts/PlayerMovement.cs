@@ -293,8 +293,8 @@ public class PlayerMovement : MonoBehaviour {
 
     public void superSpeedPress()
     {
-        if()
-        superSpeed = true;
+        
+		superSpeed = true;
         
     }
 
