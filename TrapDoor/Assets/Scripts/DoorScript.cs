@@ -110,6 +110,11 @@ public class DoorScript : MonoBehaviour {
         }
 
 
+        if (gameController.getGameOver())
+        {
+            speed = 0;
+        }
+
 
     }
 		
@@ -335,7 +340,7 @@ public class DoorScript : MonoBehaviour {
             else
             {
                 other.GetComponent<Rigidbody>().drag = 0;
-                other.GetComponent<PlayerMovement>().setMoveSpeed(60);
+                other.GetComponent<PlayerMovement>().setMoveSpeed(gameController.getPlayer().GetComponent<PlayerMovement>().getMoveSpeed());
             }
             
         }

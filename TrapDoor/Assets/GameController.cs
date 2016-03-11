@@ -21,6 +21,9 @@ public class GameController : MonoBehaviour {
 
 	public float maxBoostValue, boostMeter, boostThreshold;
 
+    public GameObject player;
+
+
 	private int score;
 
 	public bool gameOver;
@@ -178,14 +181,14 @@ public class GameController : MonoBehaviour {
 
 	public void disableBoost()
 	{
-        //boostButton.SetActive(false
+        //boostButton.SetActive(false);
 
         boostButton.GetComponent<Button>().interactable = false;
 	}
 
 	public void enableBoost()
 	{
-		boostButton.SetActive(true);
+		//boostButton.SetActive(true);
         boostButton.GetComponent<Button>().interactable = true;
     }
 
@@ -222,4 +225,8 @@ public class GameController : MonoBehaviour {
 		return gameOver;
 	}
 
+    public GameObject getPlayer()
+    {
+        return player;
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -9,7 +10,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private RotateManager rotateTracker;
 
-    public float moveSpeed;
+    public float moveSpeed, superMoveSpeed;
 
     private Vector3 currentAngle, targetAngle;
 
@@ -78,7 +79,7 @@ public class PlayerMovement : MonoBehaviour {
 
         }
         if (superSpeed) {
-            gameController.decBoost(0.1f);
+            gameController.decBoost(0.01f);
         }
 
 
@@ -89,28 +90,27 @@ public class PlayerMovement : MonoBehaviour {
 
         if (superSpeed && !gameOver)
         {
-            moveSpeed = 100;
-
+            
             if (rotateTracker.getOrientation() == "down")
             {
-                GetComponent<Rigidbody>().velocity = new Vector3(0, 0, moveSpeed);
+                GetComponent<Rigidbody>().velocity = new Vector3(0, 0, superMoveSpeed);
             }
             else if (rotateTracker.getOrientation() == "up")
             {
-                GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -moveSpeed);
+                GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -superMoveSpeed);
             }
             else if (rotateTracker.getOrientation() == "left")
             {
-                GetComponent<Rigidbody>().velocity = new Vector3(-moveSpeed, 0, 0);
+                GetComponent<Rigidbody>().velocity = new Vector3(-superMoveSpeed, 0, 0);
             }
             else if (rotateTracker.getOrientation() == "right")
             {
-                GetComponent<Rigidbody>().velocity = new Vector3(moveSpeed, 0, 0);
+                GetComponent<Rigidbody>().velocity = new Vector3(superMoveSpeed, 0, 0);
             }
         }
         else if(!gameOver)
         {
-            moveSpeed = 60;
+            
             if (rotateTracker.getOrientation() == "down")
             {
                 GetComponent<Rigidbody>().velocity = new Vector3(0, 0, moveSpeed);
@@ -259,7 +259,7 @@ public class PlayerMovement : MonoBehaviour {
         //GetComponent<Rigidbody>().velocity = movement * moveSpeed;
 
 
-        if (rb.velocity.magnitude > moveSpeed)
+        if (rb.velocity.magnitude > moveSpeed && !superSpeed)
         {
             rb.velocity = rb.velocity.normalized * moveSpeed;
         }
@@ -293,14 +293,31 @@ public class PlayerMovement : MonoBehaviour {
 
     public void superSpeedPress()
     {
-        
-		superSpeed = true;
+        if (gameController.boostButton.GetComponent<Button>().IsInteractable())
+        {
+            superSpeed = true;
+        }
+        else
+        {
+            //do nothing
+        }
+
+		
         
     }
 
     public void superSpeedRelease()
     {
-        superSpeed = false;
+
+        if (gameController.boostButton.GetComponent<Button>().IsInteractable())
+        {
+            superSpeed = false;
+        }
+        else
+        {
+            //do nothing
+        }
+       
 
         /*
         if (gameController.canBoost()) {
@@ -334,6 +351,12 @@ public class PlayerMovement : MonoBehaviour {
     {
         gameOver = true;
 		gameController.setGameOver();
+    }
+
+    public float getMoveSpeed()
+    {
+        return moveSpeed;
+
     }
 }
 
