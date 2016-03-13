@@ -19,6 +19,11 @@ public class SetPieceScript : MonoBehaviour {
         {
             foreach (Transform subchild in child)
             {
+               
+                foreach (Transform subchilds in child)
+                {
+                    subchilds.gameObject.SetActive(true);
+                }
                 subchild.gameObject.SetActive(true);
             }
             child.gameObject.SetActive(true);
