@@ -1,13 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerMovement.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Boundary.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerMovement.cs" Line="297" Column="3" />
+      <File FileName="Assets\Scripts\Boundary.cs" Line="13" Column="43" />
+      <File FileName="Assets\LightScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\LightShaderScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\LaserScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PlayerMovement.cs" Line="1" Column="1" />
       <File FileName="Assets\GameController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CameraScript.cs" Line="1" Column="1" />
       <File FileName="Assets\BoostGaugeTrigger.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Boundary.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\DoorScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\RotateManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Rotation.cs" Line="1" Column="1" />
