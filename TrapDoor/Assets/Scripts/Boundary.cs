@@ -6,6 +6,11 @@ public class Boundary : MonoBehaviour {
 
     public List<GameObject> activePieces;
 
+    public List<GameObject> mediumSet; //med difficulty array to switch to
+    public int med_scoreThreshold;
+
+    private GameController gameController;
+
     public string rotateTo;
 
     public string orientation; 
@@ -19,6 +24,8 @@ public class Boundary : MonoBehaviour {
 
     public GameObject player;
 
+   
+
 
     // Use this for initialization
     void Start () {
@@ -30,6 +37,16 @@ public class Boundary : MonoBehaviour {
             rotateTracker = rotateTrackerObject.GetComponent<RotateManager>();
         }
         if (rotateTracker == null)
+        {
+            Debug.Log("Cannot find 'RotateManager' script");
+        }
+
+        GameObject gameControllerObject = GameObject.FindWithTag("GameController");
+        if (gameControllerObject != null)
+        {
+            gameController = gameControllerObject.GetComponent<GameController>();
+        }
+        if (gameController == null)
         {
             Debug.Log("Cannot find 'GameController' script");
         }
@@ -54,10 +71,20 @@ public class Boundary : MonoBehaviour {
 
 		if (other.tag == "Set")//for normal use and no junction is entered
 		{
-			//print("Placing set");
+            //print("Placing set");
 
-			toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-			inactivePieces.Remove(toPlace);
+            if(gameController.getScore() < med_scoreThreshold)
+            {
+                toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+                inactivePieces.Remove(toPlace);
+            }
+            else if(gameController.getScore() >= med_scoreThreshold)
+            {
+                toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
+                mediumSet.Remove(toPlace);
+            }
+            
+			
 
 			if (rotateTracker.getOrientation() == "down")
 			{
@@ -132,8 +159,17 @@ public class Boundary : MonoBehaviour {
 			bool found1 = false;
 			while (found1 == false) //get set piece that is not another junction
 			{
-				toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-				if (toPlace.tag == "Junction")
+                if (gameController.getScore() < med_scoreThreshold)
+                {
+                    toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+                    inactivePieces.Remove(toPlace);
+                }
+                else if (gameController.getScore() >= med_scoreThreshold)
+                {
+                    toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
+                    mediumSet.Remove(toPlace);
+                }
+                if (toPlace.tag == "Junction")
 				{
 					found1 = false;
 				}
@@ -142,7 +178,18 @@ public class Boundary : MonoBehaviour {
 					found1 = true;
 				}
 			}
-			inactivePieces.Remove(toPlace);
+
+            if (gameController.getScore() < med_scoreThreshold)
+            {
+              
+                inactivePieces.Remove(toPlace);
+            }
+            else if (gameController.getScore() >= med_scoreThreshold)
+            {
+               
+                mediumSet.Remove(toPlace);
+            }
+    
 
 			if (rotateTracker.getOrientation() == "down") //down orientation to left or right
 			{
@@ -153,8 +200,18 @@ public class Boundary : MonoBehaviour {
 				bool found2 = false;
 				while (found2 == false) //get set piece that is not another junction
 				{
-					toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-					if (toPlace.tag == "Junction")
+                    if (gameController.getScore() < med_scoreThreshold)
+                    {
+                        toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+                      
+                    }
+                    else if (gameController.getScore() >= med_scoreThreshold)
+                    {
+                        toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
+                       
+                    }
+
+                    if (toPlace.tag == "Junction")
 					{
 						found2 = false;
 					}
@@ -163,9 +220,19 @@ public class Boundary : MonoBehaviour {
 						found2 = true;
 					}
 				}
-				inactivePieces.Remove(toPlace);
 
-				toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
+                if (gameController.getScore() < med_scoreThreshold)
+                {
+                   
+                    inactivePieces.Remove(toPlace);
+                }
+                else if (gameController.getScore() >= med_scoreThreshold)
+                {
+                    
+                    mediumSet.Remove(toPlace);
+                }
+
+                toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
 				toPlace.transform.position = new Vector3(other.transform.position.x + 33, other.transform.position.y, other.transform.position.z);
 				toPlace.gameObject.SetActive(true);
 
@@ -174,8 +241,18 @@ public class Boundary : MonoBehaviour {
 				bool found3 = false;
 				while (found3 == false) //get set piece that is not another junction
 				{
-					toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-					if (toPlace.tag == "Junction")
+                    if (gameController.getScore() < med_scoreThreshold)
+                    {
+                        toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+                        
+                    }
+                    else if (gameController.getScore() >= med_scoreThreshold)
+                    {
+                        toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
+                        
+                    }
+
+                    if (toPlace.tag == "Junction")
 					{
 						found3 = false;
 					}
@@ -184,9 +261,19 @@ public class Boundary : MonoBehaviour {
 						found3 = true;
 					}
 				}
-				inactivePieces.Remove(toPlace);
 
-				toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
+                if (gameController.getScore() < med_scoreThreshold)
+                {
+                   
+                    inactivePieces.Remove(toPlace);
+                }
+                else if (gameController.getScore() >= med_scoreThreshold)
+                {
+                   
+                    mediumSet.Remove(toPlace);
+                }
+
+                toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
 				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 33);
 				toPlace.gameObject.SetActive(true);
 
@@ -200,8 +287,18 @@ public class Boundary : MonoBehaviour {
 				bool found2 = false;
 				while (found2 == false) //get set piece that is not another junction
 				{
-					toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-					if (toPlace.tag == "Junction")
+                    if (gameController.getScore() < med_scoreThreshold)
+                    {
+                        toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+                      
+                    }
+                    else if (gameController.getScore() >= med_scoreThreshold)
+                    {
+                        toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
+                        
+                    }
+
+                    if (toPlace.tag == "Junction")
 					{
 						found2 = false;
 					}
@@ -210,9 +307,19 @@ public class Boundary : MonoBehaviour {
 						found2 = true;
 					}
 				}
-				inactivePieces.Remove(toPlace);
 
-				toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
+                if (gameController.getScore() < med_scoreThreshold)
+                {
+                    
+                    inactivePieces.Remove(toPlace);
+                }
+                else if (gameController.getScore() >= med_scoreThreshold)
+                {
+                    
+                    mediumSet.Remove(toPlace);
+                }
+
+                toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
 				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 33);
 				toPlace.gameObject.SetActive(true);
 
@@ -220,8 +327,18 @@ public class Boundary : MonoBehaviour {
 				bool found3 = false;
 				while (found3 == false) //get set piece that is not another junction
 				{
-					toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-					if (toPlace.tag == "Junction")
+                    if (gameController.getScore() < med_scoreThreshold)
+                    {
+                        toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+                       
+                    }
+                    else if (gameController.getScore() >= med_scoreThreshold)
+                    {
+                        toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
+                       
+                    }
+
+                    if (toPlace.tag == "Junction")
 					{
 						found3 = false;
 					}
@@ -230,9 +347,19 @@ public class Boundary : MonoBehaviour {
 						found3 = true;
 					}
 				}
-				inactivePieces.Remove(toPlace);
 
-				toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
+                if (gameController.getScore() < med_scoreThreshold)
+                {
+                    
+                    inactivePieces.Remove(toPlace);
+                }
+                else if (gameController.getScore() >= med_scoreThreshold)
+                {
+                    
+                    mediumSet.Remove(toPlace);
+                }
+
+                toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
 				toPlace.transform.position = new Vector3(other.transform.position.x - 33, other.transform.position.y, other.transform.position.z);
 				toPlace.gameObject.SetActive(true);
 
@@ -247,8 +374,18 @@ public class Boundary : MonoBehaviour {
 				bool found2 = false;
 				while (found2 == false) //get set piece that is not another junction
 				{
-					toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-					if (toPlace.tag == "Junction")
+                    if (gameController.getScore() < med_scoreThreshold)
+                    {
+                        toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+                        
+                    }
+                    else if (gameController.getScore() >= med_scoreThreshold)
+                    {
+                        toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
+                        
+                    }
+
+                    if (toPlace.tag == "Junction")
 					{
 						found2 = false;
 					}
@@ -258,9 +395,18 @@ public class Boundary : MonoBehaviour {
 					}
 				}
 
-				inactivePieces.Remove(toPlace);
+                if (gameController.getScore() < med_scoreThreshold)
+                {
+                   
+                    inactivePieces.Remove(toPlace);
+                }
+                else if (gameController.getScore() >= med_scoreThreshold)
+                {
+                    
+                    mediumSet.Remove(toPlace);
+                }
 
-				toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
+                toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
 				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 33);
 				toPlace.gameObject.SetActive(true);
 
@@ -268,8 +414,18 @@ public class Boundary : MonoBehaviour {
 				bool found3 = false;
 				while (found3 == false) //get set piece that is not another junction
 				{
-					toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-					if (toPlace.tag == "Junction")
+                    if (gameController.getScore() < med_scoreThreshold)
+                    {
+                        toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+                        
+                    }
+                    else if (gameController.getScore() >= med_scoreThreshold)
+                    {
+                        toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
+                        
+                    }
+
+                    if (toPlace.tag == "Junction")
 					{
 						found3 = false;
 					}
@@ -279,9 +435,18 @@ public class Boundary : MonoBehaviour {
 					}
 				}
 
-				inactivePieces.Remove(toPlace);
+                if (gameController.getScore() < med_scoreThreshold)
+                {
+                    
+                    inactivePieces.Remove(toPlace);
+                }
+                else if (gameController.getScore() >= med_scoreThreshold)
+                {
+                    
+                    mediumSet.Remove(toPlace);
+                }
 
-				toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
+                toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
 				toPlace.transform.position = new Vector3(other.transform.position.x + 33, other.transform.position.y, other.transform.position.z);
 				toPlace.gameObject.SetActive(true);
 
@@ -298,8 +463,18 @@ public class Boundary : MonoBehaviour {
 				bool found2 = false;
 				while (found2 == false) //get set piece that is not another junction
 				{
-					toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-					if (toPlace.tag == "Junction")
+                    if (gameController.getScore() < med_scoreThreshold)
+                    {
+                        toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+                        
+                    }
+                    else if (gameController.getScore() >= med_scoreThreshold)
+                    {
+                        toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
+                        
+                    }
+
+                    if (toPlace.tag == "Junction")
 					{
 						found2 = false;
 					}
@@ -309,9 +484,18 @@ public class Boundary : MonoBehaviour {
 					}
 				}
 
-				inactivePieces.Remove(toPlace);
+                if (gameController.getScore() < med_scoreThreshold)
+                {
+                    
+                    inactivePieces.Remove(toPlace);
+                }
+                else if (gameController.getScore() >= med_scoreThreshold)
+                {
+                   
+                    mediumSet.Remove(toPlace);
+                }
 
-				toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
+                toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
 				toPlace.transform.position = new Vector3(other.transform.position.x + 33, other.transform.position.y, other.transform.position.z);
 				toPlace.gameObject.SetActive(true);
 
@@ -320,8 +504,18 @@ public class Boundary : MonoBehaviour {
 				bool found3 = false;
 				while (found3 == false) //get set piece that is not another junction
 				{
-					toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-					if (toPlace.tag == "Junction")
+                    if (gameController.getScore() < med_scoreThreshold)
+                    {
+                        toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+                        
+                    }
+                    else if (gameController.getScore() >= med_scoreThreshold)
+                    {
+                        toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
+                        
+                    }
+
+                    if (toPlace.tag == "Junction")
 					{
 						found3 = false;
 					}
@@ -331,9 +525,18 @@ public class Boundary : MonoBehaviour {
 					}
 				}
 
-				inactivePieces.Remove(toPlace);
+                if (gameController.getScore() < med_scoreThreshold)
+                {
+                   
+                    inactivePieces.Remove(toPlace);
+                }
+                else if (gameController.getScore() >= med_scoreThreshold)
+                {
+                    
+                    mediumSet.Remove(toPlace);
+                }
 
-				toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
+                toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
 				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 33);
 				toPlace.gameObject.SetActive(true);
 
@@ -398,6 +601,7 @@ public class Boundary : MonoBehaviour {
             {
                 found = true;
             }
+
         }
 
     }
@@ -406,8 +610,17 @@ public class Boundary : MonoBehaviour {
     {
 
         other.gameObject.SetActive(false);
-        inactivePieces.Add(other.gameObject);
-        
+        if(gameController.getScore() < med_scoreThreshold)
+        {
+            inactivePieces.Add(other.gameObject);
+        }
+        else if(gameController.getScore() >= med_scoreThreshold)
+        {
+            mediumSet.Add(other.gameObject);
+        }
+
+
+
     }
 
 

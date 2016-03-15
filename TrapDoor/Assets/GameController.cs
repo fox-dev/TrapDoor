@@ -229,4 +229,9 @@ public class GameController : MonoBehaviour {
     {
         return player;
     }
+
+    public int getScore()
+    {
+        return score;
+    }
 }
