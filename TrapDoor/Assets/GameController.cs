@@ -82,13 +82,15 @@ public class GameController : MonoBehaviour {
 
 	public void RedPress()
 	{
-		if (red) {
+		/*if (red) {
 			red = false;
 			redBorder.SetActive (false);
 		} else {
 			red = true;
 			redBorder.SetActive (true);
-		}
+		}*/
+		red = true;
+		redBorder.SetActive (true);
 		blue = false;
 		green = false;
 		blueBorder.SetActive (false);
@@ -97,13 +99,15 @@ public class GameController : MonoBehaviour {
 
 	public void GreenPress()
 	{
-		if (green) {
+		/*if (green) {
 			green = false;
 			greenBorder.SetActive (false);
 		} else {
 			green = true;
 			greenBorder.SetActive (true);
-		}
+		}*/
+		green = true;
+		greenBorder.SetActive (true);
 		blue = false;
 		red = false;
 		blueBorder.SetActive (false);
@@ -112,13 +116,15 @@ public class GameController : MonoBehaviour {
 
 	public void BluePress()
 	{
-		if (blue) {
+		/*if (blue) {
 			blue = false;
 			blueBorder.SetActive (false);
 		} else {
 			blue = true;
 			blueBorder.SetActive (true);
-		}
+		}*/
+		blue = true;
+		blueBorder.SetActive (true);
 		red = false;
 		green = false;
 		redBorder.SetActive (false);

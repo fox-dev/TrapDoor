@@ -50,6 +50,7 @@
      <Compile Include="Assets\LightScript.cs" />
      <Compile Include="Assets\LightShaderScript.cs" />
      <Compile Include="Assets\NewBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\BoosterScript.cs" />
      <Compile Include="Assets\Scripts\Boundary.cs" />
      <Compile Include="Assets\Scripts\CameraScript.cs" />
      <Compile Include="Assets\Scripts\DoorScript.cs" />
