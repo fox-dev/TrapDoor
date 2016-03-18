@@ -10,13 +10,20 @@ public class DoorScript : MonoBehaviour {
 
     private RotateManager rotateTracker;
 
+    bool hasPlayed;
+
     bool red,blue,green;
 
     bool destroyed;
 
-	// Use this for initialization
-	void Start () {
-        
+    AudioSource aud;
+
+    // Use this for initialization
+    void Start () {
+
+        hasPlayed = false;
+
+        aud = GetComponent<AudioSource>();
         startPos = transform.localPosition;
 		if (tag == "RedRight") {
 			endPos = new Vector3 (startPos.x + 10f, startPos.y, startPos.z);
@@ -167,6 +174,7 @@ public class DoorScript : MonoBehaviour {
         else if (tag == "BlueRight" && blue) //blue is on
         {
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, speed * Time.deltaTime);
+            
         }
         //close all other colors
         else if (blue == true && (tag == "RedRight" || tag == "GreenRight"))
@@ -213,6 +221,8 @@ public class DoorScript : MonoBehaviour {
         else if (tag == "BlueLeft" && blue) //blue is on
         {
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, speed * Time.deltaTime);
+
+           
         }
         //close all other colors
         else if (blue == true && (tag == "RedLeft" || tag == "GreenLeft"))
@@ -259,6 +269,8 @@ public class DoorScript : MonoBehaviour {
 		else if (tag == "LaserDoorBlue" && blue) //blue is on
 		{
 			transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, speed * Time.deltaTime);
+           
+          
 		}
 		//close all other colors
 		else if (blue == true && (tag == "LaserDoorRed" || tag == "LaserDoorGreen"))

@@ -240,4 +240,19 @@ public class GameController : MonoBehaviour {
     {
         return score;
     }
+
+    public bool getRed()
+    {
+        return red;
+    }
+
+    public bool getGreen()
+    {
+        return green;
+    }
+
+    public bool getBlue()
+    {
+        return blue;
+    }
 }
