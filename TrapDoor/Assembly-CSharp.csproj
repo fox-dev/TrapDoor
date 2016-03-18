@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\BoosterScript.cs" />
      <Compile Include="Assets\Scripts\Boundary.cs" />
      <Compile Include="Assets\Scripts\CameraScript.cs" />
+     <Compile Include="Assets\Scripts\DoorAudio.cs" />
      <Compile Include="Assets\Scripts\DoorScript.cs" />
      <Compile Include="Assets\Scripts\ExitBoundary.cs" />
      <Compile Include="Assets\Scripts\Explosion.cs" />
