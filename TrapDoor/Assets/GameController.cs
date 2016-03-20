@@ -8,6 +8,8 @@ public class GameController : MonoBehaviour {
 	private bool red, green, blue;
 
 	public GameObject scoreText;
+    public GameObject scorePos;
+
 	public GameObject redBorder, blueBorder, greenBorder;
 
 	public Image boostBar;
@@ -66,12 +68,13 @@ public class GameController : MonoBehaviour {
 		{
 			foreach(Transform child in gameOverlay.transform)
 			{
-				if(child.tag == "Untagged")
+				if(child.tag == "Untagged" || child.tag == "Score")
 				{
 					child.gameObject.SetActive(false);
 				}
 			}
 			lerpButtons();
+            lerpScore();
 		}
 
 		//Activates the boost button after the meter is 30% full
@@ -214,6 +217,11 @@ public class GameController : MonoBehaviour {
 	{
 		restartButton.transform.position = Vector3.Lerp(restartButton.transform.position, restartButton_lerpPos.transform.position, lerpValue);
 	}
+
+    public void lerpScore()
+    {
+        scoreText.transform.position = Vector3.Lerp(scoreText.transform.position, scorePos.transform.position, lerpValue);
+    }
 
 	public void LoadScene(string name)
 	{

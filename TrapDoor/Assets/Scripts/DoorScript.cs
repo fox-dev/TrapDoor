@@ -344,7 +344,7 @@ public class DoorScript : MonoBehaviour {
                // other.gameObject.SetActive(false);
                 other.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 other.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-                //other.GetComponent<PlayerMovement>().setGameOver();
+                other.GetComponent<PlayerMovement>().setGameOver();
                 //gameController.setGameOver();
                 
              
