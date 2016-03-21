@@ -338,21 +338,21 @@ public class DoorScript : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")
         {
-            
+
             //print("PLAYER 2!!!!!");
             if (other.gameObject.GetComponent<PlayerMovement>().getSuperSpeed() == true)
             {
-               
+
                 destroyed = true;
-                
+
             }
-            else if(!destroyed)
+            else if (!destroyed && other.GetComponent<PlayerMovement>().isDead())
             {
                 print("YOU ARE DEAD!");
                // other.gameObject.SetActive(false);
                 other.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 other.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-                //other.GetComponent<PlayerMovement>().setGameOver();
+                other.GetComponent<PlayerMovement>().setGameOver();
                 //gameController.setGameOver();
                 
              

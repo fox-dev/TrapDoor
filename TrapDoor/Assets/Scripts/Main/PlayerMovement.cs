@@ -6,6 +6,10 @@ public class PlayerMovement : MonoBehaviour {
 
     public int health;
 
+    public GameObject healthCanvas, healthBar;
+
+    AudioSource hit, lowHP;
+
     public GameObject playerModel, boundary;
 
     public GameObject theModel;
@@ -35,7 +39,14 @@ public class PlayerMovement : MonoBehaviour {
     // Use this for initialization
     void Start() {
 
-        health = 10;
+        AudioSource[] playerAudioSources = GetComponents<AudioSource>();
+        hit = playerAudioSources[0];
+        lowHP = playerAudioSources[1];
+
+        health = 3;
+        healthBar = healthCanvas.transform.FindChild("HealthBar").gameObject;
+
+        
 
         blinking = false;
 
@@ -288,12 +299,8 @@ public class PlayerMovement : MonoBehaviour {
         if (other.tag == "Junction")
         {
 
-            blink();
-
-
             if (rotateTracker.getOrientation() == "up" || rotateTracker.getOrientation() == "down")
             {
-                print("PLZZZ");
                 changeLastZ(other.transform.position.z);
             }
             else if (rotateTracker.getOrientation() == "left" || rotateTracker.getOrientation() == "right")
@@ -373,6 +380,13 @@ public class PlayerMovement : MonoBehaviour {
 
     }
 
+    public bool isDead()
+    {
+        return (health <= 0);
+    }
+
+
+
     public void blink()
     {
         //theModel.GetComponent<Renderer>().enabled = false;
@@ -380,6 +394,12 @@ public class PlayerMovement : MonoBehaviour {
         {
             blinking = true;
             StartCoroutine(TakeDamage(0.3f, 0.2f));
+            
+            hit.Play();
+            if (health == 1)
+            {
+                lowHP.Play();
+            }
         }
         
     }
@@ -387,8 +407,26 @@ public class PlayerMovement : MonoBehaviour {
     IEnumerator TakeDamage(float duration, float blinkTime) //duration is seconds/10 to properly subtract deltatime
     {
         health--;
+        /*
+        Mathf.MoveTowards(boostBar.fillAmount, boostMeter / 100, Time.deltaTime * 2f);
+        healthBar.GetComponent<Image>().fillAmount
+        */
+        if (health == 2)
+        {
+            healthBar.GetComponent<Image>().fillAmount = 0.565f;
+        }
+        else if(health == 1)
+        {
+            healthBar.GetComponent<Image>().color = Color.red;
+            healthBar.GetComponent<Image>().fillAmount = 0.345f;
+        }
+        else if (health == 0)
+        {
+            healthBar.GetComponent<Image>().fillAmount = 0f;
+        }
 
-        while(duration > 0f) //divied by 10 to properly have delta time subtract in seconds.
+
+        while (duration > 0f && health > 0) //divied by 10 to properly have delta time subtract in seconds.
         {
 
             print("dur: " + duration);
@@ -398,21 +436,16 @@ public class PlayerMovement : MonoBehaviour {
 
             //Toggle renderer
             theModel.GetComponent<Renderer>().enabled = !theModel.GetComponent<Renderer>().enabled;
+            healthCanvas.SetActive(true);
 
 
             //Wait for a bit
             yield return new WaitForSeconds(blinkTime);
-            print("made it here " + theModel.GetComponent<Renderer>().enabled);
-            print("OK");
+          
         }
         theModel.GetComponent<Renderer>().enabled = true;
+        healthCanvas.SetActive(false);
         blinking = false;
-
-        
-
-
-
-
 
     }
 

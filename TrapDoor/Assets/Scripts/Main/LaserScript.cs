@@ -32,10 +32,17 @@ public class LaserScript : MonoBehaviour {
 			if (hit.collider.tag == "Player") {
 				print ("I hit the player");
 
-				if (hit.collider.gameObject.GetComponent<PlayerMovement> ().getSuperSpeed ()) {
-				} else {
-					hit.collider.gameObject.GetComponent<PlayerMovement>().setGameOver();
+				if (hit.collider.gameObject.GetComponent<PlayerMovement> ().getSuperSpeed ())
+                {
 				}
+                else if(!hit.collider.gameObject.GetComponent<PlayerMovement>().isDead())
+                {
+                    hit.collider.gameObject.GetComponent<PlayerMovement>().blink();
+				}
+                else
+                {
+                    hit.collider.gameObject.GetComponent<PlayerMovement>().setGameOver();
+                }
 			}
 		}
 		else
