@@ -6,6 +6,7 @@ public class DoorScript : MonoBehaviour {
     Vector3 endPos;
     Vector3 startPos;
     public float speed;
+
 	private GameController gameController;
 
     private RotateManager rotateTracker;
@@ -75,6 +76,7 @@ public class DoorScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+       
 		gameController.getColorStates (ref red, ref green, ref blue);
        
         if (Input.GetKeyDown("r") && !red)
@@ -321,6 +323,11 @@ public class DoorScript : MonoBehaviour {
                 destroyed = true;
 
             }
+            else
+            {
+                other.GetComponent<PlayerMovement>().blink();
+                other.GetComponent<Rigidbody>().drag = 30;
+            }
         
         }
         
@@ -331,6 +338,7 @@ public class DoorScript : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")
         {
+            
             //print("PLAYER 2!!!!!");
             if (other.gameObject.GetComponent<PlayerMovement>().getSuperSpeed() == true)
             {
@@ -344,7 +352,7 @@ public class DoorScript : MonoBehaviour {
                // other.gameObject.SetActive(false);
                 other.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 other.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-                other.GetComponent<PlayerMovement>().setGameOver();
+                //other.GetComponent<PlayerMovement>().setGameOver();
                 //gameController.setGameOver();
                 
              
@@ -353,6 +361,7 @@ public class DoorScript : MonoBehaviour {
             {
                 other.GetComponent<Rigidbody>().drag = 0;
                 other.GetComponent<PlayerMovement>().setMoveSpeed(gameController.getPlayer().GetComponent<PlayerMovement>().getMoveSpeed());
+
             }
             
         }
@@ -362,9 +371,17 @@ public class DoorScript : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player" && destroyed)
         {
+
             other.GetComponent<Rigidbody>().drag = 0;
             gameObject.SetActive(false);
             destroyed = false;
         }
+        else if(other.gameObject.tag == "Player")
+        {
+            
+            other.GetComponent<Rigidbody>().drag = 0;
+        }
     }
+
+   
 }

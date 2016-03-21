@@ -4,7 +4,11 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour {
 
+    public int health;
+
     public GameObject playerModel, boundary;
+
+    public GameObject theModel;
 
     private GameController gameController;
 
@@ -24,10 +28,16 @@ public class PlayerMovement : MonoBehaviour {
 
     public bool gameOver;
 
+    private bool blinking;
+
 
 
     // Use this for initialization
     void Start() {
+
+        health = 10;
+
+        blinking = false;
 
         rb = GetComponent<Rigidbody>();
 
@@ -273,8 +283,12 @@ public class PlayerMovement : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
+       
+        
         if (other.tag == "Junction")
         {
+
+            blink();
 
 
             if (rotateTracker.getOrientation() == "up" || rotateTracker.getOrientation() == "down")
@@ -358,5 +372,50 @@ public class PlayerMovement : MonoBehaviour {
         return moveSpeed;
 
     }
+
+    public void blink()
+    {
+        //theModel.GetComponent<Renderer>().enabled = false;
+        if (!blinking)
+        {
+            blinking = true;
+            StartCoroutine(TakeDamage(0.3f, 0.2f));
+        }
+        
+    }
+
+    IEnumerator TakeDamage(float duration, float blinkTime) //duration is seconds/10 to properly subtract deltatime
+    {
+        health--;
+
+        while(duration > 0f) //divied by 10 to properly have delta time subtract in seconds.
+        {
+
+            print("dur: " + duration);
+            duration -= Time.fixedDeltaTime;
+
+
+
+            //Toggle renderer
+            theModel.GetComponent<Renderer>().enabled = !theModel.GetComponent<Renderer>().enabled;
+
+
+            //Wait for a bit
+            yield return new WaitForSeconds(blinkTime);
+            print("made it here " + theModel.GetComponent<Renderer>().enabled);
+            print("OK");
+        }
+        theModel.GetComponent<Renderer>().enabled = true;
+        blinking = false;
+
+        
+
+
+
+
+
+    }
+
+
 }
 
