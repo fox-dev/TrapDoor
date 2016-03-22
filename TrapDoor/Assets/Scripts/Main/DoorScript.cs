@@ -359,7 +359,7 @@ public class DoorScript : MonoBehaviour {
             }
             else
             {
-                other.GetComponent<Rigidbody>().drag = 0;
+                other.GetComponent<Rigidbody>().drag = 30f;
                 other.GetComponent<PlayerMovement>().setMoveSpeed(gameController.getPlayer().GetComponent<PlayerMovement>().getMoveSpeed());
 
             }
