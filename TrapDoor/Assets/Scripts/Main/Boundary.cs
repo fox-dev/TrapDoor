@@ -98,7 +98,7 @@ public class Boundary : MonoBehaviour {
 				else
 				{
 					toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
-					toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 165);
+					toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 231);
 				}
 
 			}
@@ -114,7 +114,7 @@ public class Boundary : MonoBehaviour {
 				else
 				{
 					toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
-					toPlace.transform.position = new Vector3(other.transform.position.x - 165, other.transform.position.y, other.transform.position.z);
+					toPlace.transform.position = new Vector3(other.transform.position.x - 231, other.transform.position.y, other.transform.position.z);
 				}
 
 			}
@@ -130,7 +130,7 @@ public class Boundary : MonoBehaviour {
 				else
 				{
 					toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
-					toPlace.transform.position = new Vector3(other.transform.position.x + 165f, other.transform.position.y, other.transform.position.z);
+					toPlace.transform.position = new Vector3(other.transform.position.x + 231f, other.transform.position.y, other.transform.position.z);
 				}
 
 			}
@@ -145,7 +145,7 @@ public class Boundary : MonoBehaviour {
 				else
 				{
 					toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
-					toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 165f);
+					toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 231f);
 				}
 
 			}
@@ -194,7 +194,7 @@ public class Boundary : MonoBehaviour {
 			if (rotateTracker.getOrientation() == "down") //down orientation to left or right
 			{
 				toPlace.transform.rotation = Quaternion.Euler(0, 270, 0); //first piece
-				toPlace.transform.position = new Vector3(other.transform.position.x - 33, other.transform.position.y, other.transform.position.z);
+				toPlace.transform.position = new Vector3(other.transform.position.x - 77, other.transform.position.y, other.transform.position.z);
 				toPlace.gameObject.SetActive(true);
 
 				bool found2 = false;
@@ -233,7 +233,7 @@ public class Boundary : MonoBehaviour {
                 }
 
                 toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
-				toPlace.transform.position = new Vector3(other.transform.position.x + 33, other.transform.position.y, other.transform.position.z);
+				toPlace.transform.position = new Vector3(other.transform.position.x + 77, other.transform.position.y, other.transform.position.z);
 				toPlace.gameObject.SetActive(true);
 
 
@@ -274,14 +274,15 @@ public class Boundary : MonoBehaviour {
                 }
 
                 toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
-				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 33);
+				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 77);
 				toPlace.gameObject.SetActive(true);
 
 			}
 			else if (rotateTracker.getOrientation() == "left") //left orientation to up or down
 			{
+
 				toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
-				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 33);
+				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 77);
 				toPlace.gameObject.SetActive(true);
 
 				bool found2 = false;
@@ -320,7 +321,7 @@ public class Boundary : MonoBehaviour {
                 }
 
                 toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
-				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 33);
+				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 77);
 				toPlace.gameObject.SetActive(true);
 
 
@@ -360,7 +361,7 @@ public class Boundary : MonoBehaviour {
                 }
 
                 toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
-				toPlace.transform.position = new Vector3(other.transform.position.x - 33, other.transform.position.y, other.transform.position.z);
+				toPlace.transform.position = new Vector3(other.transform.position.x - 77, other.transform.position.y, other.transform.position.z);
 				toPlace.gameObject.SetActive(true);
 
 			}
@@ -368,7 +369,7 @@ public class Boundary : MonoBehaviour {
 			else if (rotateTracker.getOrientation() == "right") //left orientation to up or down
 			{
 				toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
-				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 33);
+				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 77);
 				toPlace.gameObject.SetActive(true);
 
 				bool found2 = false;
@@ -407,7 +408,7 @@ public class Boundary : MonoBehaviour {
                 }
 
                 toPlace.transform.rotation = Quaternion.Euler(0, 0, 0);
-				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 33);
+				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 77);
 				toPlace.gameObject.SetActive(true);
 
 
@@ -447,7 +448,7 @@ public class Boundary : MonoBehaviour {
                 }
 
                 toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
-				toPlace.transform.position = new Vector3(other.transform.position.x + 33, other.transform.position.y, other.transform.position.z);
+				toPlace.transform.position = new Vector3(other.transform.position.x + 77, other.transform.position.y, other.transform.position.z);
 				toPlace.gameObject.SetActive(true);
 
 			}
@@ -455,7 +456,7 @@ public class Boundary : MonoBehaviour {
 			else if (rotateTracker.getOrientation() == "up") //up orientation to left or right
 			{
 				toPlace.transform.rotation = Quaternion.Euler(0, 270, 0);
-				toPlace.transform.position = new Vector3(other.transform.position.x - 33, other.transform.position.y, other.transform.position.z);
+				toPlace.transform.position = new Vector3(other.transform.position.x - 77, other.transform.position.y, other.transform.position.z);
 				toPlace.gameObject.SetActive(true);
 
 
@@ -496,7 +497,7 @@ public class Boundary : MonoBehaviour {
                 }
 
                 toPlace.transform.rotation = Quaternion.Euler(0, 90, 0);
-				toPlace.transform.position = new Vector3(other.transform.position.x + 33, other.transform.position.y, other.transform.position.z);
+				toPlace.transform.position = new Vector3(other.transform.position.x + 77, other.transform.position.y, other.transform.position.z);
 				toPlace.gameObject.SetActive(true);
 
 
@@ -537,7 +538,7 @@ public class Boundary : MonoBehaviour {
                 }
 
                 toPlace.transform.rotation = Quaternion.Euler(0, 180, 0);
-				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 33);
+				toPlace.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z - 77);
 				toPlace.gameObject.SetActive(true);
 
 			}

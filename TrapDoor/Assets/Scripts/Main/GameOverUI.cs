@@ -19,10 +19,27 @@ public class GameOverUI : MonoBehaviour {
     public GameObject menuButton;
     public GameObject menuButton_Pos;
 
+    //UI Button Positions
+    public GameObject gameUI;
+    public Transform left, right;
+
     float lerpValue = 0.05f;
 
     // Use this for initialization
     void Start () {
+        if(PlayerPrefs.GetString("ui") == "left")
+        {
+            gameUI.transform.position = left.position;
+        }
+        else if (PlayerPrefs.GetString("ui") == "right")
+        {
+            gameUI.transform.position = right.position;
+        }
+        else //default
+        {
+            gameUI.transform.position = right.position;
+        }
+
 
         GameObject gameControllerObject = GameObject.FindWithTag("GameController");
         if (gameControllerObject != null)
