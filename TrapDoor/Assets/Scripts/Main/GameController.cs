@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour {
     public GameObject player;
 
 
-	private int score;
+	private int score, highScore;
 
 	public bool gameOver;
 
@@ -36,6 +36,11 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        if (PlayerPrefs.GetInt("highscore") != null)
+        {
+            highScore = PlayerPrefs.GetInt("highscore");
+        }
 
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f;
@@ -61,7 +66,10 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		UpdateBoost();
+        resetHighScore(); //for testing
+
+
+        UpdateBoost();
 
 
 		if (gameOver)
@@ -73,8 +81,6 @@ public class GameController : MonoBehaviour {
 					child.gameObject.SetActive(false);
 				}
 			}
-			lerpButtons();
-            lerpScore();
 		}
 
 		//Activates the boost button after the meter is 30% full
@@ -213,16 +219,6 @@ public class GameController : MonoBehaviour {
 
 	}
 
-	public void lerpButtons()
-	{
-		restartButton.transform.position = Vector3.Lerp(restartButton.transform.position, restartButton_lerpPos.transform.position, lerpValue);
-	}
-
-    public void lerpScore()
-    {
-        scoreText.transform.position = Vector3.Lerp(scoreText.transform.position, scorePos.transform.position, lerpValue);
-    }
-
 	public void LoadScene(string name)
 	{
 		SceneManager.LoadScene(name);
@@ -249,6 +245,11 @@ public class GameController : MonoBehaviour {
         return score;
     }
 
+    public int getHighScore()
+    {
+        return highScore;
+    }
+
     public bool getRed()
     {
         return red;
@@ -262,5 +263,14 @@ public class GameController : MonoBehaviour {
     public bool getBlue()
     {
         return blue;
+    }
+
+    public void resetHighScore()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            print("Highscore reset");
+            PlayerPrefs.SetInt("highscore", 0);
+        }
     }
 }

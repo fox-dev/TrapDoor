@@ -29,7 +29,7 @@ public class PlanetFollow : MonoBehaviour {
 
    public void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.tag == "PlanetCam")
         {
             print("leaving");
             if(rotateTracker.getOrientation() == "down")

@@ -7,6 +7,8 @@ public class FollowUV : MonoBehaviour {
 
     public GameObject player;
 
+    float speedRatio;
+
 
     Quaternion rotation;
 
@@ -14,6 +16,8 @@ public class FollowUV : MonoBehaviour {
 
     void Start()
     {
+        speedRatio = 4f; //must match speed ratio in CameraScript
+
         GameObject rotateTrackerObject = GameObject.FindWithTag("Rotator");
         if (rotateTrackerObject != null)
         {
@@ -51,8 +55,8 @@ public class FollowUV : MonoBehaviour {
         Vector2 offset = mat.mainTextureOffset;
 
        
-        offset.x = -transform.position.x / transform.localScale.x / parallax;
-        offset.y = -transform.position.z / transform.localScale.z / parallax;
+        offset.x = -transform.position.x / transform.localScale.x / (parallax*speedRatio);
+        offset.y = -transform.position.z / transform.localScale.z / (parallax*speedRatio);
         
         
 

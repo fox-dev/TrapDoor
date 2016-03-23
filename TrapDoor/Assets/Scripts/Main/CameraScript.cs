@@ -20,11 +20,15 @@ public class CameraScript : MonoBehaviour {
 	Vector3 endPos;
 	bool end;
 
+    private float speedRatio; //control speed of scrolling for planetCam
+
 
 	// Use this for initialization
 	void Start () {
 
-		end = false;
+        speedRatio = 4f;
+
+        end = false;
 
 		GameObject rotateTrackerObject = GameObject.FindWithTag("Rotator");
 		if (rotateTrackerObject != null)
@@ -48,14 +52,14 @@ public class CameraScript : MonoBehaviour {
 
 		currentAngle = transform.eulerAngles;
 
-
-
 	}
 
 	// Update is called once per frame
 	void FixedUpdate () {
 
-		if (rotateTracker.getOrientation() == "down")
+    
+
+        if (rotateTracker.getOrientation() == "down")
 		{
 			targetAngle = new Vector3(90f, 180f, 0);
 			currentAngle = new Vector3(
@@ -71,7 +75,13 @@ public class CameraScript : MonoBehaviour {
 				followPos = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
 				transform.position = followPos;
 			}
-			else
+            else if (this.tag == "PlanetCam") //not necessary if cam is child of player;
+            {
+
+                followPos = new Vector3(transform.position.x, transform.position.y, player.transform.position.z/speedRatio);
+                transform.position = followPos;
+            }
+            else
 			{
 				Vector3 follow = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z + 15);
 				followPos = Vector3.Lerp(transform.position, follow, Time.deltaTime * 10);
@@ -99,7 +109,13 @@ public class CameraScript : MonoBehaviour {
 				followPos = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
 				transform.position = followPos;
 			}
-			else
+            else if (this.tag == "PlanetCam") //not necessary if cam is child of player;
+            {
+
+                followPos = new Vector3(player.transform.position.x/speedRatio, transform.position.y, transform.position.z);
+                transform.position = followPos;
+            }
+            else
 			{
 				Vector3 follow2 = new Vector3(player.transform.position.x - 15, transform.position.y, player.transform.position.z);
 				followPos = Vector3.Lerp(transform.position, follow2, Time.deltaTime * 10);
@@ -127,7 +143,13 @@ public class CameraScript : MonoBehaviour {
 				followPos = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
 				transform.position = followPos;
 			}
-			else
+            else if (this.tag == "PlanetCam") //not necessary if cam is child of player;
+            {
+
+                followPos = new Vector3(player.transform.position.x / speedRatio, transform.position.y, transform.position.z);
+                transform.position = followPos;
+            }
+            else
 			{
 				Vector3 follow2 = new Vector3(player.transform.position.x + 15, transform.position.y, player.transform.position.z);
 				followPos = Vector3.Lerp(transform.position, follow2, Time.deltaTime * 10);
@@ -154,7 +176,13 @@ public class CameraScript : MonoBehaviour {
 				followPos = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
 				transform.position = followPos;
 			}
-			else
+            else if (this.tag == "PlanetCam") //not necessary if cam is child of player;
+            {
+
+                followPos = new Vector3(transform.position.x, transform.position.y, player.transform.position.z / speedRatio);
+                transform.position = followPos;
+            }
+            else
 			{
 				Vector3 follow = new Vector3(player.transform.position.x + 100, transform.position.y, player.transform.position.z - 15);
 				followPos = Vector3.Lerp(transform.position, follow, Time.deltaTime * 10);
