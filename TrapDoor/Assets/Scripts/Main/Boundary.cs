@@ -16,6 +16,10 @@ public class Boundary : MonoBehaviour {
     public string orientation; 
 
     public List<GameObject> inactivePieces;
+	public List<GameObject> introLasers;
+	public List<GameObject> laserCombos;
+	public int introLaserThresh;
+	public int laserComboThresh;
 
     private RotateManager rotateTracker;
 
@@ -30,6 +34,8 @@ public class Boundary : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+		introLasers.AddRange (inactivePieces);
+		laserCombos.AddRange (introLasers);
 
         GameObject rotateTrackerObject = GameObject.FindWithTag("Rotator");
         if (rotateTrackerObject != null)
@@ -73,11 +79,22 @@ public class Boundary : MonoBehaviour {
 		{
             //print("Placing set");
 
-            if(gameController.getScore() < med_scoreThreshold)
+            
+			if(gameController.getScore() < introLaserThresh)
+			{
+				toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+				inactivePieces.Remove(toPlace);
+			}
+			else if(gameController.getScore() < laserComboThresh)
             {
-                toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-                inactivePieces.Remove(toPlace);
+                toPlace = introLasers[Random.Range(0, introLasers.Count)]; //get set piece to place
+                introLasers.Remove(toPlace);
             }
+			else if(gameController.getScore() < med_scoreThreshold)
+			{
+				toPlace = laserCombos[Random.Range(0, laserCombos.Count)]; //get set piece to place
+				laserCombos.Remove(toPlace);
+			}
             else if(gameController.getScore() >= med_scoreThreshold)
             {
                 toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
@@ -159,11 +176,17 @@ public class Boundary : MonoBehaviour {
 			bool found1 = false;
 			while (found1 == false) //get set piece that is not another junction
 			{
-                if (gameController.getScore() < med_scoreThreshold)
-                {
-                    toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-                    inactivePieces.Remove(toPlace);
-                }
+
+				if (gameController.getScore () < introLaserThresh) {
+					toPlace = inactivePieces [Random.Range (0, inactivePieces.Count)]; //get set piece to place
+					inactivePieces.Remove (toPlace);
+				} else if (gameController.getScore () < laserComboThresh) {
+					toPlace = introLasers [Random.Range (0, introLasers.Count)]; //get set piece to place
+					introLasers.Remove (toPlace);
+				} else if (gameController.getScore () < med_scoreThreshold) {
+					toPlace = laserCombos [Random.Range (0, laserCombos.Count)]; //get set piece to place
+					laserCombos.Remove (toPlace);
+				}
                 else if (gameController.getScore() >= med_scoreThreshold)
                 {
                     toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
@@ -179,11 +202,14 @@ public class Boundary : MonoBehaviour {
 				}
 			}
 
-            if (gameController.getScore() < med_scoreThreshold)
-            {
-              
-                inactivePieces.Remove(toPlace);
-            }
+
+			if (gameController.getScore () < introLaserThresh) {
+				inactivePieces.Remove (toPlace);
+			} else if (gameController.getScore () < laserComboThresh) {
+				introLasers.Remove (toPlace);
+			} else if (gameController.getScore () < med_scoreThreshold) {
+				laserCombos.Remove (toPlace);
+			}
             else if (gameController.getScore() >= med_scoreThreshold)
             {
                
@@ -200,11 +226,19 @@ public class Boundary : MonoBehaviour {
 				bool found2 = false;
 				while (found2 == false) //get set piece that is not another junction
 				{
-                    if (gameController.getScore() < med_scoreThreshold)
-                    {
-                        toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-                      
-                    }
+
+					if(gameController.getScore() < introLaserThresh)
+					{
+						toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+					}
+					else if(gameController.getScore() < laserComboThresh)
+					{
+						toPlace = introLasers[Random.Range(0, introLasers.Count)]; //get set piece to place
+					}
+					else if(gameController.getScore() < med_scoreThreshold)
+					{
+						toPlace = laserCombos[Random.Range(0, laserCombos.Count)]; //get set piece to place
+					}
                     else if (gameController.getScore() >= med_scoreThreshold)
                     {
                         toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
@@ -221,11 +255,14 @@ public class Boundary : MonoBehaviour {
 					}
 				}
 
-                if (gameController.getScore() < med_scoreThreshold)
-                {
-                   
-                    inactivePieces.Remove(toPlace);
-                }
+
+				if (gameController.getScore () < introLaserThresh) {
+					inactivePieces.Remove (toPlace);
+				} else if (gameController.getScore () < laserComboThresh) {
+					introLasers.Remove (toPlace);
+				} else if (gameController.getScore () < med_scoreThreshold) {
+					laserCombos.Remove (toPlace);
+				}
                 else if (gameController.getScore() >= med_scoreThreshold)
                 {
                     
@@ -241,11 +278,19 @@ public class Boundary : MonoBehaviour {
 				bool found3 = false;
 				while (found3 == false) //get set piece that is not another junction
 				{
-                    if (gameController.getScore() < med_scoreThreshold)
-                    {
-                        toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-                        
-                    }
+
+					if(gameController.getScore() < introLaserThresh)
+					{
+						toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+					}
+					else if(gameController.getScore() < laserComboThresh)
+					{
+						toPlace = introLasers[Random.Range(0, introLasers.Count)]; //get set piece to place
+					}
+					else if(gameController.getScore() < med_scoreThreshold)
+					{
+						toPlace = laserCombos[Random.Range(0, laserCombos.Count)]; //get set piece to place
+					}
                     else if (gameController.getScore() >= med_scoreThreshold)
                     {
                         toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
@@ -262,11 +307,14 @@ public class Boundary : MonoBehaviour {
 					}
 				}
 
-                if (gameController.getScore() < med_scoreThreshold)
-                {
-                   
-                    inactivePieces.Remove(toPlace);
-                }
+
+				if (gameController.getScore () < introLaserThresh) {
+					inactivePieces.Remove (toPlace);
+				} else if (gameController.getScore () < laserComboThresh) {
+					introLasers.Remove (toPlace);
+				} else if (gameController.getScore () < med_scoreThreshold) {
+					laserCombos.Remove (toPlace);
+				}
                 else if (gameController.getScore() >= med_scoreThreshold)
                 {
                    
@@ -288,11 +336,19 @@ public class Boundary : MonoBehaviour {
 				bool found2 = false;
 				while (found2 == false) //get set piece that is not another junction
 				{
-                    if (gameController.getScore() < med_scoreThreshold)
-                    {
-                        toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-                      
-                    }
+
+					if(gameController.getScore() < introLaserThresh)
+					{
+						toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+					}
+					else if(gameController.getScore() < laserComboThresh)
+					{
+						toPlace = introLasers[Random.Range(0, introLasers.Count)]; //get set piece to place
+					}
+					else if(gameController.getScore() < med_scoreThreshold)
+					{
+						toPlace = laserCombos[Random.Range(0, laserCombos.Count)]; //get set piece to place
+					}
                     else if (gameController.getScore() >= med_scoreThreshold)
                     {
                         toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
@@ -309,11 +365,14 @@ public class Boundary : MonoBehaviour {
 					}
 				}
 
-                if (gameController.getScore() < med_scoreThreshold)
-                {
-                    
-                    inactivePieces.Remove(toPlace);
-                }
+
+				if (gameController.getScore () < introLaserThresh) {
+					inactivePieces.Remove (toPlace);
+				} else if (gameController.getScore () < laserComboThresh) {
+					introLasers.Remove (toPlace);
+				} else if (gameController.getScore () < med_scoreThreshold) {
+					laserCombos.Remove (toPlace);
+				}
                 else if (gameController.getScore() >= med_scoreThreshold)
                 {
                     
@@ -328,11 +387,14 @@ public class Boundary : MonoBehaviour {
 				bool found3 = false;
 				while (found3 == false) //get set piece that is not another junction
 				{
-                    if (gameController.getScore() < med_scoreThreshold)
-                    {
-                        toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-                       
-                    }
+
+					if (gameController.getScore () < introLaserThresh) {
+						toPlace = inactivePieces [Random.Range (0, inactivePieces.Count)]; //get set piece to place
+					} else if (gameController.getScore () < laserComboThresh) {
+						toPlace = introLasers [Random.Range (0, introLasers.Count)]; //get set piece to place
+					} else if (gameController.getScore () < med_scoreThreshold) {
+						toPlace = laserCombos [Random.Range (0, laserCombos.Count)]; //get set piece to place
+					}
                     else if (gameController.getScore() >= med_scoreThreshold)
                     {
                         toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
@@ -349,11 +411,14 @@ public class Boundary : MonoBehaviour {
 					}
 				}
 
-                if (gameController.getScore() < med_scoreThreshold)
-                {
-                    
-                    inactivePieces.Remove(toPlace);
-                }
+
+				if (gameController.getScore () < introLaserThresh) {
+					inactivePieces.Remove (toPlace);
+				} else if (gameController.getScore () < laserComboThresh) {
+					introLasers.Remove (toPlace);
+				} else if (gameController.getScore () < med_scoreThreshold) {
+					laserCombos.Remove (toPlace);
+				}
                 else if (gameController.getScore() >= med_scoreThreshold)
                 {
                     
@@ -375,11 +440,19 @@ public class Boundary : MonoBehaviour {
 				bool found2 = false;
 				while (found2 == false) //get set piece that is not another junction
 				{
-                    if (gameController.getScore() < med_scoreThreshold)
-                    {
-                        toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-                        
-                    }
+
+					if(gameController.getScore() < introLaserThresh)
+					{
+						toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+					}
+					else if(gameController.getScore() < laserComboThresh)
+					{
+						toPlace = introLasers[Random.Range(0, introLasers.Count)]; //get set piece to place
+					}
+					else if(gameController.getScore() < med_scoreThreshold)
+					{
+						toPlace = laserCombos[Random.Range(0, laserCombos.Count)]; //get set piece to place
+					}
                     else if (gameController.getScore() >= med_scoreThreshold)
                     {
                         toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
@@ -396,11 +469,14 @@ public class Boundary : MonoBehaviour {
 					}
 				}
 
-                if (gameController.getScore() < med_scoreThreshold)
-                {
-                   
-                    inactivePieces.Remove(toPlace);
-                }
+
+				if (gameController.getScore () < introLaserThresh) {
+					inactivePieces.Remove (toPlace);
+				} else if (gameController.getScore () < laserComboThresh) {
+					introLasers.Remove (toPlace);
+				} else if (gameController.getScore () < med_scoreThreshold) {
+					laserCombos.Remove (toPlace);
+				}
                 else if (gameController.getScore() >= med_scoreThreshold)
                 {
                     
@@ -415,11 +491,19 @@ public class Boundary : MonoBehaviour {
 				bool found3 = false;
 				while (found3 == false) //get set piece that is not another junction
 				{
-                    if (gameController.getScore() < med_scoreThreshold)
-                    {
-                        toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-                        
-                    }
+
+					if(gameController.getScore() < introLaserThresh)
+					{
+						toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
+					}
+					else if(gameController.getScore() < laserComboThresh)
+					{
+						toPlace = introLasers[Random.Range(0, introLasers.Count)]; //get set piece to place
+					}
+					else if(gameController.getScore() < med_scoreThreshold)
+					{
+						toPlace = laserCombos[Random.Range(0, laserCombos.Count)]; //get set piece to place
+					}
                     else if (gameController.getScore() >= med_scoreThreshold)
                     {
                         toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
@@ -436,11 +520,14 @@ public class Boundary : MonoBehaviour {
 					}
 				}
 
-                if (gameController.getScore() < med_scoreThreshold)
-                {
-                    
-                    inactivePieces.Remove(toPlace);
-                }
+
+				if (gameController.getScore () < introLaserThresh) {
+					inactivePieces.Remove (toPlace);
+				} else if (gameController.getScore () < laserComboThresh) {
+					introLasers.Remove (toPlace);
+				} else if (gameController.getScore () < med_scoreThreshold) {
+					laserCombos.Remove (toPlace);
+				}
                 else if (gameController.getScore() >= med_scoreThreshold)
                 {
                     
@@ -464,11 +551,13 @@ public class Boundary : MonoBehaviour {
 				bool found2 = false;
 				while (found2 == false) //get set piece that is not another junction
 				{
-                    if (gameController.getScore() < med_scoreThreshold)
-                    {
-                        toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-                        
-                    }
+					if (gameController.getScore () < introLaserThresh) {
+						toPlace = inactivePieces [Random.Range (0, inactivePieces.Count)]; //get set piece to place
+					} else if (gameController.getScore () < laserComboThresh) {
+						toPlace = introLasers [Random.Range (0, introLasers.Count)]; //get set piece to place
+					} else if (gameController.getScore () < med_scoreThreshold) {
+						toPlace = laserCombos [Random.Range (0, laserCombos.Count)]; //get set piece to place
+					}
                     else if (gameController.getScore() >= med_scoreThreshold)
                     {
                         toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
@@ -485,11 +574,13 @@ public class Boundary : MonoBehaviour {
 					}
 				}
 
-                if (gameController.getScore() < med_scoreThreshold)
-                {
-                    
-                    inactivePieces.Remove(toPlace);
-                }
+				if (gameController.getScore () < introLaserThresh) {
+					inactivePieces.Remove (toPlace);
+				} else if (gameController.getScore () < laserComboThresh) {
+					introLasers.Remove (toPlace);
+				} else if (gameController.getScore () < med_scoreThreshold) {
+					laserCombos.Remove (toPlace);
+				}
                 else if (gameController.getScore() >= med_scoreThreshold)
                 {
                    
@@ -505,11 +596,13 @@ public class Boundary : MonoBehaviour {
 				bool found3 = false;
 				while (found3 == false) //get set piece that is not another junction
 				{
-                    if (gameController.getScore() < med_scoreThreshold)
-                    {
-                        toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
-                        
-                    }
+					if (gameController.getScore () < introLaserThresh) {
+						toPlace = inactivePieces [Random.Range (0, inactivePieces.Count)]; //get set piece to place
+					} else if (gameController.getScore () < laserComboThresh) {
+						toPlace = introLasers [Random.Range (0, introLasers.Count)]; //get set piece to place
+					} else if (gameController.getScore () < med_scoreThreshold) {
+						toPlace = laserCombos [Random.Range (0, laserCombos.Count)]; //get set piece to place
+					}
                     else if (gameController.getScore() >= med_scoreThreshold)
                     {
                         toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
@@ -526,11 +619,13 @@ public class Boundary : MonoBehaviour {
 					}
 				}
 
-                if (gameController.getScore() < med_scoreThreshold)
-                {
-                   
-                    inactivePieces.Remove(toPlace);
-                }
+				if (gameController.getScore () < introLaserThresh) {
+					inactivePieces.Remove (toPlace);
+				} else if (gameController.getScore () < laserComboThresh) {
+					introLasers.Remove (toPlace);
+				} else if (gameController.getScore () < med_scoreThreshold) {
+					laserCombos.Remove (toPlace);
+				}
                 else if (gameController.getScore() >= med_scoreThreshold)
                 {
                     
@@ -611,10 +706,14 @@ public class Boundary : MonoBehaviour {
     {
 
         other.gameObject.SetActive(false);
-        if(gameController.getScore() < med_scoreThreshold)
-        {
-            inactivePieces.Add(other.gameObject);
-        }
+        
+		if (gameController.getScore () < introLaserThresh) {
+			inactivePieces.Add(other.gameObject);
+		} else if (gameController.getScore () < laserComboThresh) {
+			introLasers.Add(other.gameObject);
+		} else if (gameController.getScore () < med_scoreThreshold) {
+			laserCombos.Add(other.gameObject);
+		}
         else if(gameController.getScore() >= med_scoreThreshold)
         {
             mediumSet.Add(other.gameObject);
