@@ -7,7 +7,10 @@ public class Boundary : MonoBehaviour {
     public List<GameObject> activePieces;
 
     public List<GameObject> mediumSet; //med difficulty array to switch to
-    public int med_scoreThreshold;
+    
+	public int introLaserThresh;
+	public int laserComboThresh;
+	public int med_scoreThreshold;
 
     private GameController gameController;
 
@@ -18,8 +21,6 @@ public class Boundary : MonoBehaviour {
     public List<GameObject> inactivePieces;
 	public List<GameObject> introLasers;
 	public List<GameObject> laserCombos;
-	public int introLaserThresh;
-	public int laserComboThresh;
 
     private RotateManager rotateTracker;
 
@@ -28,11 +29,14 @@ public class Boundary : MonoBehaviour {
 
     public GameObject player;
 
-   
+	private bool addLasers, addLaserCombos;
 
 
     // Use this for initialization
-    void Start () {
+    void Start () 
+	{
+		addLasers = false;
+		addLaserCombos = false;
 
 		introLasers.AddRange (inactivePieces);
 		laserCombos.AddRange (introLasers);
@@ -62,8 +66,20 @@ public class Boundary : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-        orientation = rotateTracker.getOrientation();
+	void Update () 
+	{
+    	
+		/*if ((gameController.getScore () > laserComboThresh) && !addLaserCombos) 
+		{                       
+			inactivePieces.AddRange (laserCombos); 
+			addLaserCombos = true;
+		}
+		else if ((gameController.getScore () > introLaserThresh) && !addLasers) 
+		{
+			inactivePieces.AddRange (introLasers);
+			addLasers = true;
+		}*/
+		orientation = rotateTracker.getOrientation();
 
         //print("Current rot:" + rotateTracker.getOrientation());
 
@@ -84,11 +100,14 @@ public class Boundary : MonoBehaviour {
 			{
 				toPlace = inactivePieces[Random.Range(0, inactivePieces.Count)]; //get set piece to place
 				inactivePieces.Remove(toPlace);
+				introLasers.Remove(toPlace);
+				laserCombos.Remove(toPlace);
 			}
 			else if(gameController.getScore() < laserComboThresh)
             {
                 toPlace = introLasers[Random.Range(0, introLasers.Count)]; //get set piece to place
                 introLasers.Remove(toPlace);
+				laserCombos.Remove(toPlace);
             }
 			else if(gameController.getScore() < med_scoreThreshold)
 			{
@@ -177,20 +196,16 @@ public class Boundary : MonoBehaviour {
 			while (found1 == false) //get set piece that is not another junction
 			{
 
-				if (gameController.getScore () < introLaserThresh) {
-					toPlace = inactivePieces [Random.Range (0, inactivePieces.Count)]; //get set piece to place
-					inactivePieces.Remove (toPlace);
+				if (gameController.getScore () < introLaserThresh) {                       // Added Thresholds for lasers
+					toPlace = inactivePieces [Random.Range (0, inactivePieces.Count)]; 
 				} else if (gameController.getScore () < laserComboThresh) {
-					toPlace = introLasers [Random.Range (0, introLasers.Count)]; //get set piece to place
-					introLasers.Remove (toPlace);
+					toPlace = introLasers [Random.Range (0, introLasers.Count)];          // end here AQ
 				} else if (gameController.getScore () < med_scoreThreshold) {
-					toPlace = laserCombos [Random.Range (0, laserCombos.Count)]; //get set piece to place
-					laserCombos.Remove (toPlace);
+					toPlace = laserCombos [Random.Range (0, laserCombos.Count)]; 
 				}
                 else if (gameController.getScore() >= med_scoreThreshold)
                 {
                     toPlace = mediumSet[Random.Range(0, mediumSet.Count)];
-                    mediumSet.Remove(toPlace);
                 }
                 if (toPlace.tag == "Junction")
 				{
@@ -205,8 +220,11 @@ public class Boundary : MonoBehaviour {
 
 			if (gameController.getScore () < introLaserThresh) {
 				inactivePieces.Remove (toPlace);
+				introLasers.Remove(toPlace);
+				laserCombos.Remove(toPlace);
 			} else if (gameController.getScore () < laserComboThresh) {
 				introLasers.Remove (toPlace);
+				laserCombos.Remove(toPlace);
 			} else if (gameController.getScore () < med_scoreThreshold) {
 				laserCombos.Remove (toPlace);
 			}
@@ -258,8 +276,11 @@ public class Boundary : MonoBehaviour {
 
 				if (gameController.getScore () < introLaserThresh) {
 					inactivePieces.Remove (toPlace);
+					introLasers.Remove(toPlace);
+					laserCombos.Remove(toPlace);
 				} else if (gameController.getScore () < laserComboThresh) {
 					introLasers.Remove (toPlace);
+					laserCombos.Remove(toPlace);
 				} else if (gameController.getScore () < med_scoreThreshold) {
 					laserCombos.Remove (toPlace);
 				}
@@ -310,8 +331,11 @@ public class Boundary : MonoBehaviour {
 
 				if (gameController.getScore () < introLaserThresh) {
 					inactivePieces.Remove (toPlace);
+					introLasers.Remove(toPlace);
+					laserCombos.Remove(toPlace);
 				} else if (gameController.getScore () < laserComboThresh) {
 					introLasers.Remove (toPlace);
+					laserCombos.Remove(toPlace);
 				} else if (gameController.getScore () < med_scoreThreshold) {
 					laserCombos.Remove (toPlace);
 				}
@@ -368,8 +392,11 @@ public class Boundary : MonoBehaviour {
 
 				if (gameController.getScore () < introLaserThresh) {
 					inactivePieces.Remove (toPlace);
+					introLasers.Remove(toPlace);
+					laserCombos.Remove(toPlace);
 				} else if (gameController.getScore () < laserComboThresh) {
 					introLasers.Remove (toPlace);
+					laserCombos.Remove(toPlace);
 				} else if (gameController.getScore () < med_scoreThreshold) {
 					laserCombos.Remove (toPlace);
 				}
@@ -414,8 +441,11 @@ public class Boundary : MonoBehaviour {
 
 				if (gameController.getScore () < introLaserThresh) {
 					inactivePieces.Remove (toPlace);
+					introLasers.Remove(toPlace);
+					laserCombos.Remove(toPlace);
 				} else if (gameController.getScore () < laserComboThresh) {
 					introLasers.Remove (toPlace);
+					laserCombos.Remove(toPlace);
 				} else if (gameController.getScore () < med_scoreThreshold) {
 					laserCombos.Remove (toPlace);
 				}
@@ -472,8 +502,12 @@ public class Boundary : MonoBehaviour {
 
 				if (gameController.getScore () < introLaserThresh) {
 					inactivePieces.Remove (toPlace);
+					introLasers.Remove(toPlace);
+					laserCombos.Remove(toPlace);
 				} else if (gameController.getScore () < laserComboThresh) {
 					introLasers.Remove (toPlace);
+					introLasers.Remove(toPlace);
+					laserCombos.Remove(toPlace);
 				} else if (gameController.getScore () < med_scoreThreshold) {
 					laserCombos.Remove (toPlace);
 				}
@@ -523,8 +557,11 @@ public class Boundary : MonoBehaviour {
 
 				if (gameController.getScore () < introLaserThresh) {
 					inactivePieces.Remove (toPlace);
+					introLasers.Remove(toPlace);
+					laserCombos.Remove(toPlace);
 				} else if (gameController.getScore () < laserComboThresh) {
 					introLasers.Remove (toPlace);
+					laserCombos.Remove(toPlace);
 				} else if (gameController.getScore () < med_scoreThreshold) {
 					laserCombos.Remove (toPlace);
 				}
@@ -576,8 +613,11 @@ public class Boundary : MonoBehaviour {
 
 				if (gameController.getScore () < introLaserThresh) {
 					inactivePieces.Remove (toPlace);
+					introLasers.Remove(toPlace);
+					laserCombos.Remove(toPlace);
 				} else if (gameController.getScore () < laserComboThresh) {
 					introLasers.Remove (toPlace);
+					laserCombos.Remove(toPlace);
 				} else if (gameController.getScore () < med_scoreThreshold) {
 					laserCombos.Remove (toPlace);
 				}
@@ -621,8 +661,11 @@ public class Boundary : MonoBehaviour {
 
 				if (gameController.getScore () < introLaserThresh) {
 					inactivePieces.Remove (toPlace);
+					introLasers.Remove(toPlace);
+					laserCombos.Remove(toPlace);
 				} else if (gameController.getScore () < laserComboThresh) {
 					introLasers.Remove (toPlace);
+					laserCombos.Remove(toPlace);
 				} else if (gameController.getScore () < med_scoreThreshold) {
 					laserCombos.Remove (toPlace);
 				}
@@ -709,8 +752,11 @@ public class Boundary : MonoBehaviour {
         
 		if (gameController.getScore () < introLaserThresh) {
 			inactivePieces.Add(other.gameObject);
+			introLasers.Add(other.gameObject);
+			laserCombos.Add(other.gameObject);
 		} else if (gameController.getScore () < laserComboThresh) {
 			introLasers.Add(other.gameObject);
+			laserCombos.Add(other.gameObject);
 		} else if (gameController.getScore () < med_scoreThreshold) {
 			laserCombos.Add(other.gameObject);
 		}

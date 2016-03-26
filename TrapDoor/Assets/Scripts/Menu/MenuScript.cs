@@ -13,13 +13,19 @@ public class MenuScript : MonoBehaviour {
     public GameObject highScoreText;
     public GameObject resetScorePanel;
 
-    //Highscore Canvas buttons and text
+    //Options Canvas buttons and text
     private bool openOptions;
     public Canvas options_Canvas;
     public Transform optionsPos_Off;
     private bool lefty, righty;
     public Button leftButton, rightButton, options_backButton;
 
+	//Tutorial Canvas buttons and text
+	private bool openTutorial;
+	public Canvas tutorial_Canvas;
+	public Transform mainMenu_Off, mainMenu_On, tutorial_Off;
+	public GameObject menu;
+	public Camera main, tutorial;
 
     float lerpValue = 0.5f;
 
@@ -142,30 +148,45 @@ public class MenuScript : MonoBehaviour {
         }
     }
 
-    public void turnLeftyOn()
-    {
-        lefty = true;
-        PlayerPrefs.SetString("ui", "left");
-        leftButton.interactable = false;
-        if (righty)
-        {
-            righty = false;
-            rightButton.interactable = true;
-        }
-        
-    }
+	public void turnLeftyOn()
+	{
+		lefty = true;
+		PlayerPrefs.SetString("ui", "left");
+		leftButton.interactable = false;
+		if (righty)
+		{
+			righty = false;
+			rightButton.interactable = true;
+		}
 
-    public void turnRightyOn()
-    {
-        PlayerPrefs.SetString("ui", "right");
-        righty = true;
-        rightButton.interactable = false;
-        if (lefty)
-        {
-            lefty = false;
-            leftButton.interactable = true;
-        }
-    }
+	}
+
+	public void turnRightyOn()
+	{
+		PlayerPrefs.SetString("ui", "right");
+		righty = true;
+		rightButton.interactable = false;
+		if (lefty)
+		{
+			lefty = false;
+			leftButton.interactable = true;
+		}
+	}
+
+    /// <summary>
+    /// ////////////////////Tutorial Canvas//////////////////////////////////////
+    
+	public void openTutorialCanvas()
+	{
+		openTutorial = true;
+	}
+
+	public void closeTutorialCanvas()
+	{
+		openTutorial = false;
+	}
+
+
 
     //Open Canvas
     public void lerpCanvas()
@@ -187,6 +208,21 @@ public class MenuScript : MonoBehaviour {
         {
             options_Canvas.transform.position = Vector3.Lerp(options_Canvas.transform.position, optionsPos_Off.position, lerpValue);
         }
+
+		if (openTutorial)
+		{
+			tutorial_Canvas.transform.position = Vector3.Lerp(tutorial_Canvas.transform.position, CanvasPos_On.position, lerpValue);
+			menu.transform.position = Vector3.Lerp(menu.transform.position, mainMenu_Off.position, lerpValue);
+			main.gameObject.SetActive (false);
+			tutorial.gameObject.SetActive (true);
+		}
+		else
+		{
+			tutorial_Canvas.transform.position = Vector3.Lerp(tutorial_Canvas.transform.position, tutorial_Off.position, lerpValue);
+			menu.transform.position = Vector3.Lerp(menu.transform.position, mainMenu_On.position, lerpValue);
+			main.gameObject.SetActive (true);
+			tutorial.gameObject.SetActive (false);
+		}
     }
 
 
