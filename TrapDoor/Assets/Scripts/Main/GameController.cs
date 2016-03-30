@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour {
 
 	private bool red, green, blue;
 
-	public GameObject scoreText;
+	public GameObject scoreText, multiplyText;
     public GameObject scorePos;
 
 	public GameObject redBorder, blueBorder, greenBorder;
@@ -26,7 +26,12 @@ public class GameController : MonoBehaviour {
     public GameObject player;
 
 
-	private int score, highScore;
+    //Score
+    //Highscore
+    //Score multiplier
+    //Max score multiplier
+    private int score, highScore, multiply, doorCounter;
+    public int maxMultiply, incrementAt;
 
 	public bool gameOver;
 
@@ -61,10 +66,14 @@ public class GameController : MonoBehaviour {
 		disableBoost();
 
 		gameOver = false;
+
+        multiply = 1;
 	}
 
 	// Update is called once per frame
 	void Update () {
+
+        UpdateScore();
 
         resetHighScore(); //for testing
 
@@ -152,6 +161,7 @@ public class GameController : MonoBehaviour {
 	{
 
 		scoreText.GetComponent<Text>().text = "Score : " + score;
+        multiplyText.GetComponent<Text>().text = "x" + multiply;
 
 	}
 
@@ -263,6 +273,35 @@ public class GameController : MonoBehaviour {
     public bool getBlue()
     {
         return blue;
+    }
+
+    public void resetScoreMultiplier()
+    {
+        multiply = 1;
+        doorCounter = 0;
+    }
+
+    public int getMultiplier()
+    {
+        return multiply;
+    }
+
+    public void incDoorCounter()
+    {
+       if(doorCounter < incrementAt)
+        {
+            doorCounter++;
+        }
+
+       if(doorCounter == incrementAt)
+        {
+            doorCounter = 0;
+
+            if (multiply < maxMultiply)
+            {
+                multiply++;
+            }
+        }
     }
 
     public void resetHighScore()

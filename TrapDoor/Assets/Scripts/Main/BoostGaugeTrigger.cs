@@ -37,8 +37,18 @@ public class BoostGaugeTrigger : MonoBehaviour {
 			} else {
 				gameController.addBoost (10);
 			}
-	
-            gameController.addScore(10);
+
+
+            if (!other.GetComponent<PlayerMovement>().invulnerable())
+            {
+                gameController.addScore(10 * gameController.getMultiplier());
+                gameController.incDoorCounter();
+            }
+            else
+            {
+                gameController.resetScoreMultiplier();
+            }
+            
 		}
 	}		
 }

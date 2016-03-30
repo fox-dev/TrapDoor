@@ -86,6 +86,8 @@ public class PlayerMovement : MonoBehaviour {
 
     void Update()
     {
+
+       
         //print(moveSpeed);
         if (Input.GetKeyDown("s"))
         {
@@ -404,6 +406,11 @@ public class PlayerMovement : MonoBehaviour {
         
     }
 
+    public bool invulnerable()
+    {
+        return blinking;
+    }
+
     IEnumerator TakeDamage(float duration, float blinkTime) //duration is seconds/10 to properly subtract deltatime
     {
         health--;
@@ -429,7 +436,7 @@ public class PlayerMovement : MonoBehaviour {
         while (duration > 0f && health > 0) //divied by 10 to properly have delta time subtract in seconds.
         {
 
-            print("dur: " + duration);
+            //print("dur: " + duration);
             duration -= Time.fixedDeltaTime;
 
 
