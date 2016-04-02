@@ -5,10 +5,20 @@ public class LaserScript : MonoBehaviour {
 
 	LineRenderer line;
 	int layerMask;
+	private GameController gameController;
 
 	// Use this for initialization
 	void Start () 
 	{
+		GameObject gameControllerObject = GameObject.FindWithTag("GameController");
+		if (gameControllerObject != null) {
+			gameController = gameControllerObject.GetComponent<GameController>();
+		}
+		if (gameController == null)
+		{
+			Debug.Log("Cannot find 'GameController' script");
+		}
+
 		line = gameObject.GetComponent<LineRenderer> ();
 		line.enabled = true;
 
@@ -38,6 +48,7 @@ public class LaserScript : MonoBehaviour {
                 else if(!hit.collider.gameObject.GetComponent<PlayerMovement>().isDead())
                 {
                     hit.collider.gameObject.GetComponent<PlayerMovement>().blink();
+					gameController.resetScoreMultiplier();
 				}
                 else
                 {

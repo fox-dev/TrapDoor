@@ -45,7 +45,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\LaserWall.cs" />
      <Compile Include="Assets\Scripts\Main\BoostGaugeTrigger.cs" />
      <Compile Include="Assets\Scripts\Main\BoosterScript.cs" />
      <Compile Include="Assets\Scripts\Main\Boundary.cs" />
@@ -58,6 +57,7 @@
      <Compile Include="Assets\Scripts\Main\GameController.cs" />
      <Compile Include="Assets\Scripts\Main\GameOverUI.cs" />
      <Compile Include="Assets\Scripts\Main\LaserScript.cs" />
+     <Compile Include="Assets\Scripts\Main\LaserWall.cs" />
      <Compile Include="Assets\Scripts\Main\LightScript.cs" />
      <Compile Include="Assets\Scripts\Main\LightShaderScript.cs" />
      <Compile Include="Assets\Scripts\Main\PlanetFollow.cs" />
@@ -66,9 +66,9 @@
      <Compile Include="Assets\Scripts\Main\Rotation.cs" />
      <Compile Include="Assets\Scripts\Main\ScrollUV.cs" />
      <Compile Include="Assets\Scripts\Main\SetPieceScript.cs" />
+     <Compile Include="Assets\Scripts\Main\WallRandomizer.cs" />
      <Compile Include="Assets\Scripts\Menu\MenuScript.cs" />
      <Compile Include="Assets\Scripts\Menu\Menu_CameraScript.cs" />
-     <Compile Include="Assets\WallRandomizer.cs" />
      <None Include="Assets\Glow.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

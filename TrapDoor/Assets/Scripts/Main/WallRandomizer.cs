@@ -17,6 +17,8 @@ public class WallRandomizer : MonoBehaviour
 	
 	}
 
+
+	//Randomization script: On activation, picks one wall to be inactive and sets others to active.
 	void OnEnable()
 	{
 		int opening = Random.Range (0, walls.Count);
