@@ -15,11 +15,6 @@ public class AdController : MonoBehaviour {
 	{
 		updateAdOptions();
 
-		RequestBanner ();
-		RequestInterstitial();
-
-		showBannerAd ();
-		showIntAd ();
 	}
 	
 	// Update is called once per frame
@@ -69,6 +64,11 @@ public class AdController : MonoBehaviour {
 		interstitial.LoadAd(request);
 	}
 
+	public void getNewAds()
+	{
+		RequestBanner ();
+		RequestInterstitial ();
+	}
 
 	//Interstitial Ad stuff
 	public bool adIsLoaded()
