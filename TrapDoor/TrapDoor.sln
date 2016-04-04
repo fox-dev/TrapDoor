@@ -1,7 +1,9 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{540F6E4B-DCE7-7D9C-3C5F-EFB6DC55151B}") = "TrapDoor", "Assembly-CSharp.csproj", "{3CD2142F-1221-62CF-6C39-CEB8C845ECC3}"
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrapDoor.CSharp", "TrapDoor.CSharp.csproj", "{165FE170-6D8F-C419-CD3B-02504E2EB66B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrapDoor.CSharp.Editor", "TrapDoor.CSharp.Editor.csproj", "{E4F79641-E84E-E2E6-3812-EC54AC4FE756}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,15 +11,16 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3CD2142F-1221-62CF-6C39-CEB8C845ECC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CD2142F-1221-62CF-6C39-CEB8C845ECC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CD2142F-1221-62CF-6C39-CEB8C845ECC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CD2142F-1221-62CF-6C39-CEB8C845ECC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{165FE170-6D8F-C419-CD3B-02504E2EB66B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{165FE170-6D8F-C419-CD3B-02504E2EB66B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{165FE170-6D8F-C419-CD3B-02504E2EB66B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{165FE170-6D8F-C419-CD3B-02504E2EB66B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4F79641-E84E-E2E6-3812-EC54AC4FE756}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4F79641-E84E-E2E6-3812-EC54AC4FE756}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4F79641-E84E-E2E6-3812-EC54AC4FE756}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4F79641-E84E-E2E6-3812-EC54AC4FE756}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal
