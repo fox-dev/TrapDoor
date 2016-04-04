@@ -346,7 +346,7 @@ public class DoorScript : MonoBehaviour {
                 destroyed = true;
 
             }
-            else if (!destroyed && other.GetComponent<PlayerMovement>().isDead())
+           /* else if (!destroyed && other.GetComponent<PlayerMovement>().isDead())
             {
                 print("YOU ARE DEAD!");
                // other.gameObject.SetActive(false);
@@ -356,7 +356,7 @@ public class DoorScript : MonoBehaviour {
                 //gameController.setGameOver();
                 
              
-            }
+            }*/
             else
             {
                 other.GetComponent<Rigidbody>().drag = 30f;

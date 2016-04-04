@@ -429,7 +429,8 @@ public class PlayerMovement : MonoBehaviour {
         }
         else if (health == 0)
         {
-            healthBar.GetComponent<Image>().fillAmount = 0f;
+			setGameOver();
+			healthBar.GetComponent<Image>().fillAmount = 0f;
         }
 
 

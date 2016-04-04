@@ -42,7 +42,7 @@ public class LaserScript : MonoBehaviour {
 			if (hit.collider.tag == "Player") {
 				print ("I hit the player");
 
-				if (hit.collider.gameObject.GetComponent<PlayerMovement> ().getSuperSpeed ())
+				if (hit.collider.gameObject.GetComponent<PlayerMovement> ().getSuperSpeed () || hit.collider.gameObject.GetComponent<PlayerMovement>().invulnerable())
                 {
 				}
                 else if(!hit.collider.gameObject.GetComponent<PlayerMovement>().isDead())
@@ -50,10 +50,10 @@ public class LaserScript : MonoBehaviour {
                     hit.collider.gameObject.GetComponent<PlayerMovement>().blink();
 					gameController.resetScoreMultiplier();
 				}
-                else
+                /*else
                 {
                     hit.collider.gameObject.GetComponent<PlayerMovement>().setGameOver();
-                }
+                }*/
 			}
 		}
 		else

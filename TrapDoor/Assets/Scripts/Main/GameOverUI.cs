@@ -110,8 +110,9 @@ public class GameOverUI : MonoBehaviour {
     public void LoadScene(string name)
     {
 		if (adController.AdFlag ()) {
-			adController.hideBannerAd ();
+			
 			adController.getNewAds();
+			adController.hideBannerAd ();
 		}
 
 		SceneManager.LoadScene(name);

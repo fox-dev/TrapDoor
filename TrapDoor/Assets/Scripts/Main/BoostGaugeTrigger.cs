@@ -28,7 +28,7 @@ public class BoostGaugeTrigger : MonoBehaviour {
 	{
 		if (other.tag == "Player") {
 
-			if (other.gameObject.GetComponent<PlayerMovement> ().getSuperSpeed ()) {
+			if (other.gameObject.GetComponent<PlayerMovement> ().getSuperSpeed () || other.gameObject.GetComponent<PlayerMovement>().invulnerable()) {
 			
 			} else if (this.tag == "LaserPiece") {
 

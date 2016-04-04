@@ -14,6 +14,8 @@ public class AdController : MonoBehaviour {
 	void Start () 
 	{
 		updateAdOptions();
+		getNewAds();
+		hideBannerAd();
 
 	}
 	
@@ -51,7 +53,7 @@ public class AdController : MonoBehaviour {
 	private void RequestInterstitial()
 	{
 		//Unity Android Ad ID
-		string adUnitId = "ca-app-pub-8558533109120159/243390722";
+		string adUnitId = "ca-app-pub-8558533109120159/2433907220";
 
 		// Initialize an InterstitialAd.
 		interstitial = new InterstitialAd(adUnitId);
