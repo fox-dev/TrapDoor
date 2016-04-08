@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour {
 
-    //Highscore Canvas buttons and text
+	private AdController adController;
+
+	//Highscore Canvas buttons and text
     public Button highScoreButton, resetButton, highScore_backButton;
     private bool openHighScore;
     public Canvas highScore_Canvas;
@@ -18,7 +20,7 @@ public class MenuScript : MonoBehaviour {
     public Canvas options_Canvas;
     public Transform optionsPos_Off;
     private bool lefty, righty;
-    public Button leftButton, rightButton, options_backButton;
+    public Button leftButton, rightButton, options_backButton, onButton, offButton;
 
 	//Tutorial Canvas buttons and text
 	private bool openTutorial;
@@ -36,7 +38,15 @@ public class MenuScript : MonoBehaviour {
     // Use this for initialization
     void Start () {
         
-        
+		GameObject adControllerObject = GameObject.FindWithTag("AdController");
+		if (adControllerObject != null)
+		{
+			adController = adControllerObject.GetComponent<AdController>();
+		}
+		if (adController == null)
+		{
+			Debug.Log("Cannot find 'AdController' script");
+		}
 
         updateOptions();
 
@@ -146,6 +156,24 @@ public class MenuScript : MonoBehaviour {
             lefty = false;
             leftButton.interactable = true;
         }
+
+
+		if (PlayerPrefs.GetString ("ads") == "false") {
+			adController.setAdFlag (false);
+		} else { //default
+			adController.setAdFlag (true);;
+		}
+
+		if (adController.AdFlag())
+		{
+			onButton.interactable = false;
+			offButton.interactable = true;
+		}
+		else
+		{
+			offButton.interactable = false;
+			onButton.interactable = true;
+		}
     }
 
 	public void turnLeftyOn()
@@ -171,6 +199,22 @@ public class MenuScript : MonoBehaviour {
 			lefty = false;
 			leftButton.interactable = true;
 		}
+	}
+
+	public void turnOffAds()
+	{
+		adController.setAdFlag (false);
+		PlayerPrefs.SetString("ads", "false");
+		onButton.interactable = true;
+		offButton.interactable = false;
+	}
+
+	public void turnOnAds()
+	{
+		adController.setAdFlag (true);
+		PlayerPrefs.SetString("ads", "true");
+		offButton.interactable = true;
+		onButton.interactable = false;
 	}
 
     /// <summary>

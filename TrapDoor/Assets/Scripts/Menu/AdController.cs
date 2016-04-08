@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using GoogleMobileAds.Api;
 
@@ -33,6 +34,7 @@ public class AdController : MonoBehaviour {
 		} else { //default
 			showAds = true;
 		}
+			
 	}
 
 	private void RequestBanner()
@@ -95,18 +97,18 @@ public class AdController : MonoBehaviour {
 	}
 	
 	//Ad flag stuff
-	public void turnOffAds()
+	public void setAdFlag(bool flag)
 	{
-		showAds = false;
-		PlayerPrefs.SetString("ads", "false");
-	}
+		if (flag) {
+			showAds = true;
+			PlayerPrefs.SetString("ads", "true");
+		} else {
+			showAds = false;
+			PlayerPrefs.SetString ("ads", "false");
+		}
 
-	public void turnOnAds()
-	{
-		showAds = true;
-		PlayerPrefs.SetString("ads", "true");
 	}
-
+		
 	public bool AdFlag()
 	{
 		return showAds;
