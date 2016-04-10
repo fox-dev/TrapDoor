@@ -34,6 +34,10 @@ public class PlayerMovement : MonoBehaviour {
 
     private bool blinking;
 
+    private bool playingSuper;
+
+
+
 
 
     // Use this for initialization
@@ -46,7 +50,8 @@ public class PlayerMovement : MonoBehaviour {
         health = 3;
         healthBar = healthCanvas.transform.FindChild("HealthBar").gameObject;
 
-        
+
+        playingSuper = false; //audio for boost
 
         blinking = false;
 
@@ -87,7 +92,7 @@ public class PlayerMovement : MonoBehaviour {
     void Update()
     {
 
-       
+
         //print(moveSpeed);
         if (Input.GetKeyDown("s"))
         {
@@ -102,7 +107,12 @@ public class PlayerMovement : MonoBehaviour {
 
         }
         if (superSpeed) {
+            playSuperSound();
             gameController.decBoost(0.01f);
+        }
+        else
+        {
+            stopSuperSound();
         }
 
 
@@ -113,7 +123,7 @@ public class PlayerMovement : MonoBehaviour {
 
         if (superSpeed && !gameOver)
         {
-            
+
             if (rotateTracker.getOrientation() == "down")
             {
                 GetComponent<Rigidbody>().velocity = new Vector3(0, 0, superMoveSpeed);
@@ -131,9 +141,9 @@ public class PlayerMovement : MonoBehaviour {
                 GetComponent<Rigidbody>().velocity = new Vector3(superMoveSpeed, 0, 0);
             }
         }
-        else if(!gameOver)
+        else if (!gameOver)
         {
-            
+
             if (rotateTracker.getOrientation() == "down")
             {
                 GetComponent<Rigidbody>().velocity = new Vector3(0, 0, moveSpeed);
@@ -163,111 +173,111 @@ public class PlayerMovement : MonoBehaviour {
         if (!gameOver)
         {
 
-        
-
-        if (rotateTracker.getOrientation() == "down")
-        {
-            //GetComponent<Rigidbody>().AddForce(transform.forward * moveSpeed);
-            targetAngle = new Vector3(0, 0, 0);
-
-            currentAngle = new Vector3(
-               Mathf.LerpAngle(currentAngle.x, targetAngle.x, Time.deltaTime * 5),
-               Mathf.LerpAngle(currentAngle.y, targetAngle.y, Time.deltaTime * 5),
-               Mathf.LerpAngle(currentAngle.z, targetAngle.z, Time.deltaTime * 5));
-
-            playerModel.transform.eulerAngles = currentAngle;
-
-            boundary.transform.rotation = Quaternion.Euler(0, 180f, 0);
-
-            //Vector3 temp = new Vector3(0, 0, 30);
-            //GetComponent<Rigidbody>().AddRelativeForce(temp);
 
 
+            if (rotateTracker.getOrientation() == "down")
+            {
+                //GetComponent<Rigidbody>().AddForce(transform.forward * moveSpeed);
+                targetAngle = new Vector3(0, 0, 0);
 
+                currentAngle = new Vector3(
+                   Mathf.LerpAngle(currentAngle.x, targetAngle.x, Time.deltaTime * 5),
+                   Mathf.LerpAngle(currentAngle.y, targetAngle.y, Time.deltaTime * 5),
+                   Mathf.LerpAngle(currentAngle.z, targetAngle.z, Time.deltaTime * 5));
 
-            Vector3 keyPos = new Vector3(lastXPos, transform.position.y, transform.position.z);
-            transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
+                playerModel.transform.eulerAngles = currentAngle;
 
-            //lastZPos = transform.position.z; //keep last Z pos in case of rotation;
+                boundary.transform.rotation = Quaternion.Euler(0, 180f, 0);
 
-        }
-
-        else if (rotateTracker.getOrientation() == "left")
-        {
-            targetAngle = new Vector3(0, 270f, 0);
-
-            currentAngle = new Vector3(
-               Mathf.LerpAngle(currentAngle.x, targetAngle.x, Time.deltaTime * 5),
-               Mathf.LerpAngle(currentAngle.y, targetAngle.y, Time.deltaTime * 5),
-               Mathf.LerpAngle(currentAngle.z, targetAngle.z, Time.deltaTime * 5));
-
-            playerModel.transform.eulerAngles = currentAngle;
-
-            boundary.transform.rotation = Quaternion.Euler(0, 270, 0);
-
-            //Vector3 temp = new Vector3(-30, 0, 0);
-            //GetComponent<Rigidbody>().AddRelativeForce(temp);
+                //Vector3 temp = new Vector3(0, 0, 30);
+                //GetComponent<Rigidbody>().AddRelativeForce(temp);
 
 
 
 
-            Vector3 keyPos = new Vector3(transform.position.x, transform.position.y, lastZPos);
-            transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
+                Vector3 keyPos = new Vector3(lastXPos, transform.position.y, transform.position.z);
+                transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
 
-            //lastXPos = transform.position.x;
-        }
+                //lastZPos = transform.position.z; //keep last Z pos in case of rotation;
 
-        else if (rotateTracker.getOrientation() == "right")
-        {
+            }
 
-            targetAngle = new Vector3(0, 90f, 0);
+            else if (rotateTracker.getOrientation() == "left")
+            {
+                targetAngle = new Vector3(0, 270f, 0);
 
-            currentAngle = new Vector3(
-               Mathf.LerpAngle(currentAngle.x, targetAngle.x, Time.deltaTime * 5),
-               Mathf.LerpAngle(currentAngle.y, targetAngle.y, Time.deltaTime * 5),
-               Mathf.LerpAngle(currentAngle.z, targetAngle.z, Time.deltaTime * 5));
+                currentAngle = new Vector3(
+                   Mathf.LerpAngle(currentAngle.x, targetAngle.x, Time.deltaTime * 5),
+                   Mathf.LerpAngle(currentAngle.y, targetAngle.y, Time.deltaTime * 5),
+                   Mathf.LerpAngle(currentAngle.z, targetAngle.z, Time.deltaTime * 5));
 
-            playerModel.transform.eulerAngles = currentAngle;
+                playerModel.transform.eulerAngles = currentAngle;
 
-            boundary.transform.rotation = Quaternion.Euler(0, 90, 0);
+                boundary.transform.rotation = Quaternion.Euler(0, 270, 0);
 
-            Vector3 temp = new Vector3(30, 0, 0);
-            GetComponent<Rigidbody>().AddRelativeForce(temp);
-
-
-
-            Vector3 keyPos = new Vector3(transform.position.x, transform.position.y, lastZPos);
-            transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
-
-            //lastXPos = transform.position.x;
-        }
-
-        else if (rotateTracker.getOrientation() == "up")
-        {
-            //GetComponent<Rigidbody>().AddForce(transform.forward * moveSpeed);
-
-            targetAngle = new Vector3(0, 180f, 0);
-
-            currentAngle = new Vector3(
-               Mathf.LerpAngle(currentAngle.x, targetAngle.x, Time.deltaTime * 5),
-               Mathf.LerpAngle(currentAngle.y, targetAngle.y, Time.deltaTime * 5),
-               Mathf.LerpAngle(currentAngle.z, targetAngle.z, Time.deltaTime * 5));
-
-            playerModel.transform.eulerAngles = currentAngle;
-
-            boundary.transform.rotation = Quaternion.Euler(0, 180f, 0);
-
-            //Vector3 temp = new Vector3(0, 0, -30);
-            //GetComponent<Rigidbody>().AddRelativeForce(temp);
+                //Vector3 temp = new Vector3(-30, 0, 0);
+                //GetComponent<Rigidbody>().AddRelativeForce(temp);
 
 
 
-            Vector3 keyPos = new Vector3(lastXPos, transform.position.y, transform.position.z);
-            transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
 
-            //lastZPos = transform.position.z; //keep last Z pos in case of rotation;
+                Vector3 keyPos = new Vector3(transform.position.x, transform.position.y, lastZPos);
+                transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
 
-        }
+                //lastXPos = transform.position.x;
+            }
+
+            else if (rotateTracker.getOrientation() == "right")
+            {
+
+                targetAngle = new Vector3(0, 90f, 0);
+
+                currentAngle = new Vector3(
+                   Mathf.LerpAngle(currentAngle.x, targetAngle.x, Time.deltaTime * 5),
+                   Mathf.LerpAngle(currentAngle.y, targetAngle.y, Time.deltaTime * 5),
+                   Mathf.LerpAngle(currentAngle.z, targetAngle.z, Time.deltaTime * 5));
+
+                playerModel.transform.eulerAngles = currentAngle;
+
+                boundary.transform.rotation = Quaternion.Euler(0, 90, 0);
+
+                Vector3 temp = new Vector3(30, 0, 0);
+                GetComponent<Rigidbody>().AddRelativeForce(temp);
+
+
+
+                Vector3 keyPos = new Vector3(transform.position.x, transform.position.y, lastZPos);
+                transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
+
+                //lastXPos = transform.position.x;
+            }
+
+            else if (rotateTracker.getOrientation() == "up")
+            {
+                //GetComponent<Rigidbody>().AddForce(transform.forward * moveSpeed);
+
+                targetAngle = new Vector3(0, 180f, 0);
+
+                currentAngle = new Vector3(
+                   Mathf.LerpAngle(currentAngle.x, targetAngle.x, Time.deltaTime * 5),
+                   Mathf.LerpAngle(currentAngle.y, targetAngle.y, Time.deltaTime * 5),
+                   Mathf.LerpAngle(currentAngle.z, targetAngle.z, Time.deltaTime * 5));
+
+                playerModel.transform.eulerAngles = currentAngle;
+
+                boundary.transform.rotation = Quaternion.Euler(0, 180f, 0);
+
+                //Vector3 temp = new Vector3(0, 0, -30);
+                //GetComponent<Rigidbody>().AddRelativeForce(temp);
+
+
+
+                Vector3 keyPos = new Vector3(lastXPos, transform.position.y, transform.position.z);
+                transform.position = Vector3.Lerp(transform.position, keyPos, lerpSpeed);
+
+                //lastZPos = transform.position.z; //keep last Z pos in case of rotation;
+
+            }
         }
 
 
@@ -296,8 +306,8 @@ public class PlayerMovement : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-       
-        
+
+
         if (other.tag == "Junction")
         {
 
@@ -325,8 +335,8 @@ public class PlayerMovement : MonoBehaviour {
             //do nothing
         }
 
-		
-        
+
+
     }
 
     public void superSpeedRelease()
@@ -340,7 +350,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             //do nothing
         }
-       
+
 
         /*
         if (gameController.canBoost()) {
@@ -373,7 +383,7 @@ public class PlayerMovement : MonoBehaviour {
     public void setGameOver()
     {
         gameOver = true;
-		gameController.setGameOver();
+        gameController.setGameOver();
     }
 
     public float getMoveSpeed()
@@ -396,14 +406,14 @@ public class PlayerMovement : MonoBehaviour {
         {
             blinking = true;
             StartCoroutine(TakeDamage(0.3f, 0.2f));
-            
+
             hit.Play();
             if (health == 1)
             {
                 lowHP.Play();
             }
         }
-        
+
     }
 
     public bool invulnerable()
@@ -422,15 +432,15 @@ public class PlayerMovement : MonoBehaviour {
         {
             healthBar.GetComponent<Image>().fillAmount = 0.565f;
         }
-        else if(health == 1)
+        else if (health == 1)
         {
             healthBar.GetComponent<Image>().color = Color.red;
             healthBar.GetComponent<Image>().fillAmount = 0.345f;
         }
         else if (health == 0)
         {
-			setGameOver();
-			healthBar.GetComponent<Image>().fillAmount = 0f;
+            setGameOver();
+            healthBar.GetComponent<Image>().fillAmount = 0f;
         }
 
 
@@ -449,12 +459,30 @@ public class PlayerMovement : MonoBehaviour {
 
             //Wait for a bit
             yield return new WaitForSeconds(blinkTime);
-          
+
         }
         theModel.GetComponent<Renderer>().enabled = true;
         healthCanvas.SetActive(false);
         blinking = false;
 
+    }
+
+    public void playSuperSound()
+    {
+        if (!playingSuper)
+        {
+            playingSuper = true;
+            GetComponents<AudioSource>()[3].Play();
+        }
+    }
+
+    public void stopSuperSound()
+    {
+        if (playingSuper)
+        {
+            playingSuper = false;
+            GetComponents<AudioSource>()[3].Stop();
+        }
     }
 
 

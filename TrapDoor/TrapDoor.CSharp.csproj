@@ -116,6 +116,7 @@
     <Compile Include="Assets\Scripts\Main\ScrollUV.cs" />
     <Compile Include="Assets\Scripts\Main\SetPieceScript.cs" />
     <Compile Include="Assets\Scripts\Main\WallRandomizer.cs" />
+    <Compile Include="Assets\Scripts\Menu\AdController.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuScript.cs" />
     <Compile Include="Assets\Scripts\Menu\Menu_CameraScript.cs" />
   </ItemGroup>

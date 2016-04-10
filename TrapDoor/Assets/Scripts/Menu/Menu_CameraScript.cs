@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class Menu_CameraScript : MonoBehaviour
 {
+
     public float menu_pos_z;
 
     public GameObject player;
@@ -24,10 +25,13 @@ public class Menu_CameraScript : MonoBehaviour
 
     bool startGame; //for camera zoom at start of game
 
+    AudioSource playerRockets;
+
 
     // Use this for initialization
     void Start()
     {
+        playerRockets = player.GetComponents<AudioSource>()[2];
         GetComponent<Camera>().fieldOfView = 34;
 
         startGame = false;
@@ -66,11 +70,14 @@ public class Menu_CameraScript : MonoBehaviour
 
     void Update()
     {
-        if (startGame)
+        
+        if (startGame) //startGame = true after moveCameraDelay() coroutine
         {
+
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 61f, 0.02f);
             menu_pos_z = Mathf.Lerp(menu_pos_z, 15f, 0.02f);
-            if(Camera.main.fieldOfView > 60f)
+            playerRockets.volume = Mathf.Lerp(playerRockets.volume, 0.21f, 0.02f);
+            if (Camera.main.fieldOfView > 60f)
             {
                 gameObject.GetComponent<Menu_CameraScript>().enabled = false;
             }
