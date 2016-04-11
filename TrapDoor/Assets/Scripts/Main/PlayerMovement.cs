@@ -109,10 +109,12 @@ public class PlayerMovement : MonoBehaviour {
         if (superSpeed) {
             playSuperSound();
             gameController.decBoost(0.01f);
+            
         }
         else
         {
             stopSuperSound();
+            
         }
 
 
@@ -473,7 +475,9 @@ public class PlayerMovement : MonoBehaviour {
         {
             playingSuper = true;
             GetComponents<AudioSource>()[3].Play();
+            
         }
+        GetComponents<AudioSource>()[2].volume = Mathf.Lerp(GetComponents<AudioSource>()[2].volume, 1f, 0.02f);
     }
 
     public void stopSuperSound()
@@ -482,7 +486,9 @@ public class PlayerMovement : MonoBehaviour {
         {
             playingSuper = false;
             GetComponents<AudioSource>()[3].Stop();
+
         }
+        GetComponents<AudioSource>()[2].volume = Mathf.Lerp(GetComponents<AudioSource>()[2].volume, 0.21f, 0.02f);
     }
 
 
