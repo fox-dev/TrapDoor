@@ -25,6 +25,8 @@ public class GameController : MonoBehaviour {
 
     public GameObject player;
 
+    private bool startGame; //used for when cameras are done transitioning into place
+
 
     //Score
     //Highscore
@@ -41,6 +43,8 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        startGame = false;
 
         if (PlayerPrefs.GetInt("highscore") != null)
         {
@@ -311,5 +315,17 @@ public class GameController : MonoBehaviour {
             print("Highscore reset");
             PlayerPrefs.SetInt("highscore", 0);
         }
+    }
+
+    public bool startGameReady()
+    {
+        return startGame;
+    }
+
+    //Used in menu_camerascript to determine when cameras are done with the start transition
+    
+    public void startGameTrue()
+    {
+        startGame = true;
     }
 }

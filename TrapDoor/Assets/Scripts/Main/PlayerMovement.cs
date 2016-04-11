@@ -476,8 +476,10 @@ public class PlayerMovement : MonoBehaviour {
             playingSuper = true;
             GetComponents<AudioSource>()[3].Play();
             
+
         }
-        GetComponents<AudioSource>()[2].volume = Mathf.Lerp(GetComponents<AudioSource>()[2].volume, 1f, 0.02f);
+        GetComponents<AudioSource>()[3].volume = Mathf.Lerp(GetComponents<AudioSource>()[2].volume, 1f, 0.02f);
+        GetComponents<AudioSource>()[2].volume = Mathf.Lerp(GetComponents<AudioSource>()[2].volume, 1f, 0.05f);
     }
 
     public void stopSuperSound()
@@ -485,10 +487,20 @@ public class PlayerMovement : MonoBehaviour {
         if (playingSuper)
         {
             playingSuper = false;
-            GetComponents<AudioSource>()[3].Stop();
+            
+
 
         }
-        GetComponents<AudioSource>()[2].volume = Mathf.Lerp(GetComponents<AudioSource>()[2].volume, 0.21f, 0.02f);
+        if (gameController.startGameReady()) //need this otherwise volume gets lowered too early
+        {
+            GetComponents<AudioSource>()[2].volume = Mathf.Lerp(GetComponents<AudioSource>()[2].volume, 0.21f, 0.02f);
+            GetComponents<AudioSource>()[3].volume = Mathf.Lerp(GetComponents<AudioSource>()[2].volume, 0f, 0.05f);
+            if(GetComponents<AudioSource>()[3].volume < 0.25f)
+            {
+                GetComponents<AudioSource>()[3].Stop();
+            }
+        }
+        
     }
 
 

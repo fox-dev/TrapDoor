@@ -235,6 +235,7 @@ public class Menu_CameraScript : MonoBehaviour
         yield return new WaitForSeconds(1f); //wait 3 seconds after game starts
 
         startGame = true;
+        gameController.startGameTrue();
 
         
     }
