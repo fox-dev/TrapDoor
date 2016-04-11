@@ -28,7 +28,7 @@ public class LaserWall : MonoBehaviour {
 		if(other.gameObject.tag == "Player")
 		{
 			other.GetComponent<PlayerMovement>().blink();
-			gameController.decBoost (20);
+			gameController.laserWallDecrement ();
 			gameController.resetScoreMultiplier ();
 			other.GetComponent<Rigidbody>().drag = 15;
 			other.GetComponent<PlayerMovement>().setMoveSpeed(gameController.getPlayer().GetComponent<PlayerMovement>().getMoveSpeed());

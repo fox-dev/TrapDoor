@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private RotateManager rotateTracker;
 
-    public float moveSpeed, superMoveSpeed;
+	public float moveSpeed, superMoveSpeed;
 
     private Vector3 currentAngle, targetAngle;
 
@@ -108,7 +108,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         if (superSpeed) {
             playSuperSound();
-            gameController.decBoost(0.01f);
+			gameController.decrementBoost();
             
         }
         else
@@ -331,6 +331,7 @@ public class PlayerMovement : MonoBehaviour {
         if (gameController.boostButton.GetComponent<Button>().IsInteractable())
         {
             superSpeed = true;
+			gameController.onPressDecrement();
         }
         else
         {

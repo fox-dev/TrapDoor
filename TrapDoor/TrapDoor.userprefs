@@ -1,19 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Main\LaserWall.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Menu\MenuScript.cs">
     <Files>
-      <File FileName="Assets\Scripts\Main\LaserWall.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Main\LaserScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Main\GameController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Main\PlayerMovement.cs" Line="353" Column="10" />
+      <File FileName="Assets\Scripts\Main\GameController.cs" Line="202" Column="20" />
+      <File FileName="Assets\Scripts\Main\LaserWall.cs" Line="31" Column="41" />
       <File FileName="Assets\Scripts\Main\SetPieceScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\DoorScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Main\PlayerMovement.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Menu\MenuScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Main\GameOverUI.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Main\Boundary.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Menu\MenuScript.cs" Line="241" Column="25" />
+      <File FileName="Assets\Scripts\Main\Boundary.cs" Line="35" Column="3" />
       <File FileName="Assets\Scripts\Main\ExitBoundary.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\BoosterScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Main\BoostGaugeTrigger.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Main\BoostGaugeTrigger.cs" Line="38" Column="36" />
       <File FileName="Assets\Scripts\Main\CameraScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\DoorAudio.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\Explosion.cs" Line="1" Column="1" />

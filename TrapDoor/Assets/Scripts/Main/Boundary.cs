@@ -29,14 +29,10 @@ public class Boundary : MonoBehaviour {
 
     public GameObject player;
 
-	private bool addLasers, addLaserCombos;
-
 
     // Use this for initialization
     void Start () 
 	{
-		addLasers = false;
-		addLaserCombos = false;
 
 		introLasers.AddRange (inactivePieces);
 		laserCombos.AddRange (introLasers);

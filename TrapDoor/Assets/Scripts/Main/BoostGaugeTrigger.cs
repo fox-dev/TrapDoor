@@ -35,7 +35,7 @@ public class BoostGaugeTrigger : MonoBehaviour {
 				print ("NO BOOST FOR YOU");
 				
 			} else {
-				gameController.addBoost (10);
+				gameController.incrementBoost();
 			}
 
 

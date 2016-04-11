@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour {
 	public GameObject restartButton;
 	public GameObject restartButton_lerpPos;
 
-	public float maxBoostValue, boostMeter, boostThreshold;
+	public float maxBoostValue, boostMeter, boostThreshold, superDecAmount, superPressDecrement, wallPenalty, boostAddAmount;
 
     public GameObject player;
 
@@ -176,7 +176,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	//Boost meter scripts
-	public void addBoost(float newBoostValue)
+	private void addBoost(float newBoostValue)
 	{
 		boostMeter += newBoostValue;
 		if (boostMeter > maxBoostValue) {
@@ -186,7 +186,7 @@ public class GameController : MonoBehaviour {
 
 	}
 
-	public void decBoost(float newBoostValue)
+	private void decBoost(float newBoostValue)
 	{
 		boostMeter -= newBoostValue;
 		if (boostMeter <= 0f) {
@@ -195,6 +195,31 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	//public access to boost
+
+	public void decrementBoost ()
+	{
+		decBoost(superDecAmount);
+	}
+
+	public void onPressDecrement()
+	{
+		decBoost (superPressDecrement);
+	}
+
+	public void laserWallDecrement()
+	{
+		decBoost (wallPenalty);
+	}
+
+	public void incrementBoost()
+	{
+		addBoost (boostAddAmount);
+	}
+
+
+
+
 	public float getBoost()
 	{
 		return boostMeter;
@@ -202,7 +227,7 @@ public class GameController : MonoBehaviour {
 
 	public bool canBoost()
 	{
-		if ((boostMeter / maxBoostValue) > boostThreshold)
+		if ((boostMeter / maxBoostValue) >= boostThreshold)
 			return true;
 		else
 			return false;
@@ -233,6 +258,11 @@ public class GameController : MonoBehaviour {
 
 	}
 
+
+	/// <summary>
+	/// Loads the scene.
+	/// </summary>
+	/// <param name="name">Name.</param>
 	public void LoadScene(string name)
 	{
 		SceneManager.LoadScene(name);
