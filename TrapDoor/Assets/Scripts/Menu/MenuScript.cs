@@ -26,7 +26,7 @@ public class MenuScript : MonoBehaviour {
 	private bool openTutorial, openTutorial2;
 	public Canvas tutorial_Canvas, tutorial_Canvas2;
 	public Transform mainMenu_Off, mainMenu_On, tutorial_Off;
-	public GameObject menu;
+	public GameObject menu, tutorialObjects1, tutorialObjects2;
 	public Camera main, tutorial;
 
     float lerpValue = 0.5f;
@@ -52,6 +52,8 @@ public class MenuScript : MonoBehaviour {
 
         openHighScore = false;
         openOptions = false;
+		openTutorial = false;
+		openTutorial2 = false;
 
         resetScorePanel.gameObject.SetActive(false);
 	
@@ -270,26 +272,27 @@ public class MenuScript : MonoBehaviour {
 			menu.transform.position = Vector3.Lerp(menu.transform.position, mainMenu_Off.position, lerpValue);
 			main.gameObject.SetActive (false);
 			tutorial.gameObject.SetActive (true);
+			tutorialObjects1.SetActive (true);
 		}
 		else
 		{
 			tutorial_Canvas.transform.position = Vector3.Lerp(tutorial_Canvas.transform.position, tutorial_Off.position, lerpValue);
-			menu.transform.position = Vector3.Lerp(menu.transform.position, mainMenu_On.position, lerpValue);
-			main.gameObject.SetActive (true);
-			tutorial.gameObject.SetActive (false);
+			tutorialObjects1.SetActive (false);
 		}
 
 		if (openTutorial2)
 		{
-			tutorial_Canvas.transform.position = Vector3.Lerp(tutorial_Canvas2.transform.position, CanvasPos_On.position, lerpValue);
-			menu.transform.position = Vector3.Lerp(menu.transform.position, mainMenu_Off.position, lerpValue);
-			main.gameObject.SetActive (false);
-			tutorial.gameObject.SetActive (true);
+			tutorial_Canvas2.transform.position = Vector3.Lerp(tutorial_Canvas2.transform.position, CanvasPos_On.position, lerpValue);
+			tutorialObjects2.SetActive (true);
 		}
 		else
 		{
-			tutorial_Canvas.transform.position = Vector3.Lerp(tutorial_Canvas2.transform.position, tutorial_Off.position, lerpValue);
-			menu.transform.position = Vector3.Lerp(menu.transform.position, mainMenu_On.position, lerpValue);
+			tutorial_Canvas2.transform.position = Vector3.Lerp(tutorial_Canvas2.transform.position, tutorial_Off.position, lerpValue);
+			tutorialObjects2.SetActive (false);
+		}
+
+		if (!openTutorial && !openTutorial2) {
+			menu.transform.position = Vector3.Lerp (menu.transform.position, mainMenu_On.position, lerpValue);
 			main.gameObject.SetActive (true);
 			tutorial.gameObject.SetActive (false);
 		}
