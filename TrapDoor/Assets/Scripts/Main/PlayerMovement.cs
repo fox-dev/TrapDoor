@@ -106,24 +106,25 @@ public class PlayerMovement : MonoBehaviour {
             }
 
         }
-        if (superSpeed) {
-            playSuperSound();
-			gameController.decrementBoost();
-            
-        }
-        else
-        {
-            stopSuperSound();
-            
-        }
-
 
     }
 
     // Update is called once per frame
-    void FixedUpdate() {
+    void FixedUpdate() 
+	{
 
-        if (superSpeed && !gameOver)
+		if (superSpeed) {
+			playSuperSound();
+			gameController.decrementBoost();
+
+		}
+		else
+		{
+			stopSuperSound();
+
+		}
+			
+		if (superSpeed && !gameOver)
         {
 
             if (rotateTracker.getOrientation() == "down")

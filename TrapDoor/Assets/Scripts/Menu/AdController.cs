@@ -84,6 +84,11 @@ public class AdController : MonoBehaviour {
 	{
 		interstitial.Show();
 	}
+
+	public void destroyIntAd()
+	{
+		interstitial.Destroy ();
+	}
 		
 	//BannerAd Stuff
 	public void hideBannerAd()
@@ -94,6 +99,11 @@ public class AdController : MonoBehaviour {
 	public void showBannerAd()
 	{
 		bannerView.Show ();
+	}
+
+	public void destroyBannerAd()
+	{
+		bannerView.Destroy ();
 	}
 	
 	//Ad flag stuff

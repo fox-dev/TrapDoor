@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
+	private AdController adController;
+
 	private bool red, green, blue;
 
 	public GameObject scoreText, multiplyText;
@@ -46,7 +48,17 @@ public class GameController : MonoBehaviour {
 
         startGame = false;
 
-        if (PlayerPrefs.GetInt("highscore") != null)
+		GameObject adControllerObject = GameObject.FindWithTag("AdController");
+		if (adControllerObject != null)
+		{
+			adController = adControllerObject.GetComponent<AdController>();
+		}
+		if (adController == null)
+		{
+			Debug.Log("Cannot find 'AdController' script");
+		}
+
+		if (PlayerPrefs.GetInt("highscore") != null)
         {
             highScore = PlayerPrefs.GetInt("highscore");
         }
@@ -265,13 +277,27 @@ public class GameController : MonoBehaviour {
 	/// <param name="name">Name.</param>
 	public void LoadScene(string name)
 	{
+		if (adController.AdFlag()) {
+
+			adController.destroyBannerAd ();
+			adController.destroyIntAd();
+			adController.getNewAds();
+			adController.hideBannerAd ();
+		}
+
 		SceneManager.LoadScene(name);
 	}
 
 	public void setGameOver()
 	{
 		gameOver = true;
-		
+
+		if (adController.AdFlag ()) {
+			adController.showBannerAd ();
+			if (adController.adIsLoaded ()) {
+				adController.showIntAd ();
+			}
+		}
 	}
 
 	public bool getGameOver()
@@ -358,4 +384,6 @@ public class GameController : MonoBehaviour {
     {
         startGame = true;
     }
+
+
 }

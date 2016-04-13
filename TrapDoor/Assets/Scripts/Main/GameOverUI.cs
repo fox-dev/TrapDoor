@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class GameOverUI : MonoBehaviour {
 
     private GameController gameController;
-	private AdController adController;
 
     public GameObject highScoreText;
     public GameObject highScoreText_Pos;
@@ -51,16 +50,7 @@ public class GameOverUI : MonoBehaviour {
         {
             Debug.Log("Cannot find 'GameController' script");
         }
-
-		GameObject adControllerObject = GameObject.FindWithTag("AdController");
-		if (adControllerObject != null)
-		{
-			adController = adControllerObject.GetComponent<AdController>();
-		}
-		if (adController == null)
-		{
-			Debug.Log("Cannot find 'AdController' script");
-		}
+			
     }
 	
 	// Update is called once per frame
@@ -86,15 +76,7 @@ public class GameOverUI : MonoBehaviour {
         {
             highScoreText.GetComponent<Text>().text = "Highscore: " + PlayerPrefs.GetInt("highscore");
         }
-
-		if (adController.AdFlag ()) {
-			adController.showBannerAd ();
-			if (adController.adIsLoaded ()) {
-				adController.showIntAd ();
-			}
-		}
-
-
+			
     }
 
     void lerpStuff()
@@ -106,15 +88,5 @@ public class GameOverUI : MonoBehaviour {
         restartButton.transform.position = Vector3.Lerp(restartButton.transform.position, restartButton_Pos.transform.position, lerpValue);
         menuButton.transform.position = Vector3.Lerp(menuButton.transform.position, menuButton_Pos.transform.position, lerpValue);
     }
-
-    public void LoadScene(string name)
-    {
-		if (adController.AdFlag ()) {
-			
-			adController.getNewAds();
-			adController.hideBannerAd ();
-		}
-
-		SceneManager.LoadScene(name);
-    }
+		
 }
