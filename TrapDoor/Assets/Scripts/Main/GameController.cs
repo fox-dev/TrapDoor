@@ -77,7 +77,15 @@ public class GameController : MonoBehaviour {
 		score = 0;
 		UpdateScore ();
 
-		boostMeter = 0f;
+        if (SceneManager.GetActiveScene().name == "Menu")
+        {
+            boostMeter = 1000f;
+        }
+        else
+        {
+            boostMeter = 0f;
+        }
+		
 
 		disableBoost();
 

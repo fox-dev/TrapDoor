@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class BoosterScript : MonoBehaviour {
 
@@ -19,13 +20,13 @@ public class BoosterScript : MonoBehaviour {
         {
             GetComponent<ParticleSystem>().startSize = 3;
             em.enabled = true;
-            
+
         }
         else
         {
             GetComponent<ParticleSystem>().startSize = 0.8f;
             em.enabled = false;
         }
-	
-	}
+
+    }
 }
