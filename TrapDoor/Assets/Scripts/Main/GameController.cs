@@ -3,27 +3,28 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameController : MonoBehaviour {
+public class GameController : MonoBehaviour
+{
 
-	private AdController adController;
+    private AdController adController;
 
-	private bool red, green, blue;
+    private bool red, green, blue;
 
-	public GameObject scoreText, multiplyText;
+    public GameObject scoreText, multiplyText;
     public GameObject scorePos;
 
-	public GameObject redBorder, blueBorder, greenBorder;
+    public GameObject redBorder, blueBorder, greenBorder;
 
-	public Image boostBar;
+    public Image boostBar;
 
-	public GameObject boostButton;
+    public GameObject boostButton;
 
-	public GameObject gameOverlay;
+    public GameObject gameOverlay;
 
-	public GameObject restartButton;
-	public GameObject restartButton_lerpPos;
+    public GameObject restartButton;
+    public GameObject restartButton_lerpPos;
 
-	public float maxBoostValue, boostMeter, boostThreshold, superDecAmount, superPressDecrement, wallPenalty, boostAddAmount;
+    public float maxBoostValue, boostMeter, boostThreshold, superDecAmount, superPressDecrement, wallPenalty, boostAddAmount;
 
     public GameObject player;
 
@@ -37,28 +38,29 @@ public class GameController : MonoBehaviour {
     private int score, highScore, multiply, doorCounter;
     public int maxMultiply, incrementAt;
 
-	public bool gameOver;
+    public bool gameOver;
 
-	float lerpValue = 0.05f;
+    float lerpValue = 0.05f;
 
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
         startGame = false;
 
-		GameObject adControllerObject = GameObject.FindWithTag("AdController");
-		if (adControllerObject != null)
-		{
-			adController = adControllerObject.GetComponent<AdController>();
-		}
-		if (adController == null)
-		{
-			Debug.Log("Cannot find 'AdController' script");
-		}
+        GameObject adControllerObject = GameObject.FindWithTag("AdController");
+        if (adControllerObject != null)
+        {
+            adController = adControllerObject.GetComponent<AdController>();
+        }
+        if (adController == null)
+        {
+            Debug.Log("Cannot find 'AdController' script");
+        }
 
-		if (PlayerPrefs.GetInt("highscore") != null)
+        if (PlayerPrefs.GetInt("highscore") != null)
         {
             highScore = PlayerPrefs.GetInt("highscore");
         }
@@ -67,15 +69,15 @@ public class GameController : MonoBehaviour {
         Time.fixedDeltaTime = 0.02f;
 
         red = false;
-		green = false;
-		blue = false;
+        green = false;
+        blue = false;
 
-		redBorder.SetActive (false);
-		greenBorder.SetActive (false);
-		blueBorder.SetActive (false);
+        redBorder.SetActive(false);
+        greenBorder.SetActive(false);
+        blueBorder.SetActive(false);
 
-		score = 0;
-		UpdateScore ();
+        score = 0;
+        UpdateScore();
 
         if (SceneManager.GetActiveScene().name == "Menu")
         {
@@ -85,17 +87,18 @@ public class GameController : MonoBehaviour {
         {
             boostMeter = 0f;
         }
-		
 
-		disableBoost();
 
-		gameOver = false;
+        disableBoost();
+
+        gameOver = false;
 
         multiply = 1;
-	}
+    }
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update()
+    {
 
         UpdateScore();
 
@@ -105,213 +108,218 @@ public class GameController : MonoBehaviour {
         UpdateBoost();
 
 
-		if (gameOver)
-		{
-			foreach(Transform child in gameOverlay.transform)
-			{
-				if(child.tag == "Untagged" || child.tag == "Score")
-				{
-					child.gameObject.SetActive(false);
-				}
-			}
-		}
+        if (gameOver)
+        {
+            foreach (Transform child in gameOverlay.transform)
+            {
+                if (child.tag == "Untagged" || child.tag == "Score")
+                {
+                    child.gameObject.SetActive(false);
+                }
+            }
+        }
 
-		//Activates the boost button after the meter is 30% full
-		if (canBoost())
-			enableBoost();
+        //Activates the boost button after the meter is 30% full
+        if (canBoost())
+            enableBoost();
 
-	}
+    }
 
-	public void RedPress()
-	{
-		/*if (red) {
+    public void RedPress()
+    {
+        /*if (red) {
 			red = false;
 			redBorder.SetActive (false);
 		} else {
 			red = true;
 			redBorder.SetActive (true);
 		}*/
-		red = true;
-		redBorder.SetActive (true);
-		blue = false;
-		green = false;
-		blueBorder.SetActive (false);
-		greenBorder.SetActive (false);
-	}
+        red = true;
+        redBorder.SetActive(true);
+        blue = false;
+        green = false;
+        blueBorder.SetActive(false);
+        greenBorder.SetActive(false);
+    }
 
-	public void GreenPress()
-	{
-		/*if (green) {
+    public void GreenPress()
+    {
+        /*if (green) {
 			green = false;
 			greenBorder.SetActive (false);
 		} else {
 			green = true;
 			greenBorder.SetActive (true);
 		}*/
-		green = true;
-		greenBorder.SetActive (true);
-		blue = false;
-		red = false;
-		blueBorder.SetActive (false);
-		redBorder.SetActive (false);
-	}
+        green = true;
+        greenBorder.SetActive(true);
+        blue = false;
+        red = false;
+        blueBorder.SetActive(false);
+        redBorder.SetActive(false);
+    }
 
-	public void BluePress()
-	{
-		/*if (blue) {
+    public void BluePress()
+    {
+        /*if (blue) {
 			blue = false;
 			blueBorder.SetActive (false);
 		} else {
 			blue = true;
 			blueBorder.SetActive (true);
 		}*/
-		blue = true;
-		blueBorder.SetActive (true);
-		red = false;
-		green = false;
-		redBorder.SetActive (false);
-		greenBorder.SetActive (false);
-	}
+        blue = true;
+        blueBorder.SetActive(true);
+        red = false;
+        green = false;
+        redBorder.SetActive(false);
+        greenBorder.SetActive(false);
+    }
 
-	public void getColorStates(ref bool r,ref bool g,ref bool b)
-	{
-		r = red;
-		g = green;
-		b = blue;
-	}
+    public void getColorStates(ref bool r, ref bool g, ref bool b)
+    {
+        r = red;
+        g = green;
+        b = blue;
+    }
 
-	//Score Scripts
-	void UpdateScore()
-	{
+    //Score Scripts
+    void UpdateScore()
+    {
 
-		scoreText.GetComponent<Text>().text = "Score : " + score;
+        scoreText.GetComponent<Text>().text = "Score : " + score;
         multiplyText.GetComponent<Text>().text = "x" + multiply;
 
-	}
+    }
 
-	public void addScore(int newScoreValue)
-	{
-		score += newScoreValue;
-		UpdateScore ();
-	}
+    public void addScore(int newScoreValue)
+    {
+        score += newScoreValue;
+        UpdateScore();
+    }
 
-	//Boost meter scripts
-	private void addBoost(float newBoostValue)
-	{
-		boostMeter += newBoostValue;
-		if (boostMeter > maxBoostValue) {
-			print ("Im Triggered");
-			boostMeter = maxBoostValue;
-		}
+    //Boost meter scripts
+    private void addBoost(float newBoostValue)
+    {
+        boostMeter += newBoostValue;
+        if (boostMeter > maxBoostValue)
+        {
+            print("Im Triggered");
+            boostMeter = maxBoostValue;
+        }
 
-	}
+    }
 
-	private void decBoost(float newBoostValue)
-	{
-		boostMeter -= newBoostValue;
-		if (boostMeter <= 0f) {
-			boostMeter = 0f;
-			disableBoost ();
-		}
-	}
+    private void decBoost(float newBoostValue)
+    {
+        boostMeter -= newBoostValue;
+        if (boostMeter <= 0f)
+        {
+            boostMeter = 0f;
+            disableBoost();
+        }
+    }
 
-	//public access to boost
+    //public access to boost
 
-	public void decrementBoost ()
-	{
-		decBoost(superDecAmount);
-	}
+    public void decrementBoost()
+    {
+        decBoost(superDecAmount);
+    }
 
-	public void onPressDecrement()
-	{
-		decBoost (superPressDecrement);
-	}
+    public void onPressDecrement()
+    {
+        decBoost(superPressDecrement);
+    }
 
-	public void laserWallDecrement()
-	{
-		decBoost (wallPenalty);
-	}
+    public void laserWallDecrement()
+    {
+        decBoost(wallPenalty);
+    }
 
-	public void incrementBoost()
-	{
-		addBoost (boostAddAmount);
-	}
-
-
+    public void incrementBoost()
+    {
+        addBoost(boostAddAmount);
+    }
 
 
-	public float getBoost()
-	{
-		return boostMeter;
-	}
 
-	public bool canBoost()
-	{
-		if ((boostMeter / maxBoostValue) >= boostThreshold)
-			return true;
-		else
-			return false;
-	}
 
-	public void disableBoost()
-	{
+    public float getBoost()
+    {
+        return boostMeter;
+    }
+
+    public bool canBoost()
+    {
+        if ((boostMeter / maxBoostValue) >= boostThreshold)
+            return true;
+        else
+            return false;
+    }
+
+    public void disableBoost()
+    {
         //boostButton.SetActive(false);
 
         boostButton.GetComponent<Button>().interactable = false;
-	}
+    }
 
-	public void enableBoost()
-	{
-		//boostButton.SetActive(true);
+    public void enableBoost()
+    {
+        //boostButton.SetActive(true);
         boostButton.GetComponent<Button>().interactable = true;
     }
 
-	void UpdateBoost()
-	{
-		/*
+    void UpdateBoost()
+    {
+        /*
 		boostBar.rectTransform.localScale = new Vector3 (boostBar.rectTransform.localScale.x, 
 														 boostMeter / maxBoostValue,
 														 boostBar.rectTransform.localScale.z);
                                                          */
 
-		boostBar.fillAmount = Mathf.MoveTowards(boostBar.fillAmount, boostMeter / 100, Time.deltaTime * 2f);
+        boostBar.fillAmount = Mathf.MoveTowards(boostBar.fillAmount, boostMeter / 100, Time.deltaTime * 2f);
 
-	}
+    }
 
 
-	/// <summary>
-	/// Loads the scene.
-	/// </summary>
-	/// <param name="name">Name.</param>
-	public void LoadScene(string name)
-	{
-		if (adController.AdFlag()) {
+    /// <summary>
+    /// Loads the scene.
+    /// </summary>
+    /// <param name="name">Name.</param>
+    public void LoadScene(string name)
+    {
+        if (adController.AdFlag())
+        {
 
-			adController.destroyBannerAd ();
-			adController.destroyIntAd();
-			adController.getNewAds();
-			adController.hideBannerAd ();
-		}
+            adController.destroyBannerAd();
+            adController.destroyIntAd();
+            adController.getNewAds();
+            adController.hideBannerAd();
+        }
 
-		SceneManager.LoadScene(name);
-	}
+        SceneManager.LoadScene(name);
+    }
 
-	public void setGameOver()
-	{
-		gameOver = true;
+    public void setGameOver()
+    {
+        gameOver = true;
 
+        /*
 		if (adController.AdFlag ()) {
 			adController.showBannerAd ();
 			if (adController.adIsLoaded ()) {
 				adController.showIntAd ();
 			}
 		}
-	}
+        */
+    }
 
-	public bool getGameOver()
-	{
-		return gameOver;
-	}
+    public bool getGameOver()
+    {
+        return gameOver;
+    }
 
     public GameObject getPlayer()
     {
@@ -356,12 +364,12 @@ public class GameController : MonoBehaviour {
 
     public void incDoorCounter()
     {
-       if(doorCounter < incrementAt)
+        if (doorCounter < incrementAt)
         {
             doorCounter++;
         }
 
-       if(doorCounter == incrementAt)
+        if (doorCounter == incrementAt)
         {
             doorCounter = 0;
 
@@ -387,7 +395,7 @@ public class GameController : MonoBehaviour {
     }
 
     //Used in menu_camerascript to determine when cameras are done with the start transition
-    
+
     public void startGameTrue()
     {
         startGame = true;

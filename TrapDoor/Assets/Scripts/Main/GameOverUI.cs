@@ -3,9 +3,11 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameOverUI : MonoBehaviour {
+public class GameOverUI : MonoBehaviour
+{
 
     private GameController gameController;
+    private AdController adController;
 
     public GameObject highScoreText;
     public GameObject highScoreText_Pos;
@@ -25,9 +27,15 @@ public class GameOverUI : MonoBehaviour {
 
     float lerpValue = 0.05f;
 
+    public bool gameOverFlag, buttonsFlag; //for delayed ienumerator button lerping
+
     // Use this for initialization
-    void Start () {
-        if(PlayerPrefs.GetString("ui") == "left")
+    void Start()
+    {
+
+        gameOverFlag = false;
+
+        if (PlayerPrefs.GetString("ui") == "left")
         {
             gameUI.transform.position = left.position;
         }
@@ -50,24 +58,51 @@ public class GameOverUI : MonoBehaviour {
         {
             Debug.Log("Cannot find 'GameController' script");
         }
-			
+
+        GameObject adControllerObject = GameObject.FindWithTag("AdController");
+        if (adControllerObject != null)
+        {
+            adController = adControllerObject.GetComponent<AdController>();
+        }
+        if (adController == null)
+        {
+            Debug.Log("Cannot find 'AdController' script");
+        }
+
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (gameController.getGameOver())
+        {
+
+            if (!gameOverFlag)
+            {
+                StartCoroutine(lerpButtonsDelay());
+            }
+        }
+
+    }
+
+    void FixedUpdate()
+    {
 
         if (gameController.getGameOver())
         {
             gameOverStuff();
             lerpStuff();
+
         }
-	
-	}
+
+    }
+
 
     void gameOverStuff()
     {
-			
-		if (gameController.getScore() > gameController.getHighScore())
+
+        if (gameController.getScore() > gameController.getHighScore())
         {
             PlayerPrefs.SetInt("highscore", gameController.getScore());
             highScoreText.GetComponent<Text>().text = "New Highscore: " + gameController.getScore();
@@ -76,7 +111,7 @@ public class GameOverUI : MonoBehaviour {
         {
             highScoreText.GetComponent<Text>().text = "Highscore: " + PlayerPrefs.GetInt("highscore");
         }
-			
+
     }
 
     void lerpStuff()
@@ -85,8 +120,45 @@ public class GameOverUI : MonoBehaviour {
         scoreText.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
         scoreText.transform.position = Vector3.Lerp(scoreText.transform.position, scorePos.transform.position, lerpValue);
 
-        restartButton.transform.position = Vector3.Lerp(restartButton.transform.position, restartButton_Pos.transform.position, lerpValue);
-        menuButton.transform.position = Vector3.Lerp(menuButton.transform.position, menuButton_Pos.transform.position, lerpValue);
+
+        if (buttonsFlag)
+        {
+            restartButton.transform.position = Vector3.Lerp(restartButton.transform.position, restartButton_Pos.transform.position, lerpValue);
+            menuButton.transform.position = Vector3.Lerp(menuButton.transform.position, menuButton_Pos.transform.position, lerpValue);
+        }
+
+
+
     }
-		
+
+    IEnumerator lerpButtonsDelay()
+    {
+
+        gameOverFlag = true;
+
+        yield return new WaitForSeconds(1f);
+
+        if (!buttonsFlag)
+        {
+            displayAds();
+        }
+        
+
+        buttonsFlag = true;
+
+    }
+
+    void displayAds()
+    {
+        if (adController.AdFlag())
+        {
+            adController.showBannerAd();
+            if (adController.adIsLoaded())
+            {
+                adController.showIntAd();
+            }
+        }
+    }
+
+
 }
