@@ -47,8 +47,9 @@ public class MenuScript : MonoBehaviour {
 		{
 			Debug.Log("Cannot find 'AdController' script");
 		}
+			
 
-        updateOptions();
+		updateOptions();
 
         openHighScore = false;
         openOptions = false;
@@ -56,12 +57,12 @@ public class MenuScript : MonoBehaviour {
 		openTutorial2 = false;
 
         resetScorePanel.gameObject.SetActive(false);
-	
+
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        lerpCanvas();
+		lerpCanvas();
        
     }
 
@@ -70,9 +71,9 @@ public class MenuScript : MonoBehaviour {
     {
         SceneManager.LoadScene(name);
     }
-
-
-    //////////////HIGH SCORE CANVAS BUTTONS////////////////
+		
+    
+	//////////////HIGH SCORE CANVAS BUTTONS////////////////
     public void openHighScoreCanvas()
     {
         highScoreText.GetComponent<Text>().text = PlayerPrefs.GetInt("highscore").ToString();

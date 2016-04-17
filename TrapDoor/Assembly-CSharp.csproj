@@ -90,6 +90,7 @@
      <Compile Include="Assets\Scripts\Main\FollowUV.cs" />
      <Compile Include="Assets\Scripts\Main\GameController.cs" />
      <Compile Include="Assets\Scripts\Main\GameOverUI.cs" />
+     <Compile Include="Assets\Scripts\Main\IntroWalls.cs" />
      <Compile Include="Assets\Scripts\Main\LaserScript.cs" />
      <Compile Include="Assets\Scripts\Main\LaserWall.cs" />
      <Compile Include="Assets\Scripts\Main\LightScript.cs" />
@@ -102,9 +103,12 @@
      <Compile Include="Assets\Scripts\Main\SetPieceScript.cs" />
      <Compile Include="Assets\Scripts\Main\WallRandomizer.cs" />
      <Compile Include="Assets\Scripts\Menu\AdController.cs" />
+     <Compile Include="Assets\Scripts\Menu\MenuBoosterScript.cs" />
+     <Compile Include="Assets\Scripts\Menu\MenuPlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Menu\MenuScript.cs" />
      <Compile Include="Assets\Scripts\Menu\Menu_CameraScript.cs" />
      <Compile Include="Assets\Scripts\Menu\TutorialWallRandomizer.cs" />
+     <Compile Include="Assets\Scripts\SplashScript.cs" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-iw\common_strings.xml" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\drawable\common_plus_signin_btn_icon_dark.xml" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-pt\base_strings.xml" />

@@ -1,8 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Menu\TutorialWallRandomizer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Menu\MenuScript.cs">
     <Files>
-      <File FileName="Assets\Scripts\Menu\MenuScript.cs" Line="285" Column="20" />
+      <File FileName="Assets\Scripts\Menu\MenuScript.cs" Line="74" Column="3" />
+      <File FileName="Assets\Scripts\SplashScript.cs" Line="13" Column="16" />
       <File FileName="Assets\Scripts\Main\PlayerMovement.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\GameController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\LaserWall.cs" Line="1" Column="1" />
@@ -17,8 +18,8 @@
       <File FileName="Assets\Scripts\Main\Explosion.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\FollowUV.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\LightScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Main\WallRandomizer.cs" Line="3" Column="1" />
-      <File FileName="Assets\Scripts\Menu\TutorialWallRandomizer.cs" Line="13" Column="17" />
+      <File FileName="Assets\Scripts\Main\WallRandomizer.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Menu\TutorialWallRandomizer.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
