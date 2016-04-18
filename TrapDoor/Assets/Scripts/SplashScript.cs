@@ -12,11 +12,6 @@ public class SplashScript : MonoBehaviour {
 	void Start () {
 		startFade ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	/// splashFade
 	/// Fades in and out the splash screen and starts music.
@@ -30,14 +25,12 @@ public class SplashScript : MonoBehaviour {
 
 	IEnumerator SplashFade()
 	{
-
+		
 		splash.CrossFadeAlpha (255, 0.5f, false);
 		yield return new WaitForSeconds (.75f);
 		splash.CrossFadeAlpha (0.0f, 0.25f, false);
-		yield return new WaitForSeconds (0.25f);
-
-		SceneManager.LoadScene ("Menu");
-
+		yield return new WaitForSeconds (.25f);
+		SceneManager.LoadScene("Menu");
 		yield return null;
 
 	}

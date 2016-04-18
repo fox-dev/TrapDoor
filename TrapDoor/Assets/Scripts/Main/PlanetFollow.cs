@@ -21,11 +21,6 @@ public class PlanetFollow : MonoBehaviour {
         }
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
    public void OnTriggerExit(Collider other)
     {

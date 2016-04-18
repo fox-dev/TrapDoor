@@ -2,9 +2,12 @@
 using UnityEngine.UI;
 using System.Collections;
 using GoogleMobileAds.Api;
+using UnityEngine.SceneManagement;
 
 public class AdController : MonoBehaviour {
 
+
+	private GameController gameController;
 
 	private BannerView bannerView;
 	private InterstitialAd interstitial;
@@ -14,15 +17,29 @@ public class AdController : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		updateAdOptions();
-		getNewAds();
-		hideBannerAd();
+		GameObject gameControllerObject = GameObject.FindWithTag("GameController");
+		if (gameControllerObject != null)
+		{
+			gameController = gameControllerObject.GetComponent<GameController>();
+		}
+		if (gameController == null)
+		{
+			Debug.Log("Cannot find 'GameController' script");
+		}
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+		updateAdOptions();
+		if (showAds && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("main")) {
+			print ("I got new ads");
+			RequestBanner ();
+			int adCount = PlayerPrefs.GetInt ("AdCount");
+			if (adCount == 0 || (adCount % gameController.getPlaysPerAd () == 0)) {
+				RequestInterstitial ();
+			}
+			hideBannerAd ();
+		}
+
+
 	}
 
 	private void updateAdOptions()
@@ -68,11 +85,21 @@ public class AdController : MonoBehaviour {
 		interstitial.LoadAd(request);
 	}
 
-	public void getNewAds()
+	/*public void getNewAds()
 	{
 		RequestBanner ();
 		RequestInterstitial ();
 	}
+
+	public void getIntAd()
+	{
+		RequestInterstitial ();
+	}
+
+	public void getBannerAd()
+	{
+		RequestBanner ();
+	}*/
 
 	//Interstitial Ad stuff
 	public bool adIsLoaded()

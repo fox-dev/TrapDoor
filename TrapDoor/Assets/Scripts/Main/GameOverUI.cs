@@ -156,7 +156,6 @@ public class GameOverUI : MonoBehaviour
 			int adCount = PlayerPrefs.GetInt ("AdCount");
 			if ((adCount % gameController.getPlaysPerAd()) == 0 || adCount == 0) 
 			{
-				adController.showBannerAd();
 				if (adController.adIsLoaded())
 				{
 					adController.showIntAd();
@@ -164,7 +163,7 @@ public class GameOverUI : MonoBehaviour
 			}
 			adCount++;
 			PlayerPrefs.SetInt ("AdCount", adCount);
-
+			adController.showBannerAd();
 
         }
     }

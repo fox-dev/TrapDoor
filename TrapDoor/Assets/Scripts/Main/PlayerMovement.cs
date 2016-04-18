@@ -88,11 +88,7 @@ public class PlayerMovement : MonoBehaviour {
 
 
     }
-
-    void Update()
-    {
-
-    }
+		
 
     // Update is called once per frame
     void FixedUpdate() 
@@ -341,11 +337,11 @@ public class PlayerMovement : MonoBehaviour {
         }
 
 
-        /*
+        
         if (gameController.canBoost()) {
-        } else
+		} else{
             gameController.disableBoost();
-            */
+		}
     }
 
     public bool getSuperSpeed()

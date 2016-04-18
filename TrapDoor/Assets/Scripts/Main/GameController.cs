@@ -122,25 +122,20 @@ public class GameController : MonoBehaviour
         }
 
         //Activates the boost button after the meter is 30% full
-        if (canBoost())
-            enableBoost();
+        
 
     }
 				
 	void FixedUpdate()
 	{
 		UpdateBoost();
+
+		if (canBoost())
+			enableBoost();
 	}
 
     public void RedPress()
     {
-        /*if (red) {
-			red = false;
-			redBorder.SetActive (false);
-		} else {
-			red = true;
-			redBorder.SetActive (true);
-		}*/
         red = true;
         redBorder.SetActive(true);
         blue = false;
@@ -151,13 +146,6 @@ public class GameController : MonoBehaviour
 
     public void GreenPress()
     {
-        /*if (green) {
-			green = false;
-			greenBorder.SetActive (false);
-		} else {
-			green = true;
-			greenBorder.SetActive (true);
-		}*/
         green = true;
         greenBorder.SetActive(true);
         blue = false;
@@ -168,13 +156,6 @@ public class GameController : MonoBehaviour
 
     public void BluePress()
     {
-        /*if (blue) {
-			blue = false;
-			blueBorder.SetActive (false);
-		} else {
-			blue = true;
-			blueBorder.SetActive (true);
-		}*/
         blue = true;
         blueBorder.SetActive(true);
         red = false;
@@ -227,7 +208,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    //public access to boost
+    //public access to boost 
 
     public void decrementBoost()
     {
@@ -291,19 +272,21 @@ public class GameController : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// Loads the scene.
+    /// Load Scene
+    /// Loads a specified scene and destroys instantiated ads.
     /// </summary>
     /// <param name="name">Name.</param>
     public void LoadScene(string name)
     {
         if (adController.AdFlag())
         {
-
             adController.destroyBannerAd();
-            adController.destroyIntAd();
-            adController.getNewAds();
-            adController.hideBannerAd();
+			int adCount = PlayerPrefs.GetInt ("AdCount") - 1;
+			if ((adCount == 0 || (adCount % getPlaysPerAd()) == 0)) 
+			{
+				adController.destroyIntAd();
+			}
+			adController.hideBannerAd ();
         }
 
         SceneManager.LoadScene(name);
@@ -312,15 +295,6 @@ public class GameController : MonoBehaviour
     public void setGameOver()
     {
         gameOver = true;
-
-        /*
-		if (adController.AdFlag ()) {
-			adController.showBannerAd ();
-			if (adController.adIsLoaded ()) {
-				adController.showIntAd ();
-			}
-		}
-        */
     }
 
     public bool getGameOver()
@@ -413,6 +387,8 @@ public class GameController : MonoBehaviour
         startGame = true;
     }
 
+
+	//Resets the ad count on exit of app
 	void OnApplicationQuit()
 	{
 		PlayerPrefs.SetInt ("AdCount", 0);

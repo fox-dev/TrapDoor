@@ -11,13 +11,6 @@ public class WallRandomizer : MonoBehaviour
 	void Start () {
 	
 	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		
-	}
-
 
 	//Randomization script: On activation, picks one wall to be inactive and sets others to active.
 	void OnEnable()

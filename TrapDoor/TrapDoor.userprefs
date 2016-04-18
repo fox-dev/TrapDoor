@@ -1,26 +1,28 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Main\GameController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Menu\AdController.cs">
     <Files>
-      <File FileName="Assets\Scripts\Main\GameController.cs" Line="109" Column="17" />
-      <File FileName="Assets\Scripts\SplashScript.cs" Line="37" Column="39" />
+      <File FileName="Assets\Scripts\Menu\Menu_CameraScript.cs" Line="82" Column="5" />
+      <File FileName="Assets\Scripts\SplashScript.cs" Line="4" Column="1" />
+      <File FileName="Assets\Scripts\Menu\AdController.cs" Line="32" Column="87" />
       <File FileName="Assets\Scripts\Main\PlayerMovement.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Main\GameOverUI.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Menu\MenuScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\LaserWall.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\SetPieceScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Main\DoorScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Main\Boundary.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Main\ExitBoundary.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Main\BoosterScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Main\BoostGaugeTrigger.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\CameraScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Main\DoorAudio.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\Explosion.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Main\FollowUV.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\LightScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Main\IntroWalls.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Main\LaserScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Main\LightShaderScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Main\PlanetFollow.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Main\Rotation.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Main\ScrollUV.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\WallRandomizer.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Menu\MenuBoosterScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Menu\MenuPlayerMovement.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Menu\TutorialWallRandomizer.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Main\GameController.cs" Line="289" Column="33" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

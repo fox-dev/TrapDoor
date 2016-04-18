@@ -14,13 +14,6 @@ public class RotateManager : MonoBehaviour {
         turn = "down"; //up, down, left, right <- For junctions that are changing directions;
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-        
-
-
-    }
 
     public string getOrientation()
     {

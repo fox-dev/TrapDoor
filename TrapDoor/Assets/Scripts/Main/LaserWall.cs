@@ -17,11 +17,6 @@ public class LaserWall : MonoBehaviour {
 			Debug.Log("Cannot find 'GameController' script");
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	void OnTriggerEnter(Collider other)
 	{

@@ -68,28 +68,24 @@ public class Menu_CameraScript : MonoBehaviour
 
     }
 
-    void Update()
-    {
-        
-        if (startGame) //startGame = true after moveCameraDelay() coroutine
-        {
-
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 61f, 0.02f);
-            menu_pos_z = Mathf.Lerp(menu_pos_z, 15f, 0.02f);
-            playerRockets.volume = Mathf.Lerp(playerRockets.volume, 0.21f, 0.02f);
-            if (Camera.main.fieldOfView > 60f)
-            {
-                gameObject.GetComponent<Menu_CameraScript>().enabled = false;
-            }
-     
-        }
-    }
-
     // Update is called once per frame
     void FixedUpdate()
     {
 
-        if (rotateTracker.getOrientation() == "down")
+		if (startGame) //startGame = true after moveCameraDelay() coroutine
+		{
+
+			Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 61f, 0.02f);
+			menu_pos_z = Mathf.Lerp(menu_pos_z, 15f, 0.02f);
+			playerRockets.volume = Mathf.Lerp(playerRockets.volume, 0.21f, 0.02f);
+			if (Camera.main.fieldOfView > 60f)
+			{
+				gameObject.GetComponent<Menu_CameraScript>().enabled = false;
+			}
+
+		}
+
+		if (rotateTracker.getOrientation() == "down")
         {
             targetAngle = new Vector3(90f, 180f, 0);
             currentAngle = new Vector3(
