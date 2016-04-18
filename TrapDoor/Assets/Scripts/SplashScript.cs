@@ -31,10 +31,10 @@ public class SplashScript : MonoBehaviour {
 	IEnumerator SplashFade()
 	{
 
-		splash.CrossFadeAlpha (255, 1.5f, false);
-		yield return new WaitForSeconds (1.5f);
-		splash.CrossFadeAlpha (0.0f, 1.0f, false);
-		yield return new WaitForSeconds (1.0f);
+		splash.CrossFadeAlpha (255, 0.5f, false);
+		yield return new WaitForSeconds (1f);
+		splash.CrossFadeAlpha (0.0f, 0.5f, false);
+		yield return new WaitForSeconds (0.5f);
 
 		SceneManager.LoadScene ("Menu");
 
