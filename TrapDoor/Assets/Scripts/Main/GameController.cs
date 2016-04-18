@@ -24,7 +24,9 @@ public class GameController : MonoBehaviour
     public GameObject restartButton;
     public GameObject restartButton_lerpPos;
 
-    public float maxBoostValue, boostMeter, boostThreshold, superDecAmount, superPressDecrement, wallPenalty, boostAddAmount;
+	public float maxBoostValue, boostMeter, boostThreshold, superDecAmount, superPressDecrement, wallPenalty, boostAddAmount;
+
+	public int playsPerAd;
 
     public GameObject player;
 
@@ -60,10 +62,14 @@ public class GameController : MonoBehaviour
             Debug.Log("Cannot find 'AdController' script");
         }
 
-        if (PlayerPrefs.GetInt("highscore") != null)
+		if (PlayerPrefs.HasKey("highscore"))
         {
             highScore = PlayerPrefs.GetInt("highscore");
         }
+
+		if (!PlayerPrefs.HasKey("AdCount")) {
+			PlayerPrefs.SetInt ("AdCount", 0);
+		}
 
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f;
@@ -100,13 +106,9 @@ public class GameController : MonoBehaviour
     void Update()
     {
 
-        UpdateScore();
+		UpdateScore();
 
         resetHighScore(); //for testing
-
-
-        UpdateBoost();
-
 
         if (gameOver)
         {
@@ -124,6 +126,11 @@ public class GameController : MonoBehaviour
             enableBoost();
 
     }
+				
+	void FixedUpdate()
+	{
+		UpdateBoost();
+	}
 
     public void RedPress()
     {
@@ -336,6 +343,11 @@ public class GameController : MonoBehaviour
         return highScore;
     }
 
+	public int getPlaysPerAd ()
+	{
+		return playsPerAd;
+	}
+
     public bool getRed()
     {
         return red;
@@ -401,5 +413,9 @@ public class GameController : MonoBehaviour
         startGame = true;
     }
 
+	void OnApplicationQuit()
+	{
+		PlayerPrefs.SetInt ("AdCount", 0);
+	}
 
 }

@@ -79,7 +79,7 @@ public class DoorScript : MonoBehaviour {
        
 		gameController.getColorStates (ref red, ref green, ref blue);
        
-        if (Input.GetKeyDown("r") && !red)
+        /*if (Input.GetKeyDown("r") && !red)
         {
             red = true;
             blue = false;
@@ -116,7 +116,7 @@ public class DoorScript : MonoBehaviour {
         {
             green = false;
           
-        }
+        }*/
 
 
         if (gameController.getGameOver())

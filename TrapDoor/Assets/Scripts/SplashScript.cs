@@ -32,9 +32,9 @@ public class SplashScript : MonoBehaviour {
 	{
 
 		splash.CrossFadeAlpha (255, 0.5f, false);
-		yield return new WaitForSeconds (1f);
-		splash.CrossFadeAlpha (0.0f, 0.5f, false);
-		yield return new WaitForSeconds (0.5f);
+		yield return new WaitForSeconds (.75f);
+		splash.CrossFadeAlpha (0.0f, 0.25f, false);
+		yield return new WaitForSeconds (0.25f);
 
 		SceneManager.LoadScene ("Menu");
 

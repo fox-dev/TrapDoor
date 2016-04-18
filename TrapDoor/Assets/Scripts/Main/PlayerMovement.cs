@@ -92,21 +92,6 @@ public class PlayerMovement : MonoBehaviour {
     void Update()
     {
 
-
-        //print(moveSpeed);
-        if (Input.GetKeyDown("s"))
-        {
-            if (superSpeed)
-            {
-                superSpeed = false;
-            }
-            else
-            {
-                superSpeed = true;
-            }
-
-        }
-
     }
 
     // Update is called once per frame

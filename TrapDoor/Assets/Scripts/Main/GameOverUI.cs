@@ -152,11 +152,20 @@ public class GameOverUI : MonoBehaviour
     {
         if (adController.AdFlag())
         {
-            adController.showBannerAd();
-            if (adController.adIsLoaded())
-            {
-                adController.showIntAd();
-            }
+            
+			int adCount = PlayerPrefs.GetInt ("AdCount");
+			if ((adCount % gameController.getPlaysPerAd()) == 0 || adCount == 0) 
+			{
+				adController.showBannerAd();
+				if (adController.adIsLoaded())
+				{
+					adController.showIntAd();
+				}
+			}
+			adCount++;
+			PlayerPrefs.SetInt ("AdCount", adCount);
+
+
         }
     }
 
