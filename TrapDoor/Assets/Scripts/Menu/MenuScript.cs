@@ -24,10 +24,15 @@ public class MenuScript : MonoBehaviour {
 
 	//Tutorial Canvas buttons and text
 	private bool openTutorial, openTutorial2;
-	public Canvas tutorial_Canvas, tutorial_Canvas2;
-	public Transform mainMenu_Off, mainMenu_On, tutorial_Off;
-	public GameObject menu, tutorialObjects1, tutorialObjects2;
+	public Canvas tutorial_Canvas, tutorial_Canvas2, menu;
+	public Transform mainMenu_Off, tutorial_Off;
+	public GameObject tutorialObjects1, tutorialObjects2;
 	public Camera main, tutorial;
+
+	//Credits Canvas
+	private bool openCredits;
+	public Canvas credit_Canvas;
+
 
     float lerpValue = 0.5f;
 
@@ -244,6 +249,17 @@ public class MenuScript : MonoBehaviour {
 		openTutorial2 = false;
 	}
 
+	/// <summary>
+	/////////////////////////////Credit Canvas//////////////////////////////
+	public void openCreditCanvas()
+	{
+		openCredits = true;
+	}
+
+	public void closeCreditCanvas()
+	{
+		openCredits = false;
+	}
 
 
     //Open Canvas
@@ -266,6 +282,15 @@ public class MenuScript : MonoBehaviour {
         {
             options_Canvas.transform.position = Vector3.Lerp(options_Canvas.transform.position, optionsPos_Off.position, lerpValue);
         }
+
+		if (openCredits)
+		{
+			credit_Canvas.transform.position = Vector3.Lerp(credit_Canvas.transform.position, CanvasPos_On.position, lerpValue);
+		}
+		else
+		{
+			credit_Canvas.transform.position = Vector3.Lerp(credit_Canvas.transform.position, mainMenu_Off.position, lerpValue);
+		}
 
 		if (openTutorial)
 		{
@@ -293,7 +318,7 @@ public class MenuScript : MonoBehaviour {
 		}
 
 		if (!openTutorial && !openTutorial2) {
-			menu.transform.position = Vector3.Lerp (menu.transform.position, mainMenu_On.position, lerpValue);
+			menu.transform.position = Vector3.Lerp (menu.transform.position, CanvasPos_On.position, lerpValue);
 			main.gameObject.SetActive (true);
 			tutorial.gameObject.SetActive (false);
 		}

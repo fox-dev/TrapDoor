@@ -182,8 +182,8 @@ public class Rotation : MonoBehaviour {
 
             if (slowDown)
             {
-                Time.timeScale = 0.2f;
-                Time.fixedDeltaTime = 0.2f * 0.02f;
+                Time.timeScale = 0.5f;
+                Time.fixedDeltaTime = 0.5f * 0.02f;
             }
             else
             {
