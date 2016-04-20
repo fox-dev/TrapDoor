@@ -6,6 +6,7 @@ public class LaserScript : MonoBehaviour {
 	LineRenderer line;
 	int layerMask;
 	private GameController gameController;
+	public bool right;
 
 	// Use this for initialization
 	void Start () 
@@ -31,7 +32,12 @@ public class LaserScript : MonoBehaviour {
 	void Update () 
 	{
 
-		line.material.mainTextureOffset = new Vector2 (Time.time, 0);
+		if (right) {
+			line.material.mainTextureOffset = new Vector2 (-Time.time, 0);
+		}
+		else {
+			line.material.mainTextureOffset = new Vector2 (Time.time, 0);
+		}
 
 		Ray ray = new Ray (transform.position, transform.forward);
 		RaycastHit hit;

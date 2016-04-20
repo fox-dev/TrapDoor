@@ -11,11 +11,8 @@ public class LightScript : MonoBehaviour {
 	public Light myLight;
 	private float targetIntensity;
 
-
-	//public float fadeSpeedShader = 2f;
-	public float highIntensityShader = 1f;
-	public float lowIntensityShader = 1.03f;
-	//public float changeMarginShader = 0.002f;
+	public float highIntensityShader;
+	public float lowIntensityShader;
 
 	public Renderer rend;
 	private float shaderTarget, scaleX;
