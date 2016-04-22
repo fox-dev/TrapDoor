@@ -2,12 +2,13 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Main\Rotation.cs">
     <Files>
-      <File FileName="Assets\Scripts\Menu\MenuScript.cs" Line="292" Column="91" />
+      <File FileName="Assets\Scripts\Main\Rotation.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Menu\AdController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Menu\MenuScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\LaserScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\LightScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Menu\Menu_CameraScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SplashScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Menu\AdController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\PlayerMovement.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\LaserWall.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\SetPieceScript.cs" Line="1" Column="1" />
@@ -16,7 +17,6 @@
       <File FileName="Assets\Scripts\Main\IntroWalls.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\LightShaderScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\PlanetFollow.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Main\Rotation.cs" Line="186" Column="42" />
       <File FileName="Assets\Scripts\Main\ScrollUV.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Main\WallRandomizer.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Menu\MenuBoosterScript.cs" Line="1" Column="1" />

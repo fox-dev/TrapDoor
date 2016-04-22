@@ -113,9 +113,9 @@ public class Rotation : MonoBehaviour {
 
         if (entered && slowDown)
         {
-            leftButton.transform.position = Vector3.Lerp(leftButton.transform.position, leftButtonPos.transform.position, 0.05f);
-            rightButton.transform.position = Vector3.Lerp(rightButton.transform.position, rightButtonPos.transform.position, 0.05f);
-            downButton.transform.position = Vector3.Lerp(downButton.transform.position, downButtonPos.transform.position, 0.05f);
+            leftButton.transform.position = Vector3.Lerp(leftButton.transform.position, leftButtonPos.transform.position, 0.1f);
+            rightButton.transform.position = Vector3.Lerp(rightButton.transform.position, rightButtonPos.transform.position, 0.1f);
+            downButton.transform.position = Vector3.Lerp(downButton.transform.position, downButtonPos.transform.position, 0.1f);
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 completed = true;

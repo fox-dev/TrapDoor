@@ -62,8 +62,10 @@ public class AdController : MonoBehaviour {
 		bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Top);
 		// Create an empty ad request.
 		AdRequest request = new AdRequest.Builder()
-			.AddTestDevice(AdRequest.TestDeviceSimulator)       // Simulator.
-			.AddTestDevice("96FC1D71712CF55B38F3DFBEED13E36C")  // My test device.
+			/*.AddTestDevice(AdRequest.TestDeviceSimulator)       // Simulator.
+			.AddTestDevice("96FC1D71712CF55B38F3DFBEED13E36C")  // My test device.*/
+			.AddKeyword("Games")
+			.AddExtra("excl_cat", "virus, anti-virus")
 			.Build();
 		// Load the banner with the request.
 		bannerView.LoadAd(request);
@@ -78,8 +80,10 @@ public class AdController : MonoBehaviour {
 		interstitial = new InterstitialAd(adUnitId);
 		// Create an empty ad request.
 		AdRequest request = new AdRequest.Builder()
-			.AddTestDevice(AdRequest.TestDeviceSimulator)       // Simulator.
-			.AddTestDevice("96FC1D71712CF55B38F3DFBEED13E36C")  // My test device.
+			/*.AddTestDevice(AdRequest.TestDeviceSimulator)       // Simulator.
+			.AddTestDevice("96FC1D71712CF55B38F3DFBEED13E36C")  // My test device.*/
+			.AddKeyword("Games")
+			.AddExtra("excl_cat", "virus, anti-virus")
 			.Build();
 		// Load the interstitial with the request.
 		interstitial.LoadAd(request);
