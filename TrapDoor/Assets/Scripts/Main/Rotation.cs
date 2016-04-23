@@ -31,7 +31,6 @@ public class Rotation : MonoBehaviour {
         startPosRight = rightButton.transform.position;
         startPosDown = downButton.transform.position;
 
-
         completed = false;
 
         slowDown = true;
@@ -70,6 +69,8 @@ public class Rotation : MonoBehaviour {
         {
             Debug.Log("Cannot find 'RotateManager' script");
         }
+
+        rotateTo = rotateTracker.getOrientation();
 
         if(rotateTracker.getOrientation() == "down")
         {
