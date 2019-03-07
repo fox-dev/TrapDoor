@@ -49,7 +49,7 @@ public class MenuPlayerMovement : MonoBehaviour
         lowHP = playerAudioSources[1];
 
         health = 3;
-        healthBar = healthCanvas.transform.FindChild("HealthBar").gameObject;
+        healthBar = healthCanvas.transform.Find("HealthBar").gameObject;
 
 
         playingSuper = false; //audio for boost
